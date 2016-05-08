@@ -1,1 +1,1 @@
-include ':wear', ':brewer\'snotepad'
+include ':brewers_notepad', ':wear'

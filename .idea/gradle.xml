@@ -8,14 +8,14 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/brewer'snotepad" />
+            <option value="$PROJECT_DIR$/brewers_notepad" />
             <option value="$PROJECT_DIR$/wear" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/brewer'snotepad" />
+            <option value="$PROJECT_DIR$/brewers_notepad" />
             <option value="$PROJECT_DIR$/wear" />
           </set>
         </option>
