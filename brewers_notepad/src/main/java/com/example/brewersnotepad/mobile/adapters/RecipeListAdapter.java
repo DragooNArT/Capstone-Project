@@ -1,5 +1,6 @@
-package com.example.brewersnotepad.activities.adapters;
+package com.example.brewersnotepad.mobile.adapters;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -8,17 +9,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.brewersnotepad.R;
-import com.example.brewersnotepad.activities.MainActivity;
 
 /**
  * Created by DragooNArT-PC on 5/8/2016.
  */
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder> implements  RecyclerView.OnItemTouchListener {
     private View mEmptyView;
-    private MainActivity mActivity;
+    private Activity mActivity;
 
 
-    public RecipeListAdapter(MainActivity activity, View emptyView) {
+    public RecipeListAdapter(Activity activity, View emptyView) {
         this.mEmptyView = emptyView;
         this.mActivity = activity;
     }
