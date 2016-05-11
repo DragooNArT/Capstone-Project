@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
-import com.example.brewersnotepad.mobile.CreateRecipeActivity;
+import com.example.brewersnotepad.mobile.activities.CreateRecipeActivity;
 
 /**
  * Created by DragooNArT-PC on 5/9/2016.

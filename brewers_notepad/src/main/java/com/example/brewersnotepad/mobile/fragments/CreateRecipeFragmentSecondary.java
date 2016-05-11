@@ -1,4 +1,4 @@
-package com.example.brewersnotepad.mobile.activities.home;
+package com.example.brewersnotepad.mobile.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -13,12 +13,12 @@ import com.example.brewersnotepad.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PreferencesFragment.OnFragmentInteractionListener} interface
+ * {@link CreateRecipeFragmentSecondary.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PreferencesFragment#newInstance} factory method to
+ * Use the {@link CreateRecipeFragmentSecondary#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PreferencesFragment extends Fragment {
+public class CreateRecipeFragmentSecondary extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +30,7 @@ public class PreferencesFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PreferencesFragment() {
+    public CreateRecipeFragmentSecondary() {
         // Required empty public constructor
     }
 
@@ -40,11 +40,11 @@ public class PreferencesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PreferencesFragment.
+     * @return A new instance of fragment CreateRecipeFragmentSecondary.
      */
     // TODO: Rename and change types and number of parameters
-    public static PreferencesFragment newInstance(String param1, String param2) {
-        PreferencesFragment fragment = new PreferencesFragment();
+    public static CreateRecipeFragmentSecondary newInstance(String param1, String param2) {
+        CreateRecipeFragmentSecondary fragment = new CreateRecipeFragmentSecondary();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,12 +64,8 @@ public class PreferencesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View search = getActivity().findViewById(R.id.search);
-        if(search != null) {
-            search.setVisibility(View.INVISIBLE);
-        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_preferences, container, false);
+        return inflater.inflate(R.layout.fragment_create_recepie_fragment_secondary, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

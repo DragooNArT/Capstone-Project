@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.brewersnotepad.mobile.CreateRecipeActivity">
+    tools:context=".mobile.activities.CreateRecipeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,12 +21,23 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <fragment
-        android:id="@+id/listFragment"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/create_recpie_pager"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="com.example.brewersnotepad.mobile.CreateRecipeFrament1"
-        tools:layout="@layout/fragment_create_recipe_frament1"></fragment>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+        <android.support.v4.view.PagerTabStrip
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"></android.support.v4.view.PagerTabStrip>
+    </android.support.v4.view.ViewPager>
+
+    <!--<fragment-->
+        <!--android:id="@+id/listFragment"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_height="match_parent"-->
+        <!--class="com.example.brewersnotepad.mobile.fragments.CreateRecipeFramentMainain"-->
+        <!--tools:layout="@layout/fragment_create_recipe_frament1"></fragment>-->
 
 </android.support.design.widget.CoordinatorLayout>

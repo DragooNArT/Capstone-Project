@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mobile.activities.home.MainActivity">
+        <activity android:name=".mobile.activities.MainActivity" android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -16,11 +16,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".mobile.CreateRecipeActivity"
+            android:name=".mobile.activities.CreateRecipeActivity"
             android:label="@string/title_activity_create_recipe"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ViewRecipeActivity"
+            android:name=".mobile.activities.ViewRecipeActivity"
             android:label="@string/title_activity_view_recipe"
             android:theme="@style/AppTheme"></activity>
     </application>

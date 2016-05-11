@@ -1,4 +1,4 @@
-package com.example.brewersnotepad.mobile.activities.home;
+package com.example.brewersnotepad.mobile.activities;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,9 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import com.example.brewersnotepad.R;
+import com.example.brewersnotepad.mobile.fragments.MainAboutFragment;
+import com.example.brewersnotepad.mobile.fragments.MainPreferencesFragment;
+import com.example.brewersnotepad.mobile.fragments.MainRecipeListFragment;
 import com.example.brewersnotepad.mobile.listeners.MainActivityNavigationListener;
 
-public class MainActivity extends AppCompatActivity implements RecipeListFragment.OnFragmentInteractionListener,AboutFragment.OnFragmentInteractionListener,PreferencesFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements MainRecipeListFragment.OnFragmentInteractionListener,MainAboutFragment.OnFragmentInteractionListener,MainPreferencesFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +36,7 @@ public class MainActivity extends AppCompatActivity implements RecipeListFragmen
         MainActivityNavigationListener navListener = new MainActivityNavigationListener(this);
         navigationView.setNavigationItemSelectedListener(navListener);
 
-
-        Fragment fragment = new RecipeListFragment();
+        Fragment fragment = new MainRecipeListFragment();
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();

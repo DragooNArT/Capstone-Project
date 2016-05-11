@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".mobile.activities.home.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".mobile.activities.MainActivity">
     <item android:id="@+id/search"
         android:title="@string/search_title"
         android:icon="@drawable/ic_search_white_24dp"

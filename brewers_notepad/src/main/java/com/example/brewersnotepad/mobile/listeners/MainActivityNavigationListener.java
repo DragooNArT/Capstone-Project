@@ -9,10 +9,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 
 import com.example.brewersnotepad.R;
-import com.example.brewersnotepad.mobile.activities.home.AboutFragment;
-import com.example.brewersnotepad.mobile.activities.home.MainActivity;
-import com.example.brewersnotepad.mobile.activities.home.PreferencesFragment;
-import com.example.brewersnotepad.mobile.activities.home.RecipeListFragment;
+import com.example.brewersnotepad.mobile.fragments.MainPreferencesFragment;
+import com.example.brewersnotepad.mobile.fragments.MainAboutFragment;
+import com.example.brewersnotepad.mobile.activities.MainActivity;
+import com.example.brewersnotepad.mobile.fragments.MainRecipeListFragment;
 
 /**
  * Created by DragooNArT-PC on 5/9/2016.
@@ -27,11 +27,11 @@ public class MainActivityNavigationListener implements NavigationView.OnNavigati
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_preferences) {
-            swapFragment(new PreferencesFragment());
+            swapFragment(new MainPreferencesFragment());
         } else if (id == R.id.nav_about) {
-            swapFragment(new AboutFragment());
+            swapFragment(new MainAboutFragment());
         } else if( id == R.id.nav_home) {
-            swapFragment(new RecipeListFragment());
+            swapFragment(new MainRecipeListFragment());
         }
 
         DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.drawer_layout);

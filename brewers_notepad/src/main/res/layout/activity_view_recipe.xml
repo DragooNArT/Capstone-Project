@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.brewersnotepad.ViewRecipeActivity">
+    tools:context=".mobile.activities.ViewRecipeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -28,10 +28,15 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/container"
+        android:id="@+id/view_recpie_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+        <android.support.v4.view.PagerTabStrip
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"></android.support.v4.view.PagerTabStrip>
+    </android.support.v4.view.ViewPager>
 
 
 </android.support.design.widget.CoordinatorLayout>

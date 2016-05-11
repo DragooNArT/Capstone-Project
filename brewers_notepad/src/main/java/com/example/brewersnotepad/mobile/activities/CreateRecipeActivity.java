@@ -1,20 +1,23 @@
-package com.example.brewersnotepad.mobile;
+package com.example.brewersnotepad.mobile.activities;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.brewersnotepad.R;
+import com.example.brewersnotepad.mobile.fragments.CreateRecipeFragmentSecondary;
+import com.example.brewersnotepad.mobile.fragments.CreateRecipeFramentMain;
+import com.example.brewersnotepad.mobile.adapters.CreateRecipePagerAdapter;
 
-public class CreateRecipeActivity extends AppCompatActivity implements CreateRecipeFrament1.OnFragmentInteractionListener {
+public class CreateRecipeActivity extends AppCompatActivity implements CreateRecipeFramentMain.OnFragmentInteractionListener,CreateRecipeFragmentSecondary.OnFragmentInteractionListener {
 
-    MenuItem doneButton;
+    private CreateRecipePagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
+    private MenuItem doneButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +26,11 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
         toolbar.setTitle("Create a new recipe");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mSectionsPagerAdapter = new CreateRecipePagerAdapter(getSupportFragmentManager());
+
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.create_recpie_pager);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
     }
 
     @Override
@@ -33,6 +41,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
     public MenuItem getDoneButton() {
         return doneButton;
     }
+
 
     @Override
     public boolean onSupportNavigateUp(){

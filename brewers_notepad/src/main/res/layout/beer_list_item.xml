@@ -5,6 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:rowCount="1"
         android:columnCount="2"
+        android:id="@+id/recipe_list_item_root"
         android:useDefaultMargins="false"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/listPreferredItemHeight"
