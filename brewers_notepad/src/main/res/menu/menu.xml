@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".mobile.activities.home.MainActivity">
     <item android:id="@+id/search"
         android:title="@string/search_title"
-        android:icon="@drawable/ic_search_black_36dp"
+        android:icon="@drawable/ic_search_white_36dp"
 
         app:showAsAction="collapseActionView|ifRoom"
         android:actionViewClass="android.widget.SearchView" />

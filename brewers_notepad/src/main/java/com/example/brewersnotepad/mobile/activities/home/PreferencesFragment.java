@@ -64,8 +64,10 @@ public class PreferencesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        getActivity().findViewById(R.id.search).setVisibility(View.INVISIBLE);
+        View search = getActivity().findViewById(R.id.search);
+        if(search != null) {
+            search.setVisibility(View.INVISIBLE);
+        }
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_preferences, container, false);
     }

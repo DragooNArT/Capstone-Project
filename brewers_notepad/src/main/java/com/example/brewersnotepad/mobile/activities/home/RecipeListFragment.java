@@ -78,7 +78,7 @@ public class RecipeListFragment extends Fragment {
         mBeerListView.setHasFixedSize(true);
         // The ForecastAdapter will take data from a source and
         // use it to populate the RecyclerView it's attached to.
-        mBeerListAdapter = new RecipeListAdapter(getActivity(),view.findViewById(R.id.recepie_name));
+        mBeerListAdapter = new RecipeListAdapter(getActivity(),view.findViewById(R.id.recipe_name));
 //
         mBeerListView.addOnItemTouchListener(mBeerListAdapter);
 //        // specify an adapter (see also next example)

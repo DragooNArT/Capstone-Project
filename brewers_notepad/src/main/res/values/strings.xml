@@ -3,7 +3,7 @@
     <string name="navigation_drawer_open">Open_drawer</string>
     <string name="navigation_drawer_close">close_Drawer</string>
     <string name="search_title">Search</string>
-
+    <string name="create_recipe_title">Complete Recipe Creation</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_create_recipe">CreateRecipeActivity</string>

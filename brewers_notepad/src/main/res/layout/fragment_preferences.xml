@@ -1,13 +1,77 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".mobile.activities.home.PreferencesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Fragment Preferences" />
+        tools:context=".mobile.activities.home.PreferencesFragment"
+        android:orientation="vertical">
 
-</FrameLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign-out from Google"
+            android:id="@+id/signOff"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="55dp" />
+
+        <GridLayout
+
+            android:layout_width="254dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:columnCount="1"
+            android:rowCount="2"
+            android:theme="@style/AppTheme"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Measurement Settings"
+                android:id="@+id/measurementLabel"
+                android:textAlignment="center"
+                android:layout_marginBottom="16dp" />
+
+        <RelativeLayout
+
+            android:layout_width="254dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:theme="@style/AppTheme">
+            <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="Metric"
+            android:textOff="Imperial"
+            android:id="@+id/useMetric"
+                android:clickable="true"
+                android:enabled="true"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_alignParentEnd="false"
+                android:layout_alignParentStart="true" />
+
+            <ToggleButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOn="Celsius"
+                android:textOff="Fahrenheit"
+                android:id="@+id/useCelsius"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+        </GridLayout>
+
+
+
+
+
+    </LinearLayout>

@@ -39,10 +39,13 @@ public class MainActivity extends AppCompatActivity implements RecipeListFragmen
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.fragmentContainer, fragment);
+
+
         transaction.commit();
-
     }
-
+    public boolean isSignedIn() {
+        return false; //TODO do real stuff
+    }
 
 
     @Override

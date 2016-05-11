@@ -1,12 +1,74 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/recepie_name"
-        android:layout_gravity="center_horizontal" />
-</LinearLayout>
+
+    <GridLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:rowCount="1"
+        android:columnCount="2"
+        android:useDefaultMargins="false"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:orientation="horizontal"
+        android:theme="@style/AppTheme">
+
+        <!--suppress AndroidLintContentDescription -->
+
+        <LinearLayout
+            android:layout_width="@dimen/list_icon_layout_width"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/list_margin">
+            <ImageView
+                android:id="@+id/thumbnail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="10dp"
+                android:maxWidth="80dp"
+                android:layout_gravity="center_vertical"
+                android:longClickable="false"
+                android:src="@drawable/recipe_icon" />
+
+        </LinearLayout>
+
+        <GridLayout
+
+            android:layout_width="254dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="fill_horizontal|center_vertical"
+            android:columnCount="1"
+            android:rowCount="2"
+            android:layout_marginRight="@dimen/list_margin"
+            android:theme="@style/AppTheme">
+            <TextView
+                android:id="@+id/recipe_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="4dp"
+                android:ellipsize="marquee"
+                android:maxLines="4"
+                android:text="Recipe Name"
+                android:paddingRight="16dp"
+                android:theme="@style/AppTheme" />
+
+            <TextView
+                android:id="@+id/recipe_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text="Recipe Description"
+                android:textColor="?android:textColorSecondary"
+                android:gravity="center_vertical" />
+
+        </GridLayout>
+    </GridLayout>
