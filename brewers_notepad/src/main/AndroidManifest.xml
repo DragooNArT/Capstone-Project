@@ -18,6 +18,10 @@
         <activity
             android:name=".mobile.CreateRecipeActivity"
             android:label="@string/title_activity_create_recipe"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ViewRecipeActivity"
+            android:label="@string/title_activity_view_recipe"
             android:theme="@style/AppTheme"></activity>
     </application>
 
