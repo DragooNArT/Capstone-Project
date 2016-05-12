@@ -193,12 +193,12 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageButton"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_add_box_white_36dp"
                 android:padding="0dp"
                 android:layout_gravity="center_vertical"
-                android:onClick="onAddGrains" />
+                android:onClick="onAddGrains"
+                android:id="@+id/addGrainButton" />
 
         </GridLayout>
 
@@ -208,5 +208,5 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView" />
+        android:id="@+id/grain_list" />
 </LinearLayout>
