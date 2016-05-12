@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.brewersnotepad.R;
 
@@ -65,7 +68,11 @@ public class CreateRecipeFramentMain extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_recipe_frament1, container, false);
+        View view =  inflater.inflate(R.layout.fragment_create_recipe_frament1, container, false);
+        Spinner recipe_type_spinner = (Spinner)view.findViewById(R.id.recipe_type_spinner);
+        ArrayAdapter<CharSequence> recipe_type_adapter = ArrayAdapter.createFromResource(getContext(),R.array.recipe_types_list,R.layout.simple_spinner_item);
+        recipe_type_spinner.setAdapter(recipe_type_adapter);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -85,6 +92,8 @@ public class CreateRecipeFramentMain extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
+
+
 
     @Override
     public void onDetach() {

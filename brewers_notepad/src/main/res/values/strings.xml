@@ -10,4 +10,19 @@
     <string name="title_activity_view_recipe">ViewRecipeActivity</string>
     <string name="action_edit_recipe">Edit Recipe</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="recipe_title_label">Recipe Title:</string>
+    <string name="recipe_type_label">Recipe Type:</string>
+    <string name="mash_duration_label">Mash Duration:</string>
+    <string name="mash_temp_label">Mash Temperature:</string>
+    <string name="inputRecepieHint">Enter recipe title</string>
+    <string name="mash_duration_hint">e.g. 60mins</string>
+    <string name="mash_temp_hint">e.g. 56C</string>
+    <string name="input_grainType_hint">Grain type</string>
+    <string name="input_grainQuantity_hint">Quantity</string>
+    <string-array name="recipe_types_list">
+        <item>All Grain</item>
+        <item>Partial Mash</item>
+        <item>Extract</item>
+        <item>Other</item>
+    </string-array>
 </resources>
