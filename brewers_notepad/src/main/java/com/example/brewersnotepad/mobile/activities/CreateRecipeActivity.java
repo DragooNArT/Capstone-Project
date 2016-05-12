@@ -20,6 +20,7 @@ import com.example.brewersnotepad.mobile.data.GrainEntry;
 import com.example.brewersnotepad.mobile.data.HopEntry;
 import com.example.brewersnotepad.mobile.data.RecipeDataHolder;
 import com.example.brewersnotepad.mobile.data.RecipeManager;
+import com.example.brewersnotepad.mobile.fragments.CreateRecipeExtrasFragment;
 import com.example.brewersnotepad.mobile.fragments.CreateRecipeFragmentSecondary;
 import com.example.brewersnotepad.mobile.fragments.CreateRecipeFramentMain;
 import com.example.brewersnotepad.mobile.adapters.CreateRecipePagerAdapter;
@@ -28,7 +29,7 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-public class CreateRecipeActivity extends AppCompatActivity implements CreateRecipeFramentMain.OnFragmentInteractionListener, CreateRecipeFragmentSecondary.OnFragmentInteractionListener {
+public class CreateRecipeActivity extends AppCompatActivity implements CreateRecipeFramentMain.OnFragmentInteractionListener, CreateRecipeFragmentSecondary.OnFragmentInteractionListener, CreateRecipeExtrasFragment.OnFragmentInteractionListener {
 
     private CreateRecipePagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;

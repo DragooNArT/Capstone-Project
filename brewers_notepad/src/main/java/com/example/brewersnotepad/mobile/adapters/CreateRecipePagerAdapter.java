@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.brewersnotepad.mobile.fragments.CreateRecipeExtrasFragment;
 import com.example.brewersnotepad.mobile.fragments.CreateRecipeFragmentSecondary;
 import com.example.brewersnotepad.mobile.fragments.CreateRecipeFramentMain;
 
@@ -24,22 +25,26 @@ public class CreateRecipePagerAdapter extends FragmentPagerAdapter implements Cr
                 return new CreateRecipeFramentMain();
             case 1:
                 return new CreateRecipeFragmentSecondary();
+            case 2:
+                return new CreateRecipeExtrasFragment();
         }
         return null;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Main";
+                return "Main and Grain";
             case 1:
-                return "Fermentation + Extras";
+                return "Hops and Fermentation";
+            case 2:
+                return "Extras";
         }
         return null;
     }

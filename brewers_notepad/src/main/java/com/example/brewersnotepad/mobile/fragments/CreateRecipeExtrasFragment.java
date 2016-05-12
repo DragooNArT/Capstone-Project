@@ -7,34 +7,30 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.Spinner;
 
 import com.example.brewersnotepad.R;
-import com.example.brewersnotepad.mobile.adapters.GrainListAdapter;
-import com.example.brewersnotepad.mobile.data.GrainEntry;
-import com.example.brewersnotepad.mobile.listeners.AddGrainListener;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CreateRecipeFramentMain.OnFragmentInteractionListener} interface
+ * {@link CreateRecipeExtrasFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CreateRecipeFramentMain#newInstance} factory method to
+ * Use the {@link CreateRecipeExtrasFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CreateRecipeFramentMain extends Fragment {
+public class CreateRecipeExtrasFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private GrainListAdapter<GrainEntry> adapter;
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private AddGrainListener grainListener;
-    public CreateRecipeFramentMain() {
+
+    public CreateRecipeExtrasFragment() {
         // Required empty public constructor
     }
 
@@ -44,11 +40,11 @@ public class CreateRecipeFramentMain extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CreateRecipeFramentMain.
+     * @return A new instance of fragment CreateRecipeExtrasFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CreateRecipeFramentMain newInstance(String param1, String param2) {
-        CreateRecipeFramentMain fragment = new CreateRecipeFramentMain();
+    public static CreateRecipeExtrasFragment newInstance(String param1, String param2) {
+        CreateRecipeExtrasFragment fragment = new CreateRecipeExtrasFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,26 +55,17 @@ public class CreateRecipeFramentMain extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_create_recipe_frament1, container, false);
-        Spinner recipe_type_spinner = (Spinner)view.findViewById(R.id.recipe_type_spinner);
-        ArrayAdapter<CharSequence> recipe_type_adapter = ArrayAdapter.createFromResource(getContext(),R.array.recipe_types_list,R.layout.simple_spinner_item);
-        recipe_type_spinner.setAdapter(recipe_type_adapter);
-        ListView grainList = (ListView)view.findViewById(R.id.grain_list);
-        adapter = new GrainListAdapter<GrainEntry>(getContext(),
-                android.R.layout.simple_list_item_1);
-        grainList.setAdapter(adapter);
-
-        ImageButton addGrainButton = (ImageButton)view.findViewById(R.id.addGrainButton);
-        grainListener = new AddGrainListener(adapter,view);
-        addGrainButton.setOnClickListener(grainListener);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_create_recipe_extras, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -98,8 +85,6 @@ public class CreateRecipeFramentMain extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
-
-
 
     @Override
     public void onDetach() {

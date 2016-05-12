@@ -14,17 +14,14 @@ import java.util.Map;
  */
 public class GrainRemoveListener implements ImageButton.OnClickListener {
     private GrainListAdapter<?> tGrainListAdapter;
-    Map<Integer,Integer> listMapping = new HashMap<Integer,Integer>();
     public  GrainRemoveListener(GrainListAdapter<?> tGrainListAdapter) {
         this.tGrainListAdapter = tGrainListAdapter;
     }
 
-    public void addEntry(Integer id,Integer pos) {
-        listMapping.put(id,pos);
-    }
+
     @Override
     public void onClick(View v) {
-        int pos = listMapping.get(v.getId());
+        int pos = (int) v.getTag();
         GrainEntry entry = tGrainListAdapter.getItem(pos);
         tGrainListAdapter.remove(entry);
         tGrainListAdapter.notifyDataSetChanged();

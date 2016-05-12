@@ -33,7 +33,7 @@ public class GrainListAdapter<T> extends ArrayAdapter<GrainEntry> {
         TextView grainQuantityUi = (TextView)convertView.findViewById(R.id.grain_list_quantity_entry);
 
         ImageView deleteGrainBtn = (ImageView)convertView.findViewById(R.id.deleteGrainButton);
-        removeListener.addEntry(deleteGrainBtn.getId(),position);
+        deleteGrainBtn.setTag(position);
         //TODO always removes last element(fixme)
         deleteGrainBtn.setOnClickListener(removeListener);
         grainTypeUi.setText(grainEntry.getGrainType());

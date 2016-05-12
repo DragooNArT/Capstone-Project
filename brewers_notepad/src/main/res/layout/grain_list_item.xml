@@ -4,11 +4,10 @@
     <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentEnd="false"
         android:layout_below="@+id/mashLayout"
         android:columnCount="3"
-        android:rowCount="1" >
+        android:rowCount="1"
+        android:clickable="true">
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,7 +34,9 @@
             android:layout_gravity="left|center_vertical"
             android:numeric="integer"
             android:singleLine="true"
-            android:inputType="number" />
+            android:inputType="number"
+            android:maxWidth="140dp"
+            android:minWidth="140dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
