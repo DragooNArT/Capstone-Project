@@ -4,6 +4,15 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
+    signingConfigs {
+        debug {
+            keyAlias 'alias'
+            keyPassword 'password'
+            storeFile file('../keyStore.jks')
+            storePassword 'password'
+        }
+    }
+
     defaultConfig {
         applicationId "com.example.brewersnotepad"
         minSdkVersion 15
@@ -15,6 +24,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
 }
