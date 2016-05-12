@@ -43,7 +43,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
         setContentView(R.layout.activity_create_recipe);
         listener = new CreateRecipeListener(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.create_recipe_toolbar);
-        toolbar.setTitle("Create a new recipe");
+        toolbar.setTitle(getString(R.string.create_recipe_view_title));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mSectionsPagerAdapter = new CreateRecipePagerAdapter(getSupportFragmentManager());

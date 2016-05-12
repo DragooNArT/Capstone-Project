@@ -19,6 +19,7 @@
     <string name="mash_temp_hint">e.g. 56C</string>
     <string name="input_grainType_hint">Grain type</string>
     <string name="input_grainQuantity_hint">Quantity</string>
+    <string name="create_recipe_view_title">Create a new recipe</string>
     <string-array name="recipe_types_list">
         <item>All Grain</item>
         <item>Partial Mash</item>

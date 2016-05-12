@@ -93,4 +93,43 @@ public class RecipeDataHolder {
             this.recipe_grains.add(grains);
         }
     }
+
+    public boolean isRecipeComplete() {
+
+        if(getRecipe_name()== null || getRecipe_name().isEmpty()) {
+
+            return false;
+        }
+        if(getFermentation_phases().isEmpty()) {
+
+            return false;
+        }
+        if(getRecipe_hops().isEmpty()) {
+
+            return false;
+        }
+        if(getRecipe_grains().isEmpty()) {
+
+            return false;
+        }
+
+        if(getRecipe_grains().isEmpty()) {
+
+            return false;
+        }
+        if(getHopSteepDuration()<=0) {
+
+            return false;
+        }
+        if(getMashTemp()<=0) {
+
+            return false;
+        }
+        if(getMashDuration()<=0) {
+
+            return false;
+        }
+
+        return true;
+    }
 }
