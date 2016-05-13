@@ -27,6 +27,8 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
                 Intent intent = new Intent(activity, MainActivity.class);
                 //TODO put stuff
                 activity.startActivity(intent);
+            } else {
+                //TODO prompt to save as draft or discard
             }
             return true;
         }

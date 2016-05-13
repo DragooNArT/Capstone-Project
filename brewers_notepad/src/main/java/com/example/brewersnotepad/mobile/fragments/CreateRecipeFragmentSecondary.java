@@ -7,8 +7,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ListView;
 
 import com.example.brewersnotepad.R;
+import com.example.brewersnotepad.mobile.adapters.FermentListAdapter;
+import com.example.brewersnotepad.mobile.adapters.GrainListAdapter;
+import com.example.brewersnotepad.mobile.adapters.HopListAdapter;
+import com.example.brewersnotepad.mobile.data.FermentationEntry;
+import com.example.brewersnotepad.mobile.data.GrainEntry;
+import com.example.brewersnotepad.mobile.data.HopEntry;
+import com.example.brewersnotepad.mobile.listeners.AddFermentListener;
+import com.example.brewersnotepad.mobile.listeners.AddHopsListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +37,10 @@ public class CreateRecipeFragmentSecondary extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private  HopListAdapter<HopEntry> hopAdapter;
+    private FermentListAdapter<FermentationEntry> fermentAdapter;
+    private AddHopsListener addHopsListener;
+    private AddFermentListener addFermentListener;
     private OnFragmentInteractionListener mListener;
 
     public CreateRecipeFragmentSecondary() {
@@ -65,7 +78,26 @@ public class CreateRecipeFragmentSecondary extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_recepie_fragment_secondary, container, false);
+        View view =  inflater.inflate(R.layout.fragment_create_recepie_fragment_secondary, container, false);
+
+        ListView hopsList = (ListView)view.findViewById(R.id.hopsListView);
+        hopAdapter = new HopListAdapter<HopEntry>(getContext(),
+                android.R.layout.simple_list_item_1);
+        hopsList.setAdapter(hopAdapter);
+        addHopsListener = new AddHopsListener(hopAdapter,view);
+
+        ImageButton addHopsButton = (ImageButton)view.findViewById(R.id.addHopsButton);
+        addHopsButton.setOnClickListener(addHopsListener);
+
+        ListView fermentList = (ListView)view.findViewById(R.id.fermentListView);
+        fermentAdapter = new FermentListAdapter<FermentationEntry>(getContext(),
+                android.R.layout.simple_list_item_1);
+        fermentList.setAdapter(fermentAdapter);
+        addFermentListener = new AddFermentListener(fermentAdapter,view);
+
+        ImageButton addFermentButton = (ImageButton)view.findViewById(R.id.addFermentButton);
+        addFermentButton.setOnClickListener(addFermentListener);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

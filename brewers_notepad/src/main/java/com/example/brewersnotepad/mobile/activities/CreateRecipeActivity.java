@@ -53,6 +53,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
         mViewPager = (ViewPager) findViewById(R.id.create_recpie_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        //create a new recipe and make it globally available
         recipeInstance = new RecipeDataHolder();
         RecipeManager.setCurrentRecipe(recipeInstance);
     }
@@ -88,6 +89,12 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
         return doneButton;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //discard the new recipe
+        RecipeManager.setCurrentRecipe(null);
+    }
 
     @Override
     public boolean onSupportNavigateUp() {

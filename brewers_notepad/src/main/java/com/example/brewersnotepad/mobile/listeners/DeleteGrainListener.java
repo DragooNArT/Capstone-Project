@@ -12,9 +12,9 @@ import java.util.Map;
 /**
  * Created by xnml on 12.5.2016 г..
  */
-public class GrainRemoveListener implements ImageButton.OnClickListener {
+public class DeleteGrainListener implements ImageButton.OnClickListener {
     private GrainListAdapter<?> tGrainListAdapter;
-    public  GrainRemoveListener(GrainListAdapter<?> tGrainListAdapter) {
+    public DeleteGrainListener(GrainListAdapter<?> tGrainListAdapter) {
         this.tGrainListAdapter = tGrainListAdapter;
     }
 

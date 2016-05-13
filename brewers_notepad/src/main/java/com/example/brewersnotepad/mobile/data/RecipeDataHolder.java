@@ -28,7 +28,7 @@ public class RecipeDataHolder {
         return fermentation_phases;
     }
 
-    public void setFermentation_phases(FermentationEntry ferPhase) {
+    public void addFermentPhase(FermentationEntry ferPhase) {
         if(ferPhase != null) {
             this.fermentation_phases.add(ferPhase);
         }

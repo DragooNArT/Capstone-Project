@@ -25,24 +25,36 @@ public class AddGrainListener implements ImageButton.OnClickListener {
         this.fragmentView = fragmentView;
     }
 
+    private boolean isInputValid(String grainType,String grainQuantity) {
+        if(grainType.isEmpty()) {
+
+            Toast.makeText(fragmentView.getContext(), "Please type in \"Grain type\"!", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (grainQuantity.isEmpty()) {
+            Toast.makeText(fragmentView.getContext(), "Please type in \"Quantity\"!", Toast.LENGTH_LONG).show();
+            return false ;
+        }
+        try {
+            Double.parseDouble(grainQuantity);
+        } catch(NumberFormatException e) {
+            Toast.makeText(fragmentView.getContext(), "Grain quantity is an invalid decimal number!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return true;
+    }
 
     @Override
     public void onClick(View v) {
             String grainType = ((TextView)fragmentView.findViewById(R.id.inputGrainType)).getText().toString();
             String grainQuantity = ((TextView)fragmentView.findViewById(R.id.inputGrainQuantity)).getText().toString();
-            if(grainType.isEmpty()) {
-
-                Toast.makeText(fragmentView.getContext(), "Please type in \"Grain type\"!", Toast.LENGTH_LONG).show();
-                return;
-            } else if (grainQuantity.isEmpty()) {
-                Toast.makeText(fragmentView.getContext(), "Please type in \"Quantity\"!", Toast.LENGTH_LONG).show();
-                return;
+            if(isInputValid(grainType,grainQuantity)) {
+                GrainEntry grains = new GrainEntry();
+                grains.setGrainQuantity(Double.parseDouble(grainQuantity));
+                grains.setGrainType(grainType);
+                RecipeManager.getCurrentRecipe().addGrains(grains);
+                grainAdapter.add(grains);
+                grainAdapter.notifyDataSetChanged();
             }
-            GrainEntry grains = new GrainEntry();
-            grains.setGrainQuantity(Double.parseDouble(grainQuantity));
-            grains.setGrainType(grainType);
-            RecipeManager.getCurrentRecipe().addGrains(grains);
-            grainAdapter.add(grains);
-            grainAdapter.notifyDataSetChanged();
     }
 }

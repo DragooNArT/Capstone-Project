@@ -33,7 +33,7 @@ public class CreateRecipeFramentMain extends Fragment {
     private GrainListAdapter<GrainEntry> adapter;
 
     private OnFragmentInteractionListener mListener;
-    private AddGrainListener grainListener;
+    private AddGrainListener addGrainListener;
     public CreateRecipeFramentMain() {
         // Required empty public constructor
     }
@@ -75,8 +75,8 @@ public class CreateRecipeFramentMain extends Fragment {
         grainList.setAdapter(adapter);
 
         ImageButton addGrainButton = (ImageButton)view.findViewById(R.id.addGrainButton);
-        grainListener = new AddGrainListener(adapter,view);
-        addGrainButton.setOnClickListener(grainListener);
+        addGrainListener = new AddGrainListener(adapter,view);
+        addGrainButton.setOnClickListener(addGrainListener);
 
         return view;
     }
