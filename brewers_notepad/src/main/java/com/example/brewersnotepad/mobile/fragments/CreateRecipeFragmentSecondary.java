@@ -82,7 +82,7 @@ public class CreateRecipeFragmentSecondary extends Fragment {
 
         ListView hopsList = (ListView)view.findViewById(R.id.hopsListView);
         hopAdapter = new HopListAdapter<HopEntry>(getContext(),
-                android.R.layout.simple_list_item_1);
+                android.R.layout.simple_list_item_1,hopsList);
         hopsList.setAdapter(hopAdapter);
         addHopsListener = new AddHopsListener(hopAdapter,view);
 
@@ -91,7 +91,7 @@ public class CreateRecipeFragmentSecondary extends Fragment {
 
         ListView fermentList = (ListView)view.findViewById(R.id.fermentListView);
         fermentAdapter = new FermentListAdapter<FermentationEntry>(getContext(),
-                android.R.layout.simple_list_item_1);
+                android.R.layout.simple_list_item_1,fermentList);
         fermentList.setAdapter(fermentAdapter);
         addFermentListener = new AddFermentListener(fermentAdapter,view);
 
