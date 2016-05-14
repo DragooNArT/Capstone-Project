@@ -1,10 +1,13 @@
 package com.example.brewersnotepad.mobile.adapters;
 
+import android.content.Context;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.brewersnotepad.R;
+import com.example.brewersnotepad.mobile.activities.CreateRecipeActivity;
 import com.example.brewersnotepad.mobile.fragments.CreateRecipeExtrasFragment;
 import com.example.brewersnotepad.mobile.fragments.CreateRecipeFragmentSecondary;
 import com.example.brewersnotepad.mobile.fragments.CreateRecipeFramentMain;
@@ -20,6 +23,12 @@ public class CreateRecipePagerAdapter extends FragmentPagerAdapter implements Cr
     private CreateRecipeFragmentSecondary mFragmentSecondary;
     private CreateRecipeFramentMain mFragmentMain;
     private CreateRecipeExtrasFragment mFragmentExtra;
+    private Context ctx;
+    public CreateRecipePagerAdapter(FragmentManager supportFragmentManager, Context ctx) {
+        super(supportFragmentManager);
+        this.ctx = ctx;
+    }
+
     @Override
     public Fragment getItem(int position) {
         switch (position) {
@@ -51,11 +60,11 @@ public class CreateRecipePagerAdapter extends FragmentPagerAdapter implements Cr
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Main and Grain";
+                return ctx.getString(R.string.create_tabs_main);
             case 1:
-                return "Hops and Fermentation";
+                return ctx.getString(R.string.create_tabs_second);
             case 2:
-                return "Extras";
+                return ctx.getString(R.string.create_tabs_third);
         }
         return null;
     }

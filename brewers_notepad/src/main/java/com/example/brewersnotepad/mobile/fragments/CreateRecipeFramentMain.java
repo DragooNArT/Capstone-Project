@@ -71,7 +71,7 @@ public class CreateRecipeFramentMain extends Fragment {
         recipe_type_spinner.setAdapter(recipe_type_adapter);
         ListView grainList = (ListView)view.findViewById(R.id.grain_list);
         adapter = new GrainListAdapter<GrainEntry>(getContext(),
-                android.R.layout.simple_list_item_1);
+                android.R.layout.simple_list_item_1,grainList);
         grainList.setAdapter(adapter);
 
         ImageButton addGrainButton = (ImageButton)view.findViewById(R.id.addGrainButton);

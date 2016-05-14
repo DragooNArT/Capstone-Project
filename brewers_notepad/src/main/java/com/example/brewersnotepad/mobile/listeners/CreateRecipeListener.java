@@ -1,10 +1,13 @@
 package com.example.brewersnotepad.mobile.listeners;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -37,11 +40,29 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
                 //TODO put stuff
                 activity.startActivity(intent);
             } else {
-                //TODO prompt to save as draft or discard
+                promptSaveDraft();
             }
             return true;
         }
         return false;
+    }
+
+    private void promptSaveDraft() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("Incomplete Recipe");
+        builder.setPositiveButton("Save Draft", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               //TODO save draft
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
     }
 
     void fillRecipe(RecipeDataHolder recipeInstance) {

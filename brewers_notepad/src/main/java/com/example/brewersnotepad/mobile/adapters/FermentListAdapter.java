@@ -20,10 +20,9 @@ import com.example.brewersnotepad.mobile.listeners.DeleteListListener;
 /**
  * Created by xnml on 13.5.2016 г..
  */
-public class FermentListAdapter<T> extends ArrayAdapter<FermentationEntry> {
+public class FermentListAdapter<T> extends BaseListAdapter<FermentationEntry> {
     private LayoutInflater inflater;
     private ListView mFermentList;
-    private float MAX_HEIGHT;
     private DeleteListListener removeListener;
     public FermentListAdapter(Context context, int resource,ListView fermentList) {
         super(context, resource);
@@ -40,29 +39,23 @@ public class FermentListAdapter<T> extends ArrayAdapter<FermentationEntry> {
         LinearLayout.LayoutParams mParam = new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,Math.round(getTargetHeight()));
         mFermentList.setLayoutParams(mParam);
     }
-    public float getTargetHeight() {
-        float val = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getContext().getResources().getDisplayMetrics());
-        float targetHeight = getCount()*val;
-        if(targetHeight>MAX_HEIGHT) {
-            return MAX_HEIGHT;
-        }
-        return targetHeight;
-    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null) {
-            convertView = inflater.inflate(R.layout.grain_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.ferment_list_item, parent, false);
         }
-        FermentationEntry grainEntry = getItem(position);
-        TextView grainTypeUi = (TextView)convertView.findViewById(R.id.grain_list_type_entry);
-        TextView grainQuantityUi = (TextView)convertView.findViewById(R.id.grain_list_quantity_entry);
+        FermentationEntry fermentationEntry = getItem(position);
+        TextView fermentPhaseName = (TextView)convertView.findViewById(R.id.ferment_list_name_entry);
+        fermentPhaseName.setText(fermentationEntry.getPhaseName());
+        TextView fermentDuration = (TextView)convertView.findViewById(R.id.ferment_list_duration_entry);
+        fermentDuration.setText(getContext().getString(R.string.fermentTimeFormat,fermentationEntry.getPhaseDuration()));
 
+        TextView fermentTemp = (TextView)convertView.findViewById(R.id.ferment_list_temp_entry);
+        fermentTemp.setText(fermentationEntry.getTargetPhaseTemp()+"C/F");
         ImageView deleteGrainBtn = (ImageView)convertView.findViewById(R.id.deleteGrainButton);
         deleteGrainBtn.setTag(position);
         deleteGrainBtn.setOnClickListener(removeListener);
-//        grainTypeUi.setText(grainEntry.getGrainType());
-//        grainQuantityUi.setText(grainEntry.getGrainQuantity()+"lbs");
         return convertView;
     }
 }

@@ -21,8 +21,7 @@ import com.example.brewersnotepad.mobile.listeners.DeleteListListener;
 /**
  * Created by xnml on 13.5.2016 г..
  */
-public class HopListAdapter<T> extends ArrayAdapter<HopEntry> {
-    private static  float MAX_HEIGHT ;
+public class HopListAdapter<T> extends BaseListAdapter<HopEntry> {
     private LayoutInflater mInflater;
     private DeleteListListener deleteListListener;
     private ListView hopsList;
@@ -37,7 +36,6 @@ public class HopListAdapter<T> extends ArrayAdapter<HopEntry> {
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
-
         LinearLayout.LayoutParams mParam = new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,Math.round(getTargetHeight()));
         hopsList.setLayoutParams(mParam);
     }
@@ -45,26 +43,21 @@ public class HopListAdapter<T> extends ArrayAdapter<HopEntry> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null) {
-            convertView = mInflater.inflate(R.layout.grain_list_item, parent, false);
+            convertView = mInflater.inflate(R.layout.hop_list_item, parent, false);
         }
         HopEntry hopEntry = getItem(position);
-        TextView grainTypeUi = (TextView)convertView.findViewById(R.id.grain_list_type_entry);
-        TextView grainQuantityUi = (TextView)convertView.findViewById(R.id.grain_list_quantity_entry);
-
+        TextView hopVariety = (TextView)convertView.findViewById(R.id.hop_list_variety_entry);
+        hopVariety.setText(hopEntry.getHopVariety());
+        TextView hopType = (TextView)convertView.findViewById(R.id.hop_list_type_entry);
+        hopType.setText(hopEntry.getHopType());
+        TextView hopQuantity = (TextView)convertView.findViewById(R.id.hop_list_quantity_entry);
+        hopQuantity.setText(hopEntry.getHopQuantity()+"lbs");
+        TextView hopAdd = (TextView)convertView.findViewById(R.id.hop_list_when_entry);
+        hopAdd.setText(hopEntry.getTimeToAdd()+"min");
         ImageView deleteGrainBtn = (ImageView)convertView.findViewById(R.id.deleteGrainButton);
         deleteGrainBtn.setTag(position);
         deleteGrainBtn.setOnClickListener(deleteListListener);
-//        grainTypeUi.setText(hopEntry.getGrainType());
-//        grainQuantityUi.setText(hopEntry.getGrainQuantity()+"lbs");
         return convertView;
     }
 
-    public float getTargetHeight() {
-        float val = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getContext().getResources().getDisplayMetrics());
-        float targetHeight = getCount()*val;
-        if(targetHeight>MAX_HEIGHT) {
-            return MAX_HEIGHT;
-        }
-        return targetHeight;
-    }
 }

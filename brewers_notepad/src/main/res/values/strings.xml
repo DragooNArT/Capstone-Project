@@ -29,6 +29,10 @@
     <string name="fermentPhaseName_hint">Phase Name</string>
     <string name="fermentPhaseDuration_hint">days</string>
     <string name="fermentPhaseTemp_hint">temp</string>
+    <string name ="fermentTimeFormat">%1$d Days</string>
+    <string name="create_tabs_main">Main and Grain</string>
+    <string name="create_tabs_second">Hops and Fermentation</string>
+    <string name="create_tabs_third">Extras</string>
     <string-array name="recipe_types_list">
         <item>All Grain</item>
         <item>Partial Mash</item>

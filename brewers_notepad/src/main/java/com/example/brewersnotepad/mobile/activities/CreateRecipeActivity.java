@@ -47,7 +47,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
         toolbar.setTitle(getString(R.string.create_recipe_view_title));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mSectionsPagerAdapter = new CreateRecipePagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new CreateRecipePagerAdapter(getSupportFragmentManager(),this);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.create_recpie_pager);

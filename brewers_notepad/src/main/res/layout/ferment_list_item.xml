@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/mashLayout"
+        android:columnCount="4"
+        android:rowCount="1"
+        android:clickable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/ferment_list_name_entry"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:inputType="textAutoComplete"
+            android:hint="@string/fermentPhaseName_hint"
+            android:layout_gravity="center_vertical"
+            android:singleLine="true"
+            android:maxWidth="120dp"
+            android:minWidth="120dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/ferment_list_duration_entry"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:hint="@string/fermentPhaseDuration_hint"
+            android:layout_gravity="left|center_vertical"
+            android:singleLine="true"
+            android:maxWidth="80dp"
+            android:minWidth="80dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/ferment_list_temp_entry"
+        android:layout_row="0"
+        android:layout_column="2"
+        android:hint="@string/fermentPhaseTemp_hint"
+        android:layout_gravity="left|center_vertical"
+        android:singleLine="true"
+        android:maxWidth="80dp"
+        android:minWidth="80dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/deleteGrainButton"
+        android:layout_row="0"
+        android:layout_column="3"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_delete_white_36dp"
+        android:padding="0dp"
+        android:layout_gravity="center_vertical" />
+
+</GridLayout>

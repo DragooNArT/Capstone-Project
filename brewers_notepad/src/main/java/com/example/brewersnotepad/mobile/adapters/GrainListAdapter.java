@@ -1,11 +1,15 @@
 package com.example.brewersnotepad.mobile.adapters;
 
+import android.app.ActionBar;
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.brewersnotepad.R;
@@ -16,14 +20,25 @@ import com.example.brewersnotepad.mobile.listeners.DeleteListListener;
 /**
  * Created by xnml on 12.5.2016 г..
  */
-public class GrainListAdapter<T> extends ArrayAdapter<GrainEntry> {
+public class GrainListAdapter<T> extends BaseListAdapter<GrainEntry> {
     private LayoutInflater inflater;
     private DeleteListListener removeListener;
-    public GrainListAdapter(Context context, int resource) {
+    private ListView grainList;
+    public GrainListAdapter(Context context, int resource,ListView grainList) {
         super(context, resource);
+        this.grainList = grainList;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        MAX_HEIGHT = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 180, getContext().getResources().getDisplayMetrics());
         removeListener = new DeleteListListener(this);
     }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        LinearLayout.LayoutParams mParam = new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,Math.round(getTargetHeight()));
+        grainList.setLayoutParams(mParam);
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null) {

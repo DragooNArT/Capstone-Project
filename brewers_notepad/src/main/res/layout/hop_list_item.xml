@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/mashLayout"
+        android:columnCount="5"
+        android:rowCount="1"
+        android:clickable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/hop_list_variety_entry"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:inputType="textAutoComplete"
+            android:hint="@string/input_hopVariety_hint"
+            android:layout_gravity="center_vertical"
+            android:singleLine="true"
+            android:maxWidth="90dp"
+            android:minWidth="90dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/hop_list_type_entry"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:hint="@string/input_hopType_hint"
+            android:layout_gravity="left|center_vertical"
+            android:singleLine="true"
+            android:maxWidth="80dp"
+            android:minWidth="80dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/hop_list_when_entry"
+        android:layout_row="0"
+        android:layout_column="2"
+        android:hint="@string/input_hopAdd_hint"
+        android:layout_gravity="left|center_vertical"
+        android:singleLine="true"
+        android:maxWidth="60dp"
+        android:minWidth="60dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/hop_list_quantity_entry"
+        android:layout_row="0"
+        android:layout_column="3"
+        android:hint="@string/input_grainQuantity_hint"
+        android:layout_gravity="left|center_vertical"
+        android:singleLine="true"
+        android:maxWidth="60dp"
+        android:minWidth="60dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/deleteGrainButton"
+        android:layout_row="0"
+        android:layout_column="4"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_delete_white_36dp"
+        android:padding="0dp"
+        android:layout_gravity="center_vertical" />
+
+</GridLayout>
