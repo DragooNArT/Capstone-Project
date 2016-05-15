@@ -62,14 +62,14 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
     }
     private void promptSaveDraft(final RecipeDataHolder recipeInstance) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("Incomplete Recipe");
-        builder.setPositiveButton("Save Draft", new DialogInterface.OnClickListener() {
+        builder.setTitle(activity.getString(R.string.prompt_save_draft_title));
+        builder.setPositiveButton(activity.getString(R.string.save_draft_button_text), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finalizeRecipe(recipeInstance);
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(activity.getString(R.string.cancel_button_text), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();

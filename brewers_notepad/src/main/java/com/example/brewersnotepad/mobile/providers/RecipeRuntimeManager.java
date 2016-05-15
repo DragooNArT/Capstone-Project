@@ -2,6 +2,7 @@ package com.example.brewersnotepad.mobile.providers;
 
 import com.example.brewersnotepad.mobile.data.RecipeDataHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
 public class RecipeRuntimeManager {
 
     private static RecipeDataHolder currentRecipe;
-    private static List<RecipeDataHolder> recipesList;
+    private static List<RecipeDataHolder> recipesList = new ArrayList<RecipeDataHolder>();
 
     public static RecipeDataHolder getCurrentRecipe() {
         return currentRecipe;
@@ -26,7 +27,15 @@ public class RecipeRuntimeManager {
     public static boolean  hasRecipes() {
         return recipesList != null && !recipesList.isEmpty();
     }
-    public static void setRecipesList(List<RecipeDataHolder> recipesList) {
-        RecipeRuntimeManager.recipesList = recipesList;
+
+    public static RecipeDataHolder getRecipe(String string) {
+        if(string!=null && !string.isEmpty()) {
+            for (RecipeDataHolder entry : recipesList) {
+                if (entry.getRecipe_id().equals(string)) {
+                    return entry;
+                }
+            }
+        }
+        return null;
     }
 }

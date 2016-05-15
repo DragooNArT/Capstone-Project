@@ -72,19 +72,22 @@ public class MainRecipeListFragment extends Fragment implements LoaderManager.Lo
     }
 
     public void loadData(Cursor data) {
-//        Cursor cur = getContext().getContentResolver().query(RecipeStorageProvider.CONTENT_URI,null,null,null,null);
-        if(data != null && !data.isClosed()) {
+       if(data != null && !data.isClosed()) {
             data.moveToFirst();
             List<RecipeDataHolder> recipesList = new ArrayList<RecipeDataHolder>();
-            while (!data.isAfterLast()) {
-                String recipe_id = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_ID));
-                String recipe_name = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_NAME));
-                String recipe_data = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_DATA));
-                RecipeDataHolder entry = new RecipeDataHolder(recipe_id, recipe_name);
-                recipesList.add(entry);
-                data.moveToNext();
-            }
-            RecipeRuntimeManager.setRecipesList(recipesList);
+           try {
+               while (!data.isAfterLast()) {
+                   String recipe_id = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_ID));
+                   String recipe_name = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_NAME));
+                   RecipeDataHolder entry = new RecipeDataHolder(recipe_id, recipe_name);
+                   recipesList.add(entry);
+                   data.moveToNext();
+               }
+           } finally {
+               data.close();
+           }
+           RecipeRuntimeManager.getRecipesList().clear();
+           RecipeRuntimeManager.getRecipesList().addAll(recipesList);
         }
     }
 
@@ -135,20 +138,22 @@ public class MainRecipeListFragment extends Fragment implements LoaderManager.Lo
 
     private void promptDeleteItem(final RecyclerView.ViewHolder viewHolder) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Delete Swiped Item");
-
+        builder.setTitle(getActivity().getString(R.string.delete_swipe_prompt_title));
+        LayoutInflater inflater = getLayoutInflater(null);
+        View dialogLayout = inflater.inflate(R.layout.prompt_content,null);
         int pos = viewHolder.getLayoutPosition();
         RecipeDataHolder recipeHolder = RecipeRuntimeManager.getRecipesList().get(pos);
-        TextView text = new TextView(getContext());
-        text.setText("You are about to delete \""+recipeHolder.getRecipe_name()+"\" recipe. Are you sure?");
-        builder.setView(text);
-        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+        TextView text = (TextView)dialogLayout.findViewById(R.id.prompt_text);
+        text.setText(getActivity().getString(R.string.prompt_delete_content_text,recipeHolder.getRecipe_name()));
+
+        builder.setView(dialogLayout);
+        builder.setPositiveButton(getContext().getString(R.string.delete_button_text), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 deleteItem(viewHolder);
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getContext().getString(R.string.cancel_button_text), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 mBeerListAdapter.notifyDataSetChanged();
@@ -202,7 +207,8 @@ public class MainRecipeListFragment extends Fragment implements LoaderManager.Lo
 
     @Override
     public void onLoadFinished(android.support.v4.content.Loader<Cursor> loader, Cursor data) {
-        Cursor r = getActivity().getContentResolver().query(RecipeStorageProvider.CONTENT_URI,null,null,null,null);
+        String[] columns = new String[]{RecipeStorageProvider.FIELD_RECIPE_ID,RecipeStorageProvider.FIELD_RECIPE_NAME};
+        Cursor r = getActivity().getContentResolver().query(RecipeStorageProvider.CONTENT_URI,columns,null,null,null);
         loadData(r);
     }
 

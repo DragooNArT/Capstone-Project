@@ -2,8 +2,10 @@ package com.example.brewersnotepad.mobile.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,7 +15,9 @@ import android.widget.TextView;
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.activities.ViewRecipeActivity;
 import com.example.brewersnotepad.mobile.data.RecipeDataHolder;
+import com.example.brewersnotepad.mobile.json.JsonUtility;
 import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
+import com.example.brewersnotepad.mobile.providers.RecipeStorageProvider;
 
 import java.util.List;
 
@@ -103,12 +107,41 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         public void onClick(View view) {
             int pos = getAdapterPosition();
             TextView recipe_nameView = (TextView)view.findViewById(R.id.recipe_name);
-            String recipeName = (String) recipe_nameView.getText();
+
+            String[] columns = new String[]{RecipeStorageProvider.FIELD_RECIPE_DATA};
+            String selection = RecipeStorageProvider.FIELD_RECIPE_NAME+" = '"+recipe_nameView.getText()+"'";
+
+            Cursor r = viewRoot.getContext().getContentResolver().query(RecipeStorageProvider.CONTENT_URI,columns,selection,null,null);
+            if(r != null && r.moveToFirst()) {
+                String jsonData = r.getString(r.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_DATA));
+                RecipeDataHolder recipe = JsonUtility.JsonToObject(jsonData);
+                if(recipe != null) {
+                    addOrReplaceRecipe(recipe);
+                } else {
+                    Log.e(getClass().getName(),"unable to parse json from db");
+                }
+            }
+//            String recipeName = (String) recipe_nameView.getText();
+
             Intent intent = new Intent(view.getContext(), ViewRecipeActivity.class);
 //            //TODO put stuff
             view.getContext().startActivity(intent);
 //            //TODO find a way to fetch data entry from childView
 //            //TODO transition to a new activity
+        }
+    }
+
+    private static void addOrReplaceRecipe(RecipeDataHolder recipe) {
+        int pos = -1;
+        for(RecipeDataHolder entry : RecipeRuntimeManager.getRecipesList()) {
+            if(recipe.getRecipe_id().equals(entry.getRecipe_id())){
+                pos = RecipeRuntimeManager.getRecipesList().indexOf(entry);
+                break;
+            }
+        }
+        if(pos > -1) {
+            RecipeRuntimeManager.getRecipesList().remove(pos);
+            RecipeRuntimeManager.getRecipesList().add(pos,recipe);
         }
     }
 }

@@ -3,6 +3,9 @@ package com.example.brewersnotepad.mobile.data;
 import android.net.Uri;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -121,7 +124,7 @@ public class RecipeDataHolder {
             this.recipe_grains.add(grains);
         }
     }
-
+    @JsonIgnore
     public boolean isRecipeComplete() {
 
         if(getRecipe_name()== null || getRecipe_name().isEmpty()) {

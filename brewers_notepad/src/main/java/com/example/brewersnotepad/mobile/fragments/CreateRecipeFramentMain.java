@@ -17,6 +17,9 @@ import com.example.brewersnotepad.mobile.adapters.GrainListAdapter;
 import com.example.brewersnotepad.mobile.data.GrainEntry;
 import com.example.brewersnotepad.mobile.listeners.AddGrainListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -29,7 +32,7 @@ public class CreateRecipeFramentMain extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String GRAIN_PARCELABLE = "Grain_parcel";
     private GrainListAdapter<GrainEntry> adapter;
 
     private OnFragmentInteractionListener mListener;
@@ -51,7 +54,6 @@ public class CreateRecipeFramentMain extends Fragment {
         CreateRecipeFramentMain fragment = new CreateRecipeFramentMain();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -59,6 +61,17 @@ public class CreateRecipeFramentMain extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        ArrayList<GrainEntry> list = new ArrayList<GrainEntry>();
+        for(int i=0;i<adapter.getCount();i++) {
+            list.add(adapter.getItem(i));
+        }
+
+        outState.putParcelableArrayList(GRAIN_PARCELABLE,list);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -70,9 +83,18 @@ public class CreateRecipeFramentMain extends Fragment {
         ArrayAdapter<CharSequence> recipe_type_adapter = ArrayAdapter.createFromResource(getContext(),R.array.recipe_types_list,R.layout.simple_spinner_item);
         recipe_type_spinner.setAdapter(recipe_type_adapter);
         ListView grainList = (ListView)view.findViewById(R.id.grain_list);
+
+
         adapter = new GrainListAdapter<GrainEntry>(getContext(),
                 android.R.layout.simple_list_item_1,grainList);
+        if(savedInstanceState != null) {
+            ArrayList<GrainEntry> list = savedInstanceState.getParcelableArrayList(GRAIN_PARCELABLE);
+            if(list != null) {
+                adapter.addAll(list);
+            }
+        }
         grainList.setAdapter(adapter);
+
 
         ImageButton addGrainButton = (ImageButton)view.findViewById(R.id.addGrainButton);
         addGrainListener = new AddGrainListener(adapter,view);

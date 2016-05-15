@@ -11,7 +11,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 
 /**
  * Created by DragooNArT-PC on 5/15/2016.
@@ -24,7 +23,6 @@ public class RecipeStorageProvider extends ContentProvider {
     public static final Uri CONTENT_URI = Uri.parse(URL);
 
 
-    public static final String AUTHORITY = "de.example.brewersnotepad.dragoonart.contentprovider";
     public final static  String FIELD_RECIPE_ID = "recipeId";
     public final static String FIELD_RECIPE_NAME = "recipeName";
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.brewersnotepad.R;
@@ -20,23 +21,22 @@ import com.example.brewersnotepad.mobile.data.HopEntry;
 import com.example.brewersnotepad.mobile.listeners.AddFermentListener;
 import com.example.brewersnotepad.mobile.listeners.AddHopsListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link CreateRecipeFragmentSecondary.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CreateRecipeFragmentSecondary#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class CreateRecipeFragmentSecondary extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String HOP_PARCELABLE = "Hop_parcel";
+    private static final String FERMENT_PARCELABLE = "Ferment_parcel";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private  HopListAdapter<HopEntry> hopAdapter;
     private FermentListAdapter<FermentationEntry> fermentAdapter;
     private AddHopsListener addHopsListener;
@@ -47,31 +47,27 @@ public class CreateRecipeFragmentSecondary extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CreateRecipeFragmentSecondary.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CreateRecipeFragmentSecondary newInstance(String param1, String param2) {
-        CreateRecipeFragmentSecondary fragment = new CreateRecipeFragmentSecondary();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
+    }
+
+    private ArrayList getListFromAdapter(ListAdapter adapter) {
+        ArrayList list = new ArrayList();
+        for(int i=0;i<adapter.getCount();i++) {
+            list.add(adapter.getItem(i));
         }
+        return list;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList(HOP_PARCELABLE, getListFromAdapter(hopAdapter));
+        outState.putParcelableArrayList(FERMENT_PARCELABLE, getListFromAdapter(fermentAdapter));
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -83,7 +79,7 @@ public class CreateRecipeFragmentSecondary extends Fragment {
         ListView hopsList = (ListView)view.findViewById(R.id.hopsListView);
         hopAdapter = new HopListAdapter<HopEntry>(getContext(),
                 android.R.layout.simple_list_item_1,hopsList);
-        hopsList.setAdapter(hopAdapter);
+
         addHopsListener = new AddHopsListener(hopAdapter,view);
 
         ImageButton addHopsButton = (ImageButton)view.findViewById(R.id.addHopsButton);
@@ -92,9 +88,16 @@ public class CreateRecipeFragmentSecondary extends Fragment {
         ListView fermentList = (ListView)view.findViewById(R.id.fermentListView);
         fermentAdapter = new FermentListAdapter<FermentationEntry>(getContext(),
                 android.R.layout.simple_list_item_1,fermentList);
-        fermentList.setAdapter(fermentAdapter);
-        addFermentListener = new AddFermentListener(fermentAdapter,view);
 
+        addFermentListener = new AddFermentListener(fermentAdapter,view);
+        if(savedInstanceState != null) {
+            ArrayList<HopEntry> hopList = savedInstanceState.getParcelableArrayList(HOP_PARCELABLE);
+            hopAdapter.addAll(hopList);
+            ArrayList<FermentationEntry> fermList = savedInstanceState.getParcelableArrayList(FERMENT_PARCELABLE);
+            fermentAdapter.addAll(fermList);
+        }
+        fermentList.setAdapter(fermentAdapter);
+        hopsList.setAdapter(hopAdapter);
         ImageButton addFermentButton = (ImageButton)view.findViewById(R.id.addFermentButton);
         addFermentButton.setOnClickListener(addFermentListener);
         return view;

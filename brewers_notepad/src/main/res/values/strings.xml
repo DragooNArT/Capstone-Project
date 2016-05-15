@@ -33,6 +33,12 @@
     <string name="create_tabs_main">Main and Grain</string>
     <string name="create_tabs_second">Hops and Fermentation</string>
     <string name="create_tabs_third">Extras</string>
+    <string name="delete_button_text">Delete</string>
+    <string name="cancel_button_text">Cancel</string>
+    <string name="save_draft_button_text">Save Draft</string>
+    <string name="prompt_save_draft_title">Incomplete Recipe</string>
+    <string name="delete_swipe_prompt_title">Delete Swiped Item</string>
+    <string name="prompt_delete_content_text">You are about to delete \"%s\" recipe. Are you sure?</string>
     <string-array name="recipe_types_list">
         <item>All Grain</item>
         <item>Partial Mash</item>
