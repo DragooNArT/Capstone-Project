@@ -20,23 +20,45 @@ import com.example.brewersnotepad.mobile.fragments.MainRecipeListFragment;
 public class MainActivityNavigationListener implements NavigationView.OnNavigationItemSelectedListener {
 
     MainActivity activity;
+    private int lastSelectedItemId;
     public MainActivityNavigationListener(MainActivity activity) {
         this.activity = activity;
     }
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.nav_preferences) {
+        lastSelectedItemId = item.getItemId();
+
+        if (lastSelectedItemId == R.id.nav_preferences) {
             swapFragment(new MainPreferencesFragment());
-        } else if (id == R.id.nav_about) {
+        } else if (lastSelectedItemId == R.id.nav_about) {
             swapFragment(new MainAboutFragment());
-        } else if( id == R.id.nav_home) {
+        } else if( lastSelectedItemId == R.id.nav_home) {
             swapFragment(new MainRecipeListFragment());
         }
 
         DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public boolean onNavigationItemSelected(int itemId) {
+        lastSelectedItemId = itemId;
+
+        if (lastSelectedItemId == R.id.nav_preferences) {
+            swapFragment(new MainPreferencesFragment());
+        } else if (lastSelectedItemId == R.id.nav_about) {
+            swapFragment(new MainAboutFragment());
+        } else if( lastSelectedItemId == R.id.nav_home) {
+            swapFragment(new MainRecipeListFragment());
+        }
+
+        DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    public int getLastSelectedItemId() {
+        return lastSelectedItemId;
     }
 
     private void swapFragment(Fragment fragment) {

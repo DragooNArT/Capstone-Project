@@ -40,6 +40,7 @@ public class MainRecipeListFragment extends Fragment implements LoaderManager.Lo
      private static final int LOADER_ID = 999;
     private RecyclerView mBeerListView;
     private RecipeListAdapter mBeerListAdapter;
+    public static final int FRAGMENT_ID = 3;
 
     private OnFragmentInteractionListener mListener;
 
@@ -202,14 +203,14 @@ public class MainRecipeListFragment extends Fragment implements LoaderManager.Lo
 
     @Override
     public android.support.v4.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(getContext(),RecipeStorageProvider.CONTENT_URI, null,null,null,null);
+
+        String[] columns = new String[]{RecipeStorageProvider.FIELD_RECIPE_ID,RecipeStorageProvider.FIELD_RECIPE_NAME};
+        return new CursorLoader(getContext(),RecipeStorageProvider.CONTENT_URI, columns,null,null,null);
     }
 
     @Override
     public void onLoadFinished(android.support.v4.content.Loader<Cursor> loader, Cursor data) {
-        String[] columns = new String[]{RecipeStorageProvider.FIELD_RECIPE_ID,RecipeStorageProvider.FIELD_RECIPE_NAME};
-        Cursor r = getActivity().getContentResolver().query(RecipeStorageProvider.CONTENT_URI,columns,null,null,null);
-        loadData(r);
+        loadData(data);
     }
 
     @Override

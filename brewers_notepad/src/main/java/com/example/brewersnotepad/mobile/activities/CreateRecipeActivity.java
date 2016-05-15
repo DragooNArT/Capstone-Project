@@ -98,7 +98,6 @@ public class CreateRecipeActivity extends AppCompatActivity implements LoaderMan
     @Override
     public android.content.Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
-//        getLoaderManager().initLoader(id, null, this);
         return new CursorLoader(this,RecipeStorageProvider.CONTENT_URI,  null, null, null,null);
     }
 
