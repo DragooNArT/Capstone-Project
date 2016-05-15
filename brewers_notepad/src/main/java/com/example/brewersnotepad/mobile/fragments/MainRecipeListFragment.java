@@ -1,19 +1,32 @@
 package com.example.brewersnotepad.mobile.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.adapters.RecipeListAdapter;
+import com.example.brewersnotepad.mobile.data.RecipeDataHolder;
 import com.example.brewersnotepad.mobile.listeners.MainActivityFabListener;
+import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
+import com.example.brewersnotepad.mobile.providers.RecipeStorageProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,12 +36,8 @@ import com.example.brewersnotepad.mobile.listeners.MainActivityFabListener;
  * Use the {@link MainRecipeListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MainRecipeListFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
+public class MainRecipeListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+     private static final int LOADER_ID = 999;
     private RecyclerView mBeerListView;
     private RecipeListAdapter mBeerListAdapter;
 
@@ -50,8 +59,6 @@ public class MainRecipeListFragment extends Fragment {
     public static MainRecipeListFragment newInstance(String param1, String param2) {
         MainRecipeListFragment fragment = new MainRecipeListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -59,7 +66,26 @@ public class MainRecipeListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getLoaderManager().initLoader(LOADER_ID, null,this);
 
+
+    }
+
+    public void loadData(Cursor data) {
+//        Cursor cur = getContext().getContentResolver().query(RecipeStorageProvider.CONTENT_URI,null,null,null,null);
+        if(data != null && !data.isClosed()) {
+            data.moveToFirst();
+            List<RecipeDataHolder> recipesList = new ArrayList<RecipeDataHolder>();
+            while (!data.isAfterLast()) {
+                String recipe_id = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_ID));
+                String recipe_name = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_NAME));
+                String recipe_data = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_DATA));
+                RecipeDataHolder entry = new RecipeDataHolder(recipe_id, recipe_name);
+                recipesList.add(entry);
+                data.moveToNext();
+            }
+            RecipeRuntimeManager.setRecipesList(recipesList);
+        }
     }
 
     @Override
@@ -76,12 +102,28 @@ public class MainRecipeListFragment extends Fragment {
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mBeerListView.setHasFixedSize(true);
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+
+                promptDeleteItem(viewHolder);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(mBeerListView);
         // The ForecastAdapter will take data from a source and
         // use it to populate the RecyclerView it's attached to.
         mBeerListAdapter = new RecipeListAdapter(getActivity(),view.findViewById(R.id.recipe_name));
-//
-        mBeerListView.addOnItemTouchListener(mBeerListAdapter);
-//        // specify an adapter (see also next example)
+
         mBeerListView.setAdapter(mBeerListAdapter);
 
         FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.addRecipeFab);
@@ -89,6 +131,44 @@ public class MainRecipeListFragment extends Fragment {
         fab.setOnClickListener(listener);
 
         return view;
+    }
+
+    private void promptDeleteItem(final RecyclerView.ViewHolder viewHolder) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Delete Swiped Item");
+
+        int pos = viewHolder.getLayoutPosition();
+        RecipeDataHolder recipeHolder = RecipeRuntimeManager.getRecipesList().get(pos);
+        TextView text = new TextView(getContext());
+        text.setText("You are about to delete \""+recipeHolder.getRecipe_name()+"\" recipe. Are you sure?");
+        builder.setView(text);
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteItem(viewHolder);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mBeerListAdapter.notifyDataSetChanged();
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
+    private void deleteItem(RecyclerView.ViewHolder viewHolder) {
+        int pos = viewHolder.getLayoutPosition();
+        RecipeDataHolder recipeHolder = RecipeRuntimeManager.getRecipesList().get(pos);
+        if(recipeHolder != null) {
+            int id = getActivity().getContentResolver().delete(RecipeStorageProvider.CONTENT_URI, recipeHolder.getRecipe_id(), null);
+
+            if(id != 0) {
+                RecipeRuntimeManager.getRecipesList().remove(recipeHolder);
+                mBeerListAdapter.notifyItemRemoved(pos);
+            }
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -114,6 +194,26 @@ public class MainRecipeListFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public android.support.v4.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getContext(),RecipeStorageProvider.CONTENT_URI, null,null,null,null);
+    }
+
+    @Override
+    public void onLoadFinished(android.support.v4.content.Loader<Cursor> loader, Cursor data) {
+        Cursor r = getActivity().getContentResolver().query(RecipeStorageProvider.CONTENT_URI,null,null,null,null);
+        loadData(r);
+    }
+
+    @Override
+    public void onLoaderReset(android.support.v4.content.Loader<Cursor> loader) {
+        loadData(null);
+    }
+
+
+
+
 
     /**
      * This interface must be implemented by activities that contain this

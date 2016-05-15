@@ -7,9 +7,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.activities.CreateRecipeActivity;
@@ -34,26 +36,37 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
         if(item == activity.getDoneButton()) {
             RecipeDataHolder recipeInstance = activity.getRecipeInstance();
             fillRecipe(recipeInstance);
-            if(recipeInstance.isRecipeComplete()) {
-                //TODO add it to database, navigate to home
-                Intent intent = new Intent(activity, MainActivity.class);
-                //TODO put stuff
-                activity.startActivity(intent);
+            if(recipeInstance.getRecipe_name()!=null && !recipeInstance.getRecipe_name().isEmpty()) {
+                if (recipeInstance.isRecipeComplete()) {
+                    finalizeRecipe(recipeInstance);
+                } else {
+                    promptSaveDraft(recipeInstance);
+                }
             } else {
-                promptSaveDraft();
+                Toast.makeText(activity, "Can't save recipe with no name!", Toast.LENGTH_LONG).show();
+                View inputRecipe = activity.findViewById(R.id.inputRecipeName);
+                if(inputRecipe != null) {
+                    inputRecipe.requestFocus();
+                }
             }
             return true;
         }
         return false;
     }
 
-    private void promptSaveDraft() {
+    private void finalizeRecipe(RecipeDataHolder recipeInstance) {
+        activity.fillData(recipeInstance);
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.putExtra(MainActivity.EXTRA_REFRESH,true);
+        activity.startActivity(intent);
+    }
+    private void promptSaveDraft(final RecipeDataHolder recipeInstance) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle("Incomplete Recipe");
         builder.setPositiveButton("Save Draft", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               //TODO save draft
+                finalizeRecipe(recipeInstance);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

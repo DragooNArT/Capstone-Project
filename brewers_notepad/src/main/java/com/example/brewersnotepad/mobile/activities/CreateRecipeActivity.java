@@ -1,47 +1,44 @@
 package com.example.brewersnotepad.mobile.activities;
 
+import android.app.LoaderManager;
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import android.content.CursorLoader;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.brewersnotepad.R;
-import com.example.brewersnotepad.mobile.data.GrainEntry;
-import com.example.brewersnotepad.mobile.data.HopEntry;
+import com.example.brewersnotepad.mobile.adapters.CreateRecipePagerAdapter;
 import com.example.brewersnotepad.mobile.data.RecipeDataHolder;
-import com.example.brewersnotepad.mobile.data.RecipeManager;
 import com.example.brewersnotepad.mobile.fragments.CreateRecipeExtrasFragment;
 import com.example.brewersnotepad.mobile.fragments.CreateRecipeFragmentSecondary;
 import com.example.brewersnotepad.mobile.fragments.CreateRecipeFramentMain;
-import com.example.brewersnotepad.mobile.adapters.CreateRecipePagerAdapter;
+import com.example.brewersnotepad.mobile.json.JsonUtility;
 import com.example.brewersnotepad.mobile.listeners.CreateRecipeListener;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
+import com.example.brewersnotepad.mobile.providers.RecipeStorageProvider;
 
-public class CreateRecipeActivity extends AppCompatActivity implements CreateRecipeFramentMain.OnFragmentInteractionListener, CreateRecipeFragmentSecondary.OnFragmentInteractionListener, CreateRecipeExtrasFragment.OnFragmentInteractionListener {
+public class CreateRecipeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, CreateRecipeFramentMain.OnFragmentInteractionListener, CreateRecipeFragmentSecondary.OnFragmentInteractionListener, CreateRecipeExtrasFragment.OnFragmentInteractionListener{
 
     private CreateRecipePagerAdapter mSectionsPagerAdapter;
+    private final int  LOADER_ID = 11;
     private ViewPager mViewPager;
     private MenuItem doneButton;
     private RecipeDataHolder recipeInstance;
     private CreateRecipeListener listener;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_recipe);
+
+        getLoaderManager().initLoader(LOADER_ID, null,this);
         listener = new CreateRecipeListener(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.create_recipe_toolbar);
         toolbar.setTitle(getString(R.string.create_recipe_view_title));
@@ -53,9 +50,11 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
         mViewPager = (ViewPager) findViewById(R.id.create_recpie_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+
+
         //create a new recipe and make it globally available
         recipeInstance = new RecipeDataHolder();
-        RecipeManager.setCurrentRecipe(recipeInstance);
+        RecipeRuntimeManager.setCurrentRecipe(recipeInstance);
     }
 
     @Override
@@ -68,22 +67,6 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
     }
 
 
-    public void onAddHops(View v) {
-        String hopType = ((TextView)findViewById(R.id.inputGrainType)).getText().toString();
-        String hopQuantity = ((TextView)findViewById(R.id.inputGrainQuantity)).getText().toString();
-        if(hopType.isEmpty()) {
-
-            Toast.makeText(this, "Please type in \"Hop type\"!", Toast.LENGTH_LONG).show();
-            return;
-        } else if (hopQuantity.isEmpty()) {
-            Toast.makeText(this, "Please type in \"Quantity\"!", Toast.LENGTH_LONG).show();
-            return;
-        }
-        HopEntry hops = new HopEntry();
-        hops.setHopQuantity(Integer.parseInt(hopQuantity));
-        hops.setHopType(hopType);
-        recipeInstance.addHops(hops);
-    }
 
     public MenuItem getDoneButton() {
         return doneButton;
@@ -93,7 +76,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
     protected void onDestroy() {
         super.onDestroy();
         //discard the new recipe
-        RecipeManager.setCurrentRecipe(null);
+        RecipeRuntimeManager.setCurrentRecipe(null);
     }
 
     @Override
@@ -110,5 +93,38 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
         doneButton.setOnMenuItemClickListener(listener);
         return true;
     }
+
+
+    @Override
+    public android.content.Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+
+//        getLoaderManager().initLoader(id, null, this);
+        return new CursorLoader(this,RecipeStorageProvider.CONTENT_URI,  null, null, null,null);
+    }
+
+    @Override
+    public void onLoadFinished(android.content.Loader<Cursor> loader, Cursor cursor) {
+
+    }
+
+    @Override
+    public void onLoaderReset(android.content.Loader<Cursor> loader) {
+
+    }
+
+
+
+
+    public void fillData(RecipeDataHolder dataHolder) {
+        ContentValues values = new ContentValues();
+        values.put(RecipeStorageProvider.FIELD_RECIPE_ID,dataHolder.getRecipe_id());
+        values.put(RecipeStorageProvider.FIELD_RECIPE_NAME,dataHolder.getRecipe_name());
+        String jsonData = JsonUtility.ObjectToJson(dataHolder);
+        values.put(RecipeStorageProvider.FIELD_RECIPE_DATA,jsonData);
+        Uri insert_uri = getContentResolver().insert(RecipeStorageProvider.CONTENT_URI,values);
+        getContentResolver().notifyChange(insert_uri,null);
+        dataHolder.setRecipeUri(insert_uri);
+    }
+
 
 }

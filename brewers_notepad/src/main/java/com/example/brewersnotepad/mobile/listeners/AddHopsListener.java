@@ -7,11 +7,9 @@ import android.widget.Toast;
 
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.data.HopEntry;
-import com.example.brewersnotepad.mobile.data.RecipeManager;
+import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
 import com.example.brewersnotepad.mobile.adapters.HopListAdapter;
-
-import java.text.NumberFormat;
 
 /**
  * Created by xnml on 12.5.2016 г..
@@ -69,7 +67,7 @@ public class AddHopsListener implements ImageButton.OnClickListener {
                 hops.setHopQuantity(Integer.parseInt(hopQuantity));
                 hops.setHopType(hopType);
                 hops.setTimeToAdd(Integer.parseInt(hopTime));
-                RecipeManager.getCurrentRecipe().addHops(hops);
+                RecipeRuntimeManager.getCurrentRecipe().addHops(hops);
                 hopAdapter.add(hops);
                 hopAdapter.notifyDataSetChanged();
             }

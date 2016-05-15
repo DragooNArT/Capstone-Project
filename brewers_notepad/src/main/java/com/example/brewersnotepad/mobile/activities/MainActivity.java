@@ -20,6 +20,9 @@ import com.example.brewersnotepad.mobile.listeners.MainActivityNavigationListene
 
 public class MainActivity extends AppCompatActivity implements MainRecipeListFragment.OnFragmentInteractionListener,MainAboutFragment.OnFragmentInteractionListener,MainPreferencesFragment.OnFragmentInteractionListener {
 
+
+    public static final String EXTRA_REFRESH = "REFRESH_ENTRIES";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +45,8 @@ public class MainActivity extends AppCompatActivity implements MainRecipeListFra
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.fragmentContainer, fragment);
 
-
         transaction.commit();
+
     }
     public boolean isSignedIn() {
         return false; //TODO do real stuff

@@ -7,10 +7,8 @@ import android.widget.Toast;
 
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.adapters.FermentListAdapter;
-import com.example.brewersnotepad.mobile.adapters.GrainListAdapter;
 import com.example.brewersnotepad.mobile.data.FermentationEntry;
-import com.example.brewersnotepad.mobile.data.GrainEntry;
-import com.example.brewersnotepad.mobile.data.RecipeManager;
+import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
 /**
  * Created by xnml on 13.5.2016 г..
@@ -64,7 +62,7 @@ public class AddFermentListener implements ImageButton.OnClickListener {
             fermentPhase.setPhaseName(fermentName);
             fermentPhase.setPhaseDuration(Integer.parseInt(fermentTime));
             fermentPhase.setTargetPhaseTemp(Integer.parseInt(fermentTemp));
-            RecipeManager.getCurrentRecipe().addFermentPhase(fermentPhase);
+            RecipeRuntimeManager.getCurrentRecipe().addFermentPhase(fermentPhase);
             fermentAdapter.add(fermentPhase);
             fermentAdapter.notifyDataSetChanged();
         }

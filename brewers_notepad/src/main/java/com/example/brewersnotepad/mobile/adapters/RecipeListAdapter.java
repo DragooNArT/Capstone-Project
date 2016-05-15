@@ -12,11 +12,15 @@ import android.widget.TextView;
 
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.activities.ViewRecipeActivity;
+import com.example.brewersnotepad.mobile.data.RecipeDataHolder;
+import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
+
+import java.util.List;
 
 /**
  * Created by DragooNArT-PC on 5/8/2016.
  */
-public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder> implements  RecyclerView.OnItemTouchListener {
+public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder> implements  View.OnClickListener {
     private View mEmptyView;
     private Activity mActivity;
 
@@ -38,50 +42,47 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             }
             View view = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
             view.setFocusable(true);
+
             return new RecipeListViewHolder(view);
         } else {
             throw new RuntimeException("Not bound to RecyclerView");
         }
     }
-    String[] dummyData = new String[]{"Recepie 1","Recepie 2","Recepie 3"};
 
     @Override
     public void onBindViewHolder(RecipeListViewHolder holder, int position) {
-    String dummyDataEntry = dummyData[position];
-        holder.mRecipeName.setText(dummyDataEntry);
+        if(RecipeRuntimeManager.hasRecipes()) {
+            RecipeDataHolder recipeEntry = RecipeRuntimeManager.getRecipesList().get(position);
+            holder.mRecipeName.setText(recipeEntry.getRecipe_name());
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        if ( null == dummyData ) return 0;
-        return dummyData.length;
-    }
-
-
-    @Override
-    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-        return true;
-    }
-
-    @Override
-    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-        View childView = rv.findChildViewUnder(e.getX(),e.getY());
-
-        if(childView != null && e.getAction() == MotionEvent.ACTION_UP) {
-            TextView recipe_nameView = (TextView)childView.findViewById(R.id.recipe_name);
-
-            String recipeName = (String) recipe_nameView.getText();
-            Intent intent = new Intent(mActivity, ViewRecipeActivity.class);
-            //TODO put stuff
-            mActivity.startActivity(intent);
-            //TODO find a way to fetch data entry from childView
-            //TODO transition to a new activity
+        if(RecipeRuntimeManager.hasRecipes()) {
+            return RecipeRuntimeManager.getRecipesList().size();
         }
+        return 0;
     }
 
-    @Override
-    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 
+
+    @Override
+    public void onClick(View view) {
+//
+//        View childView = rv.findChildViewUnder(e.getX(),e.getY());
+//
+//        if(childView != null && e.getAction() == MotionEvent.ACTION_UP) {
+//            TextView recipe_nameView = (TextView)childView.findViewById(R.id.recipe_name);
+//
+//            String recipeName = (String) recipe_nameView.getText();
+//            Intent intent = new Intent(mActivity, ViewRecipeActivity.class);
+//            //TODO put stuff
+//            mActivity.startActivity(intent);
+//            //TODO find a way to fetch data entry from childView
+//            //TODO transition to a new activity
+//        }
     }
 
     public static class RecipeListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -93,13 +94,21 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             super(view);
 
             view.setClickable(true);
+            view.setOnClickListener(this);
             mRecipeName = (TextView) view.findViewById(R.id.recipe_name);
             viewRoot = view.findViewById(R.id.recipe_list_item_root);
         }
 
         @Override
         public void onClick(View view) {
-
+            int pos = getAdapterPosition();
+            TextView recipe_nameView = (TextView)view.findViewById(R.id.recipe_name);
+            String recipeName = (String) recipe_nameView.getText();
+            Intent intent = new Intent(view.getContext(), ViewRecipeActivity.class);
+//            //TODO put stuff
+            view.getContext().startActivity(intent);
+//            //TODO find a way to fetch data entry from childView
+//            //TODO transition to a new activity
         }
     }
 }

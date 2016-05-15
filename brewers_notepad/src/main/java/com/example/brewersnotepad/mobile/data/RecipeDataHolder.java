@@ -1,7 +1,11 @@
 package com.example.brewersnotepad.mobile.data;
 
+import android.net.Uri;
+
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by xnml on 12.5.2016 г..
@@ -24,14 +28,38 @@ public class RecipeDataHolder {
 
     private List<FermentationEntry> fermentation_phases =new ArrayList<FermentationEntry>();
 
+    private final String recipe_id;
+
+    public RecipeDataHolder(String recipe_id, String recipe_name) {
+        this.recipe_id = recipe_id;
+        this.recipe_name = recipe_name;
+    }
+
+    public Uri getRecipeUri() {
+        return recipeUri;
+    }
+
+    public void setRecipeUri(Uri recipeUri) {
+        this.recipeUri = recipeUri;
+    }
+
+    private Uri recipeUri;
+
     public List<FermentationEntry> getFermentation_phases() {
         return fermentation_phases;
+    }
+
+    public RecipeDataHolder() {
+        recipe_id = UUID.randomUUID().toString();
     }
 
     public void addFermentPhase(FermentationEntry ferPhase) {
         if(ferPhase != null) {
             this.fermentation_phases.add(ferPhase);
         }
+    }
+    public String getRecipe_id() {
+        return recipe_id;
     }
 
     public List<HopEntry> getRecipe_hops() {

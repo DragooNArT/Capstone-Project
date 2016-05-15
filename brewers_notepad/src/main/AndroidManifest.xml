@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.brewersnotepad">
 
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -27,6 +28,11 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <provider android:name=".mobile.providers.RecipeStorageProvider"
+        android:authorities="com.example.brewersnotepad.RecipeData"
+            >
+    </provider>
     </application>
 
 </manifest>

@@ -1,16 +1,14 @@
 package com.example.brewersnotepad.mobile.listeners;
 
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.adapters.GrainListAdapter;
 import com.example.brewersnotepad.mobile.data.GrainEntry;
-import com.example.brewersnotepad.mobile.data.RecipeManager;
+import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
 /**
  * Created by xnml on 12.5.2016 г..
@@ -52,7 +50,7 @@ public class AddGrainListener implements ImageButton.OnClickListener {
                 GrainEntry grains = new GrainEntry();
                 grains.setGrainQuantity(Double.parseDouble(grainQuantity));
                 grains.setGrainType(grainType);
-                RecipeManager.getCurrentRecipe().addGrains(grains);
+                RecipeRuntimeManager.getCurrentRecipe().addGrains(grains);
                 grainAdapter.add(grains);
                 grainAdapter.notifyDataSetChanged();
             }

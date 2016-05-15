@@ -20,7 +20,10 @@ import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.adapters.ViewRecipePagerAdapter;
 
 public class ViewRecipeActivity extends AppCompatActivity {
-
+    
+    public static final String RECIPE_ID_EXTRA = "recipeIdExtra";
+    
+    private String currentRecipeId;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -35,7 +38,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +50,12 @@ public class ViewRecipeActivity extends AppCompatActivity {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new ViewRecipePagerAdapter(getSupportFragmentManager());
+        
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null) {
+            currentRecipeId = extras.getString(RECIPE_ID_EXTRA);
 
+        }
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.view_recpie_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -104,7 +111,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
         }
