@@ -73,23 +73,22 @@ public class MainRecipeListFragment extends Fragment implements LoaderManager.Lo
     }
 
     public void loadData(Cursor data) {
-       if(data != null && !data.isClosed()) {
-            data.moveToFirst();
-            List<RecipeDataHolder> recipesList = new ArrayList<RecipeDataHolder>();
-           try {
-               while (!data.isAfterLast()) {
-                   String recipe_id = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_ID));
-                   String recipe_name = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_NAME));
-                   RecipeDataHolder entry = new RecipeDataHolder(recipe_id, recipe_name);
-                   recipesList.add(entry);
-                   data.moveToNext();
-               }
-           } finally {
-               data.close();
-           }
+       if(data != null) {
+               data.moveToFirst();
+               List<RecipeDataHolder> recipesList = new ArrayList<RecipeDataHolder>();
+                   while (!data.isAfterLast()) {
+                       String recipe_id = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_ID));
+                       String recipe_name = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_NAME));
+                       RecipeDataHolder entry = new RecipeDataHolder(recipe_id, recipe_name);
+                       recipesList.add(entry);
+                       data.moveToNext();
+                   }
+               RecipeRuntimeManager.getRecipesList().clear();
+               RecipeRuntimeManager.getRecipesList().addAll(recipesList);
+                mBeerListAdapter.notifyDataSetChanged();
+        } else {
            RecipeRuntimeManager.getRecipesList().clear();
-           RecipeRuntimeManager.getRecipesList().addAll(recipesList);
-        }
+       }
     }
 
     @Override
@@ -215,6 +214,7 @@ public class MainRecipeListFragment extends Fragment implements LoaderManager.Lo
 
     @Override
     public void onLoaderReset(android.support.v4.content.Loader<Cursor> loader) {
+
         loadData(null);
     }
 
