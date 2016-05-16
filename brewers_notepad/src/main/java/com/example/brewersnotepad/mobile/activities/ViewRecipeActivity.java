@@ -1,5 +1,6 @@
 package com.example.brewersnotepad.mobile.activities;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -19,9 +20,12 @@ import android.widget.TextView;
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.adapters.ViewRecipePagerAdapter;
 import com.example.brewersnotepad.mobile.data.RecipeDataHolder;
+import com.example.brewersnotepad.mobile.fragments.CreateRecipeExtrasFragment;
+import com.example.brewersnotepad.mobile.fragments.ViewRecipeMain;
+import com.example.brewersnotepad.mobile.fragments.ViewRecipeSecondary;
 import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
-public class ViewRecipeActivity extends AppCompatActivity {
+public class ViewRecipeActivity extends AppCompatActivity implements CreateRecipeExtrasFragment.OnFragmentInteractionListener,ViewRecipeMain.OnFragmentInteractionListener,ViewRecipeSecondary.OnFragmentInteractionListener {
     
     public static final String RECIPE_ID_EXTRA = "recipeIdExtra";
     
@@ -39,7 +43,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private static String currentRecipeId;
     private ViewPager mViewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         if(extras!=null) {
             RecipeDataHolder currentRecipe =RecipeRuntimeManager.getRecipe(extras.getString(RECIPE_ID_EXTRA));
             if(currentRecipe != null ) {
-                currentRecipeId = currentRecipe.getRecipe_name();
+                RecipeRuntimeManager.setViewRecipe(currentRecipe);
             }
         }
         // Set up the ViewPager with the sections adapter.
@@ -96,39 +99,8 @@ public class ViewRecipeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
 
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putString(RECIPE_ID_EXTRA,currentRecipeId);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_view_recipe, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
+    @Override
+    public void onFragmentInteraction(Uri uri) {
     }
-
 }

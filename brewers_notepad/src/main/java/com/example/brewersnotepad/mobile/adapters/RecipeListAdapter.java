@@ -108,25 +108,9 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             int pos = getAdapterPosition();
             TextView recipe_nameView = (TextView)view.findViewById(R.id.recipe_name);
 
-            String[] columns = new String[]{RecipeStorageProvider.FIELD_RECIPE_DATA};
-            String selection = RecipeStorageProvider.FIELD_RECIPE_NAME+" = '"+recipe_nameView.getText()+"'";
-
-            Cursor r = viewRoot.getContext().getContentResolver().query(RecipeStorageProvider.CONTENT_URI,columns,selection,null,null);
-            if(r != null && r.moveToFirst()) {
-                String jsonData = r.getString(r.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_DATA));
-                RecipeDataHolder recipe = JsonUtility.JsonToObject(jsonData);
-                if(recipe != null) {
-                    addOrReplaceRecipe(recipe);
-                } else {
-                    Log.e(getClass().getName(),"unable to parse json from db");
-                }
-            }
-
             Intent intent = new Intent(view.getContext(), ViewRecipeActivity.class);
-//            //TODO put stuff
+            intent.putExtra(ViewRecipeActivity.RECIPE_ID_EXTRA,recipe_nameView.getText());
             view.getContext().startActivity(intent);
-//            //TODO find a way to fetch data entry from childView
-//            //TODO transition to a new activity
         }
     }
 

@@ -11,6 +11,7 @@ import java.util.List;
 public class RecipeRuntimeManager {
 
     private static RecipeDataHolder currentRecipe;
+    private static RecipeDataHolder viewRecipe;
     private static List<RecipeDataHolder> recipesList = new ArrayList<RecipeDataHolder>();
 
     public static RecipeDataHolder getCurrentRecipe() {
@@ -37,5 +38,11 @@ public class RecipeRuntimeManager {
             }
         }
         return null;
+    }
+    public static RecipeDataHolder getViewRecipe() {
+        return viewRecipe;
+    }
+    public static void setViewRecipe(RecipeDataHolder viewRecipe) {
+        RecipeRuntimeManager.viewRecipe = viewRecipe;
     }
 }
