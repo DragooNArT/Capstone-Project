@@ -6,7 +6,6 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -14,8 +13,8 @@ import android.widget.TextView;
 
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.data.GrainEntry;
-import com.example.brewersnotepad.mobile.listeners.DeleteGrainListener;
 import com.example.brewersnotepad.mobile.listeners.DeleteListListener;
+import com.example.brewersnotepad.mobile.providers.MetricsProvider;
 
 /**
  * Created by xnml on 12.5.2016 г..
@@ -54,7 +53,7 @@ public class GrainListAdapter<T> extends BaseListAdapter<GrainEntry> {
         //TODO always removes last element(fixme)
         deleteGrainBtn.setOnClickListener(removeListener);
         grainTypeUi.setText(grainEntry.getGrainType());
-        grainQuantityUi.setText(grainEntry.getGrainQuantity()+"lbs");
+        grainQuantityUi.setText(grainEntry.getGrainQuantity()+ metricsProvider.getWeightPrefix());
         return convertView;
     }
 }

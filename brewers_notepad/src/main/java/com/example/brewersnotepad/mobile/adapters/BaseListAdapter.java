@@ -4,14 +4,18 @@ import android.content.Context;
 import android.util.TypedValue;
 import android.widget.ArrayAdapter;
 
+import com.example.brewersnotepad.mobile.providers.MetricsProvider;
+
 /**
  * Created by xnml on 14.5.2016 г..
  */
 public class BaseListAdapter<T>  extends ArrayAdapter<T> {
 
     protected float MAX_HEIGHT;
+    protected MetricsProvider metricsProvider;
     public BaseListAdapter(Context context, int resource) {
         super(context, resource);
+        metricsProvider = new MetricsProvider(context);
     }
 
 

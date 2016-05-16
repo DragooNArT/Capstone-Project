@@ -23,8 +23,7 @@ public class RecipeStorageProvider extends ContentProvider {
     public static final Uri CONTENT_URI = Uri.parse(URL);
 
 
-    public final static  String FIELD_RECIPE_ID = "recipeId";
-    public final static String FIELD_RECIPE_NAME = "recipeName";
+    public final static  String FIELD_RECIPE_NAME = "recipeId";
 
     public final static String FIELD_RECIPE_DATA = "recipeData";
     public static final String UPDATE_PATH = "update";
@@ -76,7 +75,7 @@ public class RecipeStorageProvider extends ContentProvider {
         int count;
         String id = uri.getLastPathSegment(); //gets the id
 
-        count = db.delete( RECIPES_TABLE_NAME, FIELD_RECIPE_ID +  " = '" + selection + "'",null);
+        count = db.delete( RECIPES_TABLE_NAME, FIELD_RECIPE_NAME +  " = '" + selection + "'",null);
         getContext().getContentResolver().notifyChange(uri, null);
         return count;
 
@@ -128,8 +127,7 @@ public class RecipeStorageProvider extends ContentProvider {
     static final int DATABASE_VERSION = 1;
     static final String CREATE_DB_TABLE =
             " CREATE TABLE " + RECIPES_TABLE_NAME +
-                    " ("+FIELD_RECIPE_ID+" TEXT PRIMARY KEY, " +
-                     FIELD_RECIPE_NAME+ " TEXT NOT NULL, " +
+                    " ("+ FIELD_RECIPE_NAME +" TEXT PRIMARY KEY, " +
                     FIELD_RECIPE_DATA +" TEXT NOT NULL);";
 
     /**

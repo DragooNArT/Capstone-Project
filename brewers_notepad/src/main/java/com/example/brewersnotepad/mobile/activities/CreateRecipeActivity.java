@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.content.CursorLoader;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -24,10 +23,10 @@ import com.example.brewersnotepad.mobile.listeners.CreateRecipeListener;
 import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 import com.example.brewersnotepad.mobile.providers.RecipeStorageProvider;
 
-public class CreateRecipeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, CreateRecipeFramentMain.OnFragmentInteractionListener, CreateRecipeFragmentSecondary.OnFragmentInteractionListener, CreateRecipeExtrasFragment.OnFragmentInteractionListener{
+public class CreateRecipeActivity extends AppCompatActivity implements CreateRecipeFramentMain.OnFragmentInteractionListener, CreateRecipeFragmentSecondary.OnFragmentInteractionListener, CreateRecipeExtrasFragment.OnFragmentInteractionListener {
 
     private CreateRecipePagerAdapter mSectionsPagerAdapter;
-    private final int  LOADER_ID = 11;
+    private final int LOADER_ID = 11;
     private ViewPager mViewPager;
     private MenuItem doneButton;
     private RecipeDataHolder recipeInstance;
@@ -38,18 +37,15 @@ public class CreateRecipeActivity extends AppCompatActivity implements LoaderMan
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_recipe);
 
-        getLoaderManager().initLoader(LOADER_ID, null,this);
-        listener = new CreateRecipeListener(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.create_recipe_toolbar);
         toolbar.setTitle(getString(R.string.create_recipe_view_title));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mSectionsPagerAdapter = new CreateRecipePagerAdapter(getSupportFragmentManager(),this);
-
+        mSectionsPagerAdapter = new CreateRecipePagerAdapter(getSupportFragmentManager(), this);
+        listener = new CreateRecipeListener(this);
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.create_recpie_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
 
 
         //create a new recipe and make it globally available
@@ -65,8 +61,6 @@ public class CreateRecipeActivity extends AppCompatActivity implements LoaderMan
     public RecipeDataHolder getRecipeInstance() {
         return recipeInstance;
     }
-
-
 
     public MenuItem getDoneButton() {
         return doneButton;
@@ -94,36 +88,14 @@ public class CreateRecipeActivity extends AppCompatActivity implements LoaderMan
         return true;
     }
 
-
-    @Override
-    public android.content.Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-
-        return new CursorLoader(this,RecipeStorageProvider.CONTENT_URI,  null, null, null,null);
-    }
-
-    @Override
-    public void onLoadFinished(android.content.Loader<Cursor> loader, Cursor cursor) {
-
-    }
-
-    @Override
-    public void onLoaderReset(android.content.Loader<Cursor> loader) {
-
-    }
-
-
-
-
     public void fillData(RecipeDataHolder dataHolder) {
         ContentValues values = new ContentValues();
-        values.put(RecipeStorageProvider.FIELD_RECIPE_ID,dataHolder.getRecipe_id());
-        values.put(RecipeStorageProvider.FIELD_RECIPE_NAME,dataHolder.getRecipe_name());
+        values.put(RecipeStorageProvider.FIELD_RECIPE_NAME, dataHolder.getRecipe_name());
         String jsonData = JsonUtility.ObjectToJson(dataHolder);
-        values.put(RecipeStorageProvider.FIELD_RECIPE_DATA,jsonData);
-        Uri insert_uri = getContentResolver().insert(RecipeStorageProvider.CONTENT_URI,values);
-        getContentResolver().notifyChange(insert_uri,null);
+        values.put(RecipeStorageProvider.FIELD_RECIPE_DATA, jsonData);
+        Uri insert_uri = getContentResolver().insert(RecipeStorageProvider.CONTENT_URI, values);
+        getContentResolver().notifyChange(insert_uri, null);
         dataHolder.setRecipeUri(insert_uri);
     }
-
 
 }

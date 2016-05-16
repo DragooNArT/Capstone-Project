@@ -51,9 +51,9 @@ public class HopListAdapter<T> extends BaseListAdapter<HopEntry> {
         TextView hopType = (TextView)convertView.findViewById(R.id.hop_list_type_entry);
         hopType.setText(hopEntry.getHopType());
         TextView hopQuantity = (TextView)convertView.findViewById(R.id.hop_list_quantity_entry);
-        hopQuantity.setText(hopEntry.getHopQuantity()+"lbs");
+        hopQuantity.setText(hopEntry.getHopQuantity()+metricsProvider.getSmallWeightPrefix());
         TextView hopAdd = (TextView)convertView.findViewById(R.id.hop_list_when_entry);
-        hopAdd.setText(hopEntry.getTimeToAdd()+"min");
+        hopAdd.setText(hopEntry.getTimeToAdd()+getContext().getString(R.string.time_in_minutes));
         ImageView deleteGrainBtn = (ImageView)convertView.findViewById(R.id.deleteGrainButton);
         deleteGrainBtn.setTag(position);
         deleteGrainBtn.setOnClickListener(deleteListListener);

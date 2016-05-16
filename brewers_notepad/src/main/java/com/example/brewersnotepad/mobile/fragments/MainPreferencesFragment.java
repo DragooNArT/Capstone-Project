@@ -1,14 +1,18 @@
 package com.example.brewersnotepad.mobile.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ToggleButton;
 
 import com.example.brewersnotepad.R;
+import com.example.brewersnotepad.mobile.listeners.PreferencesChangedListener;
+import com.example.brewersnotepad.mobile.providers.SharedPreferencesProvider;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,12 +29,8 @@ public class MainPreferencesFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     public static final int FRAGMENT_ID = 2;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
-
+    private PreferencesChangedListener mPrefListener;
     public MainPreferencesFragment() {
         // Required empty public constructor
     }
@@ -56,21 +56,31 @@ public class MainPreferencesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View result = inflater.inflate(R.layout.fragment_preferences, container, false);;
         View search = getActivity().findViewById(R.id.search);
         if(search != null) {
             search.setVisibility(View.INVISIBLE);
         }
+
+        ToggleButton useMetric = (ToggleButton)result.findViewById(R.id.useMetric);
+
+        ToggleButton useCelsius = (ToggleButton)result.findViewById(R.id.useCelsius);
+        SharedPreferencesProvider prefsProvider = new SharedPreferencesProvider(getContext());
+        mPrefListener = new PreferencesChangedListener(prefsProvider);
+        if(prefsProvider != null) {
+            useMetric.setChecked(prefsProvider.getUseMetric());
+            useCelsius.setChecked(prefsProvider.getUseCelsius());
+        }
+
+        useCelsius.setOnCheckedChangeListener(mPrefListener);
+        useMetric.setOnCheckedChangeListener(mPrefListener);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_preferences, container, false);
+        return result;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

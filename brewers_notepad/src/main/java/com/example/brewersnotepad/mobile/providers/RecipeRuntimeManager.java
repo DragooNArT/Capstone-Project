@@ -28,10 +28,10 @@ public class RecipeRuntimeManager {
         return recipesList != null && !recipesList.isEmpty();
     }
 
-    public static RecipeDataHolder getRecipe(String string) {
-        if(string!=null && !string.isEmpty()) {
+    public static RecipeDataHolder getRecipe(String recipeName) {
+        if(recipeName!=null && !recipeName.isEmpty()) {
             for (RecipeDataHolder entry : recipesList) {
-                if (entry.getRecipe_id().equals(string)) {
+                if (entry.getRecipe_name().equals(recipeName)) {
                     return entry;
                 }
             }

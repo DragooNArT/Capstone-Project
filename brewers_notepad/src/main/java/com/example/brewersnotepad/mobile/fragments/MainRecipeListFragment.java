@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.adapters.RecipeListAdapter;
 import com.example.brewersnotepad.mobile.data.RecipeDataHolder;
+import com.example.brewersnotepad.mobile.json.JsonUtility;
 import com.example.brewersnotepad.mobile.listeners.MainActivityFabListener;
 import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 import com.example.brewersnotepad.mobile.providers.RecipeStorageProvider;
@@ -77,10 +78,12 @@ public class MainRecipeListFragment extends Fragment implements LoaderManager.Lo
                data.moveToFirst();
                List<RecipeDataHolder> recipesList = new ArrayList<RecipeDataHolder>();
                    while (!data.isAfterLast()) {
-                       String recipe_id = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_ID));
-                       String recipe_name = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_NAME));
-                       RecipeDataHolder entry = new RecipeDataHolder(recipe_id, recipe_name);
-                       recipesList.add(entry);
+                       String recipe_id = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_NAME));
+                       String recipe_data = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_DATA));
+                       RecipeDataHolder entry = JsonUtility.JsonToObject(recipe_data);
+                       if(entry != null) {
+                           recipesList.add(entry);
+                       }
                        data.moveToNext();
                    }
                RecipeRuntimeManager.getRecipesList().clear();
@@ -167,7 +170,7 @@ public class MainRecipeListFragment extends Fragment implements LoaderManager.Lo
         int pos = viewHolder.getLayoutPosition();
         RecipeDataHolder recipeHolder = RecipeRuntimeManager.getRecipesList().get(pos);
         if(recipeHolder != null) {
-            int id = getActivity().getContentResolver().delete(RecipeStorageProvider.CONTENT_URI, recipeHolder.getRecipe_id(), null);
+            int id = getActivity().getContentResolver().delete(RecipeStorageProvider.CONTENT_URI, recipeHolder.getRecipe_name(), null);
 
             if(id != 0) {
                 RecipeRuntimeManager.getRecipesList().remove(recipeHolder);
@@ -202,8 +205,7 @@ public class MainRecipeListFragment extends Fragment implements LoaderManager.Lo
 
     @Override
     public android.support.v4.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
-
-        String[] columns = new String[]{RecipeStorageProvider.FIELD_RECIPE_ID,RecipeStorageProvider.FIELD_RECIPE_NAME};
+        String[] columns = new String[]{RecipeStorageProvider.FIELD_RECIPE_NAME,RecipeStorageProvider.FIELD_RECIPE_DATA};
         return new CursorLoader(getContext(),RecipeStorageProvider.CONTENT_URI, columns,null,null,null);
     }
 

@@ -58,7 +58,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         if(extras!=null) {
             RecipeDataHolder currentRecipe =RecipeRuntimeManager.getRecipe(extras.getString(RECIPE_ID_EXTRA));
             if(currentRecipe != null ) {
-                currentRecipeId = currentRecipe.getRecipe_id();
+                currentRecipeId = currentRecipe.getRecipe_name();
             }
         }
         // Set up the ViewPager with the sections adapter.

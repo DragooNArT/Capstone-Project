@@ -6,7 +6,6 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.data.FermentationEntry;
-import com.example.brewersnotepad.mobile.data.GrainEntry;
 import com.example.brewersnotepad.mobile.listeners.DeleteListListener;
 
 /**
@@ -52,7 +50,7 @@ public class FermentListAdapter<T> extends BaseListAdapter<FermentationEntry> {
         fermentDuration.setText(getContext().getString(R.string.fermentTimeFormat,fermentationEntry.getPhaseDuration()));
 
         TextView fermentTemp = (TextView)convertView.findViewById(R.id.ferment_list_temp_entry);
-        fermentTemp.setText(fermentationEntry.getTargetPhaseTemp()+"C/F");
+        fermentTemp.setText(fermentationEntry.getTargetPhaseTemp()+" "+metricsProvider.getTempPrefix());
         ImageView deleteGrainBtn = (ImageView)convertView.findViewById(R.id.deleteGrainButton);
         deleteGrainBtn.setTag(position);
         deleteGrainBtn.setOnClickListener(removeListener);

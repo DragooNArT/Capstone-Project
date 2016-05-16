@@ -121,7 +121,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
                     Log.e(getClass().getName(),"unable to parse json from db");
                 }
             }
-//            String recipeName = (String) recipe_nameView.getText();
 
             Intent intent = new Intent(view.getContext(), ViewRecipeActivity.class);
 //            //TODO put stuff
@@ -134,7 +133,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     private static void addOrReplaceRecipe(RecipeDataHolder recipe) {
         int pos = -1;
         for(RecipeDataHolder entry : RecipeRuntimeManager.getRecipesList()) {
-            if(recipe.getRecipe_id().equals(entry.getRecipe_id())){
+            if(recipe.getRecipe_name().equals(entry.getRecipe_name())){
                 pos = RecipeRuntimeManager.getRecipesList().indexOf(entry);
                 break;
             }

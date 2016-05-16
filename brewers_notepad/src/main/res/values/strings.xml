@@ -39,6 +39,13 @@
     <string name="prompt_save_draft_title">Incomplete Recipe</string>
     <string name="delete_swipe_prompt_title">Delete Swiped Item</string>
     <string name="prompt_delete_content_text">You are about to delete \"%s\" recipe. Are you sure?</string>
+    <string name="metric_weight">kg</string>
+    <string name="nonMetric_weight">lbs</string>
+    <string name="celsius_prefix">°C</string>
+    <string name="farenheight_prefix">°F</string>
+    <string name="gram_prefix">g</string>
+    <string name="ounce_prefix">oz</string>
+    <string name="time_in_minutes">mins</string>
     <string-array name="recipe_types_list">
         <item>All Grain</item>
         <item>Partial Mash</item>

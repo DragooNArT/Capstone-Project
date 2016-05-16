@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +17,10 @@ import android.widget.Toast;
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.activities.CreateRecipeActivity;
 import com.example.brewersnotepad.mobile.activities.MainActivity;
+import com.example.brewersnotepad.mobile.adapters.CreateRecipePagerAdapter;
 import com.example.brewersnotepad.mobile.data.RecipeDataHolder;
+import com.example.brewersnotepad.mobile.providers.MetricsProvider;
+import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
 import org.w3c.dom.Text;
 
@@ -26,9 +30,10 @@ import org.w3c.dom.Text;
 public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
 
     private CreateRecipeActivity activity;
-
+    private MetricsProvider metricsProvider;
     public CreateRecipeListener(CreateRecipeActivity createRecipeActivity) {
         this.activity = createRecipeActivity;
+        this.metricsProvider = new MetricsProvider(activity);
     }
 
     @Override
@@ -44,10 +49,7 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
                 }
             } else {
                 Toast.makeText(activity, "Can't save recipe with no name!", Toast.LENGTH_LONG).show();
-                View inputRecipe = activity.findViewById(R.id.inputRecipeName);
-                if(inputRecipe != null) {
-                    inputRecipe.requestFocus();
-                }
+                focusOnRecipeName();
             }
             return true;
         }
@@ -55,11 +57,29 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
     }
 
     private void finalizeRecipe(RecipeDataHolder recipeInstance) {
-        activity.fillData(recipeInstance);
-        Intent intent = new Intent(activity, MainActivity.class);
-        intent.putExtra(MainActivity.EXTRA_REFRESH,true);
-        activity.startActivity(intent);
+        if(RecipeRuntimeManager.getRecipe(recipeInstance.getRecipe_name()) == null) {
+            activity.fillData(recipeInstance);
+            Intent intent = new Intent(activity, MainActivity.class);
+            intent.putExtra(MainActivity.EXTRA_REFRESH, true);
+            activity.startActivity(intent);
+        } else {
+            Toast.makeText(activity, "Recipe name \""+recipeInstance.getRecipe_name()+"\" already exists!", Toast.LENGTH_LONG).show();
+            focusOnRecipeName();
+        }
     }
+
+    private void focusOnRecipeName() {
+
+        ViewPager pager = (ViewPager)activity.findViewById(R.id.create_recpie_pager);
+        if(pager.getCurrentItem() != 0) {
+            pager.setCurrentItem(0);
+        }
+        View inputRecipe = activity.findViewById(R.id.inputRecipeName);
+        if(inputRecipe != null) {
+            inputRecipe.requestFocus();
+        }
+    }
+
     private void promptSaveDraft(final RecipeDataHolder recipeInstance) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(activity.getString(R.string.prompt_save_draft_title));
@@ -118,7 +138,8 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
         String mashTempVal = mash_temp_input.getText().toString();
         if(mashTempVal!=null && !mashTempVal.isEmpty()) {
             try {
-                recipeInstance.setMashTemp(Integer.parseInt(mashTempVal));
+                int temp = metricsProvider.convertTempForStorage(Integer.parseInt(mashTempVal));
+                recipeInstance.setMashTemp(temp);
             } catch(NumberFormatException e) {
                 //TODO toast invalid value
             }
