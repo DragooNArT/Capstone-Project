@@ -127,8 +127,5 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
             String where = RecipeStorageProvider.FIELD_RECIPE_NAME + "= '" + dataHolder.getRecipe_name() + "'";
             int row = getContentResolver().update(RecipeStorageProvider.CONTENT_URI,values,where,null);
         }
-
-
     }
-
 }

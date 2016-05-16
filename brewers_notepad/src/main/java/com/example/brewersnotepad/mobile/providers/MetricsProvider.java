@@ -41,7 +41,15 @@ public class MetricsProvider {
         return ctx.getString(R.string.ounce_prefix);
     }
 
-    public int convertTempForStorage(int temp) {
+    public int convertTempForStorage(String tempText) {
+        int temp = Integer.parseInt(tempText.substring(0,tempText.length()-getTempPrefix().length()));
+        if(!prov.getUseCelsius()) {
+            return (temp - 32)*5/9;
+        }
+        return temp;
+    }
+
+    private int convertTempForDisplay(int temp) {
         if(!prov.getUseCelsius()) {
             return ((temp * 9)/5) + 32;
         }
@@ -50,10 +58,18 @@ public class MetricsProvider {
 
     DecimalFormat df = new DecimalFormat("#.###");
     public String convertWeightForStorage(double weight) {
+
         if(!prov.getUseMetric()) {
             return df.format(weight*2.2);
         }
         return Double.toString(weight);
+    }
+    public double convertWeightTextForStorage(String weightText) {
+        double weight = Double.parseDouble(weightText.substring(0,weightText.length()-getWeightPrefix().length()));
+        if(!prov.getUseMetric()) {
+            return weight*2.2;
+        }
+        return weight;
     }
     public double convertSmallWeightForStorage(double smallWeight) {
         if(!prov.getUseMetric()) {
@@ -63,7 +79,7 @@ public class MetricsProvider {
     }
 
     public String getTempToString(int mashTemp) {
-        return convertTempForStorage(mashTemp)+getTempPrefix();
+        return convertTempForDisplay(mashTemp)+getTempPrefix();
     }
 
     public String getWeightText(double grainQuantity) {

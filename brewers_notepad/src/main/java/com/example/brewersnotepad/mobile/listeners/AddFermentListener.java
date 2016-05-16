@@ -68,6 +68,7 @@ public class AddFermentListener implements ImageButton.OnClickListener {
             RecipeRuntimeManager.getCurrentRecipe().addFermentPhase(fermentPhase);
             fermentAdapter.add(fermentPhase);
             fermentAdapter.notifyDataSetChanged();
+            //reset ui state
             fermentPhaseNameInput.setText(null);
             fermentTempInput.setText(null);
             fermentTimeInput.setText(null);

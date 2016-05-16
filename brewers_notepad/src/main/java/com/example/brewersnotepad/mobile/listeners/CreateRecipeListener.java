@@ -108,12 +108,12 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
     private void fillFromSecondaryFragment(RecipeDataHolder recipeInstance) {
         TextView hop_duration = (TextView) activity.findViewById(R.id.hopPhaseDurationInput);
         String hopDurVal = hop_duration.getText().toString();
-        if (hopDurVal != null && !hopDurVal.isEmpty()) {
-            try {
-                recipeInstance.setHopSteepDuration(Integer.parseInt(hopDurVal));
-            } catch (NumberFormatException e) {
-                //TODO toast invalid value
-            }
+        if (hopDurVal != null) {
+                try {
+                    recipeInstance.setHopSteepDuration(Integer.parseInt(hopDurVal));
+                } catch (NumberFormatException e) {
+                    recipeInstance.setHopSteepDuration(-1);
+                }
         }
     }
 
@@ -128,22 +128,23 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
 
         TextView mash_duration = (TextView)activity.findViewById(R.id.inputMashDuration);
         String mashDurValue = mash_duration.getText().toString();
-        if(mashDurValue!=null && !mashDurValue.isEmpty()) {
+        if(mashDurValue!=null) {
             try {
+                mashDurValue = mashDurValue.substring(0,mashDurValue.length()-activity.getString(R.string.time_in_minutes).length());
                 recipeInstance.setMashDuration(Integer.parseInt(mashDurValue));
             } catch(NumberFormatException e) {
-                //TODO toast invalid value
+                recipeInstance.setMashDuration(-1);
             }
         }
 
         TextView mash_temp_input = (TextView)activity.findViewById(R.id.mashTempInput);
         String mashTempVal = mash_temp_input.getText().toString();
-        if(mashTempVal!=null && !mashTempVal.isEmpty()) {
+        if(mashTempVal!=null) {
             try {
-                int temp = metricsProvider.convertTempForStorage(Integer.parseInt(mashTempVal));
+                int temp = metricsProvider.convertTempForStorage(mashTempVal);
                 recipeInstance.setMashTemp(temp);
             } catch(NumberFormatException e) {
-                //TODO toast invalid value
+                recipeInstance.setMashTemp(-1);
             }
         }
     }

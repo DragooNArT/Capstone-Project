@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.adapters.FermentListAdapter;
@@ -18,8 +19,10 @@ import com.example.brewersnotepad.mobile.adapters.HopListAdapter;
 import com.example.brewersnotepad.mobile.data.FermentationEntry;
 import com.example.brewersnotepad.mobile.data.GrainEntry;
 import com.example.brewersnotepad.mobile.data.HopEntry;
+import com.example.brewersnotepad.mobile.data.RecipeDataHolder;
 import com.example.brewersnotepad.mobile.listeners.AddFermentListener;
 import com.example.brewersnotepad.mobile.listeners.AddHopsListener;
+import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +40,7 @@ public class CreateRecipeFragmentSecondary extends Fragment {
     private static final String FERMENT_PARCELABLE = "Ferment_parcel";
 
     // TODO: Rename and change types of parameters
-    private  HopListAdapter<HopEntry> hopAdapter;
+    private HopListAdapter<HopEntry> hopAdapter;
     private FermentListAdapter<FermentationEntry> fermentAdapter;
     private AddHopsListener addHopsListener;
     private AddFermentListener addFermentListener;
@@ -48,7 +51,6 @@ public class CreateRecipeFragmentSecondary extends Fragment {
     }
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,7 @@ public class CreateRecipeFragmentSecondary extends Fragment {
 
     private ArrayList getListFromAdapter(ListAdapter adapter) {
         ArrayList list = new ArrayList();
-        for(int i=0;i<adapter.getCount();i++) {
+        for (int i = 0; i < adapter.getCount(); i++) {
             list.add(adapter.getItem(i));
         }
         return list;
@@ -74,23 +76,23 @@ public class CreateRecipeFragmentSecondary extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_create_recepie_fragment_secondary, container, false);
+        View view = inflater.inflate(R.layout.fragment_create_recepie_fragment_secondary, container, false);
 
-        ListView hopsList = (ListView)view.findViewById(R.id.hopsListView);
+        ListView hopsList = (ListView) view.findViewById(R.id.hopsListView);
         hopAdapter = new HopListAdapter<HopEntry>(getContext(),
-                android.R.layout.simple_list_item_1,hopsList);
+                android.R.layout.simple_list_item_1, hopsList);
 
-        addHopsListener = new AddHopsListener(hopAdapter,view);
+        addHopsListener = new AddHopsListener(hopAdapter, view);
 
-        ImageButton addHopsButton = (ImageButton)view.findViewById(R.id.addHopsButton);
+        ImageButton addHopsButton = (ImageButton) view.findViewById(R.id.addHopsButton);
         addHopsButton.setOnClickListener(addHopsListener);
 
-        ListView fermentList = (ListView)view.findViewById(R.id.fermentListView);
+        ListView fermentList = (ListView) view.findViewById(R.id.fermentListView);
         fermentAdapter = new FermentListAdapter<FermentationEntry>(getContext(),
-                android.R.layout.simple_list_item_1,fermentList);
+                android.R.layout.simple_list_item_1, fermentList);
 
-        addFermentListener = new AddFermentListener(fermentAdapter,view);
-        if(savedInstanceState != null) {
+        addFermentListener = new AddFermentListener(fermentAdapter, view);
+        if (savedInstanceState != null) {
             ArrayList<HopEntry> hopList = savedInstanceState.getParcelableArrayList(HOP_PARCELABLE);
             hopAdapter.addAll(hopList);
             ArrayList<FermentationEntry> fermList = savedInstanceState.getParcelableArrayList(FERMENT_PARCELABLE);
@@ -98,9 +100,26 @@ public class CreateRecipeFragmentSecondary extends Fragment {
         }
         fermentList.setAdapter(fermentAdapter);
         hopsList.setAdapter(hopAdapter);
-        ImageButton addFermentButton = (ImageButton)view.findViewById(R.id.addFermentButton);
+        ImageButton addFermentButton = (ImageButton) view.findViewById(R.id.addFermentButton);
         addFermentButton.setOnClickListener(addFermentListener);
+        fillData(view,hopAdapter,fermentAdapter);
         return view;
+    }
+
+    private void fillData(View view, HopListAdapter<HopEntry> hopAdapter, FermentListAdapter<FermentationEntry> fermentAdapter) {
+        RecipeDataHolder currentRecipe = RecipeRuntimeManager.getCurrentRecipe();
+        if (currentRecipe != null) {
+            TextView hopDurationInput = (TextView)view.findViewById(R.id.hopPhaseDurationInput);
+            if (currentRecipe.getHopSteepDuration() > 0) {
+                hopDurationInput.setText(Integer.toString(currentRecipe.getHopSteepDuration()));
+            }
+            hopAdapter.clear();
+            hopAdapter.addAll(currentRecipe.getRecipe_hops());
+            fermentAdapter.clear();
+            fermentAdapter.addAll(currentRecipe.getFermentation_phases());
+        }
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

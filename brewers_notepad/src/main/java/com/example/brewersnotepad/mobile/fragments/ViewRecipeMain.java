@@ -90,10 +90,9 @@ public class ViewRecipeMain extends Fragment {
 
         //Mash temp
         int mashTemp = currentRecipe.getMashTemp();
-        if(mashTemp>0) {
-            TextView mashTempView = (TextView)view.findViewById(R.id.viewMashTemp);
-            mashTempView.setText(mMetricsProvider.getTempToString(mashTemp));
-        }
+        TextView mashTempView = (TextView)view.findViewById(R.id.viewMashTemp);
+        mashTempView.setText(mMetricsProvider.getTempToString(mashTemp));
+
 
     }
 

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -23,6 +24,7 @@ import com.example.brewersnotepad.mobile.data.GrainEntry;
 import com.example.brewersnotepad.mobile.data.RecipeDataHolder;
 import com.example.brewersnotepad.mobile.listeners.AddGrainListener;
 import com.example.brewersnotepad.mobile.listeners.PreferencesChangedListener;
+import com.example.brewersnotepad.mobile.listeners.SuffixTextWatcher;
 import com.example.brewersnotepad.mobile.providers.MetricsProvider;
 import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
@@ -92,12 +94,24 @@ public class CreateRecipeFramentMain extends Fragment {
         }
         grainList.setAdapter(adapter);
 
+        //suffix
+        EditText mashTempInput = (EditText)view.findViewById(R.id.mashTempInput);
+
+        mashTempInput.addTextChangedListener(new SuffixTextWatcher(mashTempInput,mMetricsProvider.getTempPrefix()));
+
+        EditText mashDurInput = (EditText)view.findViewById(R.id.inputMashDuration);
+
+        mashDurInput.addTextChangedListener(new SuffixTextWatcher(mashDurInput,getString(R.string.time_in_minutes)));
+
+
+        EditText inputGrainQuantity = (EditText)view.findViewById(R.id.inputGrainQuantity);
+
+        inputGrainQuantity.addTextChangedListener(new SuffixTextWatcher(inputGrainQuantity,mMetricsProvider.getWeightPrefix()));
 
         ImageButton addGrainButton = (ImageButton)view.findViewById(R.id.addGrainButton);
-        addGrainListener = new AddGrainListener(adapter,view);
+        addGrainListener = new AddGrainListener(adapter,view,mMetricsProvider);
         addGrainButton.setOnClickListener(addGrainListener);
         fillData(view,recipe_type_adapter);
-
         if(savedInstanceState != null) {
             isNewRecipe = savedInstanceState.getBoolean(CreateRecipeActivity.NEW_RECIPE_KEY,true);
             view.findViewById(R.id.inputRecipeName).setEnabled(isNewRecipe);
@@ -120,12 +134,10 @@ public class CreateRecipeFramentMain extends Fragment {
             }
             if(currentRecipe.getMashDuration()>0) {
                 TextView mashDuration = (TextView) view.findViewById(R.id.inputMashDuration);
-                mashDuration.setText(currentRecipe.getMashDuration()+getString(R.string.time_in_minutes));
+                mashDuration.setText(currentRecipe.getMashDuration()+getContext().getString(R.string.time_in_minutes));
             }
-            if(currentRecipe.getMashTemp()>0) {
-                TextView mashTemp = (TextView) view.findViewById(R.id.mashTempInput);
-                mashTemp.setText(mMetricsProvider.getTempToString(currentRecipe.getMashTemp()));
-            }
+            TextView mashTemp = (TextView) view.findViewById(R.id.mashTempInput);
+            mashTemp.setText(mMetricsProvider.getTempToString(currentRecipe.getMashTemp()));
 
 
 

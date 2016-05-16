@@ -35,7 +35,6 @@ public class GrainListAdapter<T> extends BaseListAdapter<GrainEntry> {
     public void remove(GrainEntry object) {
         RecipeRuntimeManager.getCurrentRecipe().getRecipe_grains().remove(object);
         super.remove(object);
-
     }
 
     @Override

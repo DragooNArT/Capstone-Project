@@ -12,8 +12,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.brewersnotepad.R;
+import com.example.brewersnotepad.mobile.data.GrainEntry;
 import com.example.brewersnotepad.mobile.data.HopEntry;
 import com.example.brewersnotepad.mobile.listeners.DeleteListListener;
+import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
 /**
  * Created by xnml on 13.5.2016 г..
@@ -35,6 +37,12 @@ public class HopListAdapter<T> extends BaseListAdapter<HopEntry> {
         super.notifyDataSetChanged();
         LinearLayout.LayoutParams mParam = new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,Math.round(getTargetHeight()));
         hopsList.setLayoutParams(mParam);
+    }
+
+    @Override
+    public void remove(HopEntry object) {
+        RecipeRuntimeManager.getCurrentRecipe().getRecipe_hops().remove(object);
+        super.remove(object);
     }
 
     @Override

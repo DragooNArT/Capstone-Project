@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.data.FermentationEntry;
+import com.example.brewersnotepad.mobile.data.HopEntry;
 import com.example.brewersnotepad.mobile.listeners.DeleteListListener;
+import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
 /**
  * Created by xnml on 13.5.2016 г..
@@ -36,6 +38,12 @@ public class FermentListAdapter<T> extends BaseListAdapter<FermentationEntry> {
 
         LinearLayout.LayoutParams mParam = new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,Math.round(getTargetHeight()));
         mFermentList.setLayoutParams(mParam);
+    }
+
+    @Override
+    public void remove(FermentationEntry object) {
+        RecipeRuntimeManager.getCurrentRecipe().getFermentation_phases().remove(object);
+        super.remove(object);
     }
 
     @Override
