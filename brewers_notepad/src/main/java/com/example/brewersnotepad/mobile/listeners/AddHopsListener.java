@@ -57,10 +57,14 @@ public class AddHopsListener implements ImageButton.OnClickListener {
 
     @Override
     public void onClick(View v) {
-            String hopVariety = ((TextView)fragmentView.findViewById(R.id.hopVarietyInput)).getText().toString();
-            String hopType = ((TextView)fragmentView.findViewById(R.id.hopTypeInput)).getText().toString();
-            String hopQuantity = ((TextView)fragmentView.findViewById(R.id.hopQuantityInput)).getText().toString();
-            String hopTime = ((TextView)fragmentView.findViewById(R.id.hopTimeAddInput)).getText().toString();
+            TextView hopVarietyInput = ((TextView)fragmentView.findViewById(R.id.hopVarietyInput));
+            TextView hopTypeInput = ((TextView)fragmentView.findViewById(R.id.hopTypeInput));
+            TextView hopQuantityInput = ((TextView)fragmentView.findViewById(R.id.hopQuantityInput));
+            TextView hopTimeInput = ((TextView)fragmentView.findViewById(R.id.hopTimeAddInput));
+            String hopVariety = hopVarietyInput.getText().toString();
+            String hopType = hopTypeInput.getText().toString();
+            String hopQuantity = hopQuantityInput.getText().toString();
+            String hopTime = hopTimeInput.getText().toString();
             if(isInputValid(hopVariety,hopType,hopQuantity,hopTime)) {
                 HopEntry hops = new HopEntry();
                 hops.setHopVariety(hopVariety);
@@ -70,6 +74,11 @@ public class AddHopsListener implements ImageButton.OnClickListener {
                 RecipeRuntimeManager.getCurrentRecipe().addHops(hops);
                 hopAdapter.add(hops);
                 hopAdapter.notifyDataSetChanged();
+                hopVarietyInput.setText(null);
+                hopTypeInput.setText(null);
+                hopQuantityInput.setText(null);
+                hopTimeInput.setText(null);
+                hopVarietyInput.requestFocus();
             }
     }
 }

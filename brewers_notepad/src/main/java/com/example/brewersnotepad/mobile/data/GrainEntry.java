@@ -58,4 +58,26 @@ public class GrainEntry implements Parcelable {
             parcel.writeString(grainType);
             parcel.writeDouble(grainQuantity);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GrainEntry that = (GrainEntry) o;
+
+        if (Double.compare(that.grainQuantity, grainQuantity) != 0) return false;
+        return grainType.equals(that.grainType);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = grainType.hashCode();
+        temp = Double.doubleToLongBits(grainQuantity);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }

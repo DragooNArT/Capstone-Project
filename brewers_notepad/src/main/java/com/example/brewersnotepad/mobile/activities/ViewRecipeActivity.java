@@ -1,5 +1,6 @@
 package com.example.brewersnotepad.mobile.activities;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -61,6 +62,7 @@ public class ViewRecipeActivity extends AppCompatActivity implements CreateRecip
         if(extras!=null) {
             RecipeDataHolder currentRecipe =RecipeRuntimeManager.getRecipe(extras.getString(RECIPE_ID_EXTRA));
             if(currentRecipe != null ) {
+                this.currentRecipe = currentRecipe;
                 RecipeRuntimeManager.setViewRecipe(currentRecipe);
             }
         }
@@ -93,6 +95,9 @@ public class ViewRecipeActivity extends AppCompatActivity implements CreateRecip
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_edit_recipe) {
+            Intent intent = new Intent(this, CreateRecipeActivity.class);
+            intent.putExtra(ViewRecipeActivity.RECIPE_ID_EXTRA,currentRecipe.getRecipe_name());
+            startActivity(intent);
             return true;
         }
 

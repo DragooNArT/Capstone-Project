@@ -31,8 +31,10 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
 
     private CreateRecipeActivity activity;
     private MetricsProvider metricsProvider;
-    public CreateRecipeListener(CreateRecipeActivity createRecipeActivity) {
+    private boolean newRecipe;
+    public CreateRecipeListener(CreateRecipeActivity createRecipeActivity, boolean newRecipe) {
         this.activity = createRecipeActivity;
+        this.newRecipe = newRecipe;
         this.metricsProvider = new MetricsProvider(activity);
     }
 
@@ -57,14 +59,14 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
     }
 
     private void finalizeRecipe(RecipeDataHolder recipeInstance) {
-        if(RecipeRuntimeManager.getRecipe(recipeInstance.getRecipe_name()) == null) {
-            activity.fillData(recipeInstance);
+        if(newRecipe && RecipeRuntimeManager.getRecipe(recipeInstance.getRecipe_name()) != null) {
+            Toast.makeText(activity, "Recipe name \""+recipeInstance.getRecipe_name()+"\" already exists!", Toast.LENGTH_LONG).show();
+            focusOnRecipeName();
+        } else {
+            activity.fillData(recipeInstance,newRecipe);
             Intent intent = new Intent(activity, MainActivity.class);
             intent.putExtra(MainActivity.EXTRA_REFRESH, true);
             activity.startActivity(intent);
-        } else {
-            Toast.makeText(activity, "Recipe name \""+recipeInstance.getRecipe_name()+"\" already exists!", Toast.LENGTH_LONG).show();
-            focusOnRecipeName();
         }
     }
 

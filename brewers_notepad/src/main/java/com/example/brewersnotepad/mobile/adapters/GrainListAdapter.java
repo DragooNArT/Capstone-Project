@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.data.GrainEntry;
 import com.example.brewersnotepad.mobile.listeners.DeleteListListener;
-import com.example.brewersnotepad.mobile.providers.MetricsProvider;
+import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
 /**
  * Created by xnml on 12.5.2016 г..
@@ -29,6 +29,13 @@ public class GrainListAdapter<T> extends BaseListAdapter<GrainEntry> {
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         MAX_HEIGHT = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 180, getContext().getResources().getDisplayMetrics());
         removeListener = new DeleteListListener(this);
+    }
+
+    @Override
+    public void remove(GrainEntry object) {
+        RecipeRuntimeManager.getCurrentRecipe().getRecipe_grains().remove(object);
+        super.remove(object);
+
     }
 
     @Override
@@ -53,7 +60,7 @@ public class GrainListAdapter<T> extends BaseListAdapter<GrainEntry> {
         //TODO always removes last element(fixme)
         deleteGrainBtn.setOnClickListener(removeListener);
         grainTypeUi.setText(grainEntry.getGrainType());
-        grainQuantityUi.setText(grainEntry.getGrainQuantity()+ metricsProvider.getWeightPrefix());
+        grainQuantityUi.setText(metricsProvider.getWeightText(grainEntry.getGrainQuantity()));
         return convertView;
     }
 }

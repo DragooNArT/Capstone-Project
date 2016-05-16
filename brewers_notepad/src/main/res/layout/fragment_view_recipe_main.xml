@@ -1,16 +1,27 @@
 
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         tools:context=".mobile.fragments.CreateRecipeFramentMain"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Recipe Metadata"
+            android:id="@+id/textView3"
+            android:layout_gravity="center_vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:autoText="false"
+            android:textAlignment="center"
+            android:textStyle="italic" />
 
         <GridLayout
 
@@ -23,7 +34,9 @@
             android:theme="@style/AppTheme"
             android:alignmentMode="alignBounds"
             android:useDefaultMargins="true"
-            android:visibility="visible">
+            android:visibility="visible"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
 
             <TextView
@@ -43,15 +56,17 @@
                 android:id="@+id/viewRecipeName"
                 android:layout_row="0"
                 android:layout_column="1"
-                android:hint="@string/inputRecepieHint"
-                android:layout_marginLeft="5dp"
+                android:hint="@string/no_entry_hint"
                 android:layout_marginBottom="5dp"
-                android:layout_marginRight="100dp"
+                android:layout_marginRight="120dp"
                 android:lines="1"
                 android:singleLine="true"
                 android:focusable="true"
                 android:enabled="true"
-                android:typeface="serif" />
+                android:gravity="right"
+                android:textStyle="bold|italic"
+                android:typeface="normal"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -68,20 +83,32 @@
                 android:layout_height="match_parent"
                 android:id="@+id/viewRecipeType"
                 android:layout_column="1"
-                android:layout_gravity="center_vertical"
-                android:entries="@array/recipe_types_list"
                 android:focusable="true"
                 android:theme="@style/AppTheme"
                 android:layout_marginLeft="10dp"
                 android:layout_row="1"
-                android:layout_rowSpan="1"
                 android:clickable="true"
                 android:importantForAccessibility="yes"
                 android:layoutMode="clipBounds"
                 android:nestedScrollingEnabled="false"
-                android:text="Recipe Type" />
+                android:text="Recipe Type"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:gravity="right" />
 
         </GridLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Mash And Grains"
+            android:id="@+id/viewGrainListTitle"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorPrimaryDark"
+            android:textStyle="italic"
+            android:textAlignment="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -99,7 +126,9 @@
                 android:alignmentMode="alignBounds"
                 android:useDefaultMargins="true"
                 android:visibility="visible"
-                android:id="@+id/mashLayout">>
+                android:id="@+id/mashLayout"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -119,14 +148,16 @@
                     android:layout_column="1"
                     android:layout_marginLeft="5dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginRight="100dp"
-                    android:hint="@string/mash_duration_hint"
+                    android:hint="@string/no_entry_hint"
                     android:lines="1"
                     android:singleLine="true"
                     android:focusable="true"
                     android:enabled="true"
                     android:typeface="serif"
-                    android:inputType="time" />
+                    android:inputType="time"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:gravity="right"
+                    android:layout_marginRight="175dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -147,19 +178,51 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginRight="100dp"
-                    android:hint="@string/mash_temp_hint"
+                    android:hint="@string/no_entry_hint"
                     android:lines="1"
                     android:singleLine="true"
                     android:focusable="true"
                     android:enabled="true"
-                    android:typeface="serif"/>
+                    android:typeface="serif"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:gravity="right" />
             </GridLayout>
 
 
         </RelativeLayout>
 
-        <ListView
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@color/accent_material_light"
+            android:layout_marginTop="16dp"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Grain name:"
+                android:id="@+id/grainNameLabel"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Quantity"
+                android:id="@+id/grainQuantityLabel"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/view_grain_list"
             android:clickable="true"
@@ -167,6 +230,11 @@
             android:footerDividersEnabled="true"
             android:choiceMode="singleChoice"
             android:scrollIndicators="top|bottom"
-            android:background="@color/button_material_dark" />
+            android:divider="@color/colorPrimaryDark"
+            android:dividerHeight="4px"
+            android:background="@color/accent_material_light" />
+
+
+
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

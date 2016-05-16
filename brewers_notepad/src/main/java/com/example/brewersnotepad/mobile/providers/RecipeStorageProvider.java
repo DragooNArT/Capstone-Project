@@ -87,32 +87,10 @@ public class RecipeStorageProvider extends ContentProvider {
 
         int uriType = sURIMatcher.match(uri);
         int rowsUpdated;
-        switch (uriType) {
-            case UPDATE_NAME:
                 rowsUpdated = db.update(RECIPES_TABLE_NAME,
                         contentValues,
                         selection,
                         selectionArgs);
-                break;
-//            case UPDATE_DATA:
-//                String id = uri.getLastPathSegment();
-//                if (TextUtils.isEmpty(selection)) {
-//                    rowsUpdated = db.update(RECIPES_TABLE_NAME,
-//                            values,
-//                            TodoTable.COLUMN_ID + "=" + id,
-//                            null);
-//                } else {
-//                    rowsUpdated = db.update(TodoTable.TABLE_TODO,
-//                            values,
-//                            TodoTable.COLUMN_ID + "=" + id
-//                                    + " and "
-//                                    + selection,
-//                            selectionArgs);
-//                }
-//                break;
-            default:
-                throw new IllegalArgumentException("Unknown URI: " + uri);
-        }
         getContext().getContentResolver().notifyChange(uri, null);
         return rowsUpdated;
 

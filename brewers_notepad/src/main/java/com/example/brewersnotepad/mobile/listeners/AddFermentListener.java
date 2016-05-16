@@ -53,10 +53,13 @@ public class AddFermentListener implements ImageButton.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        String fermentName = ((TextView)fragmentView.findViewById(R.id.fermentPhaseName)).getText().toString();
-        String fermentTemp = ((TextView)fragmentView.findViewById(R.id.fermentTemp)).getText().toString();
+        TextView fermentPhaseNameInput = ((TextView)fragmentView.findViewById(R.id.fermentPhaseName));
+        TextView fermentTempInput = ((TextView)fragmentView.findViewById(R.id.fermentTemp));
+        TextView fermentTimeInput = ((TextView)fragmentView.findViewById(R.id.fermentTime));
+        String fermentName = fermentPhaseNameInput.getText().toString();
+        String fermentTemp = fermentTempInput.getText().toString();
 
-        String fermentTime = ((TextView)fragmentView.findViewById(R.id.fermentTime)).getText().toString();
+        String fermentTime = fermentTimeInput.getText().toString();
         if(isInputValid(fermentName,fermentTemp,fermentTime)) {
             FermentationEntry fermentPhase = new FermentationEntry();
             fermentPhase.setPhaseName(fermentName);
@@ -65,6 +68,10 @@ public class AddFermentListener implements ImageButton.OnClickListener {
             RecipeRuntimeManager.getCurrentRecipe().addFermentPhase(fermentPhase);
             fermentAdapter.add(fermentPhase);
             fermentAdapter.notifyDataSetChanged();
+            fermentPhaseNameInput.setText(null);
+            fermentTempInput.setText(null);
+            fermentTimeInput.setText(null);
+            fermentPhaseNameInput.requestFocus();
         }
     }
 }

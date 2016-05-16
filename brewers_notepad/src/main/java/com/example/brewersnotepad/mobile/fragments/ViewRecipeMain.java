@@ -14,9 +14,14 @@ import android.widget.TextView;
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.activities.ViewRecipeActivity;
 import com.example.brewersnotepad.mobile.adapters.GrainListAdapter;
+import com.example.brewersnotepad.mobile.adapters.ViewGrainListAdapter;
 import com.example.brewersnotepad.mobile.data.GrainEntry;
 import com.example.brewersnotepad.mobile.data.RecipeDataHolder;
+import com.example.brewersnotepad.mobile.providers.MetricsProvider;
 import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,11 +34,12 @@ public class ViewRecipeMain extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private RecipeDataHolder currentRecipe;
-
+    MetricsProvider mMetricsProvider;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mMetricsProvider = new MetricsProvider(getContext());
     }
 
     @Override
@@ -42,23 +48,53 @@ public class ViewRecipeMain extends Fragment {
         // Inflate the layout for this fragment
 
         View view =  inflater.inflate(R.layout.fragment_view_recipe_main, container, false);
+        fill_In_View(view);
+
+        return view;
+    }
+
+    void fill_In_View(View view) {
         currentRecipe = RecipeRuntimeManager.getViewRecipe();
         ListView grainList = (ListView)view.findViewById(R.id.view_grain_list);
-        GrainListAdapter adapter = new GrainListAdapter<GrainEntry>(getContext(),
-                android.R.layout.simple_list_item_1,grainList);
+        ViewGrainListAdapter adapter = new ViewGrainListAdapter<GrainEntry>(getContext(),
+                android.R.layout.simple_list_item_1,mMetricsProvider,grainList);
         grainList.setAdapter(adapter);
-        adapter.addAll(currentRecipe.getRecipe_grains());
+        if(currentRecipe.getRecipe_grains().size()>0) {
+            adapter.addAll(currentRecipe.getRecipe_grains());
+        } else {
+            List<GrainEntry> dummyEntry = new ArrayList<GrainEntry>();
+            GrainEntry noEntry = new GrainEntry();
+            noEntry.setGrainType(getContext().getString(R.string.no_entry_hint));
+            dummyEntry.add(noEntry);
+            adapter.addAll(dummyEntry);
+        }
         adapter.notifyDataSetChanged();
 
+        //Recipe Name
         TextView recipeName = (TextView)view.findViewById(R.id.viewRecipeName);
         recipeName.setText(currentRecipe.getRecipe_name());
+
+        //Recipe Type
         String recipeTypeValue = currentRecipe.getRecipe_type();
         if(recipeTypeValue!=null && !recipeTypeValue.isEmpty()) {
             TextView recipeType = (TextView)view.findViewById(R.id.viewRecipeType);
             recipeType.setText(recipeTypeValue);
         }
 
-        return view;
+        //Mash duration
+        int mashDuration = currentRecipe.getMashDuration();
+        if(mashDuration>0) {
+            TextView mashDurationView = (TextView)view.findViewById(R.id.viewMashDuration);
+            mashDurationView.setText(mashDuration+getString(R.string.time_in_minutes));
+        }
+
+        //Mash temp
+        int mashTemp = currentRecipe.getMashTemp();
+        if(mashTemp>0) {
+            TextView mashTempView = (TextView)view.findViewById(R.id.viewMashTemp);
+            mashTempView.setText(mMetricsProvider.getTempToString(mashTemp));
+        }
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

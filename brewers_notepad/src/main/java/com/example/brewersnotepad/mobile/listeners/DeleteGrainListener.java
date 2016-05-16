@@ -5,6 +5,7 @@ import android.widget.ImageButton;
 
 import com.example.brewersnotepad.mobile.adapters.GrainListAdapter;
 import com.example.brewersnotepad.mobile.data.GrainEntry;
+import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +24,7 @@ public class DeleteGrainListener implements ImageButton.OnClickListener {
     public void onClick(View v) {
         int pos = (int) v.getTag();
         GrainEntry entry = tGrainListAdapter.getItem(pos);
+        RecipeRuntimeManager.getCurrentRecipe().getRecipe_grains().remove(pos);
         tGrainListAdapter.remove(entry);
         tGrainListAdapter.notifyDataSetChanged();
     }

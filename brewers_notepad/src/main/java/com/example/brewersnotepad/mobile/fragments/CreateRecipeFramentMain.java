@@ -3,7 +3,9 @@ package com.example.brewersnotepad.mobile.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.BoringLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,29 +13,31 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.brewersnotepad.R;
+import com.example.brewersnotepad.mobile.activities.CreateRecipeActivity;
 import com.example.brewersnotepad.mobile.adapters.GrainListAdapter;
+import com.example.brewersnotepad.mobile.adapters.ViewGrainListAdapter;
 import com.example.brewersnotepad.mobile.data.GrainEntry;
+import com.example.brewersnotepad.mobile.data.RecipeDataHolder;
 import com.example.brewersnotepad.mobile.listeners.AddGrainListener;
+import com.example.brewersnotepad.mobile.listeners.PreferencesChangedListener;
+import com.example.brewersnotepad.mobile.providers.MetricsProvider;
+import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CreateRecipeFramentMain.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CreateRecipeFramentMain#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class CreateRecipeFramentMain extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String GRAIN_PARCELABLE = "Grain_parcel";
+    public static final String GRAIN_PARCELABLE = "Grain_parcel";
     private GrainListAdapter<GrainEntry> adapter;
+    private MetricsProvider mMetricsProvider;
+    private boolean isNewRecipe;
 
     private OnFragmentInteractionListener mListener;
     private AddGrainListener addGrainListener;
@@ -41,26 +45,14 @@ public class CreateRecipeFramentMain extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CreateRecipeFramentMain.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CreateRecipeFramentMain newInstance(String param1, String param2) {
-        CreateRecipeFramentMain fragment = new CreateRecipeFramentMain();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+        mMetricsProvider = new MetricsProvider(getContext());
     }
 
     @Override
@@ -71,6 +63,7 @@ public class CreateRecipeFramentMain extends Fragment {
         }
 
         outState.putParcelableArrayList(GRAIN_PARCELABLE,list);
+        outState.putBoolean(CreateRecipeActivity.NEW_RECIPE_KEY,isNewRecipe);
         super.onSaveInstanceState(outState);
     }
 
@@ -81,12 +74,16 @@ public class CreateRecipeFramentMain extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_create_recipe_frament1, container, false);
         Spinner recipe_type_spinner = (Spinner)view.findViewById(R.id.recipe_type_spinner);
         ArrayAdapter<CharSequence> recipe_type_adapter = ArrayAdapter.createFromResource(getContext(),R.array.recipe_types_list,R.layout.simple_spinner_item);
+
         recipe_type_spinner.setAdapter(recipe_type_adapter);
         ListView grainList = (ListView)view.findViewById(R.id.grain_list);
 
 
         adapter = new GrainListAdapter<GrainEntry>(getContext(),
                 android.R.layout.simple_list_item_1,grainList);
+        if(savedInstanceState == null) {
+            savedInstanceState = getArguments();
+        }
         if(savedInstanceState != null) {
             ArrayList<GrainEntry> list = savedInstanceState.getParcelableArrayList(GRAIN_PARCELABLE);
             if(list != null) {
@@ -99,8 +96,41 @@ public class CreateRecipeFramentMain extends Fragment {
         ImageButton addGrainButton = (ImageButton)view.findViewById(R.id.addGrainButton);
         addGrainListener = new AddGrainListener(adapter,view);
         addGrainButton.setOnClickListener(addGrainListener);
+        fillData(view,recipe_type_adapter);
 
+        if(savedInstanceState != null) {
+            isNewRecipe = savedInstanceState.getBoolean(CreateRecipeActivity.NEW_RECIPE_KEY,true);
+            view.findViewById(R.id.inputRecipeName).setEnabled(isNewRecipe);
+        }
         return view;
+    }
+
+    private void fillData(View view, ArrayAdapter<CharSequence> recipe_type_adapter ) {
+        RecipeDataHolder currentRecipe = RecipeRuntimeManager.getCurrentRecipe();
+        if(currentRecipe != null) {
+
+            if(currentRecipe.getRecipe_name()!=null) {
+                TextView recipeName = (TextView) view.findViewById(R.id.inputRecipeName);
+                recipeName.setText(currentRecipe.getRecipe_name());
+            }
+            if(currentRecipe.getRecipe_type()!=null) {
+                Spinner recipeType = (Spinner) view.findViewById(R.id.recipe_type_spinner);
+                int pos = recipe_type_adapter.getPosition(currentRecipe.getRecipe_type());
+                recipeType.setSelection(pos);
+            }
+            if(currentRecipe.getMashDuration()>0) {
+                TextView mashDuration = (TextView) view.findViewById(R.id.inputMashDuration);
+                mashDuration.setText(currentRecipe.getMashDuration()+getString(R.string.time_in_minutes));
+            }
+            if(currentRecipe.getMashTemp()>0) {
+                TextView mashTemp = (TextView) view.findViewById(R.id.mashTempInput);
+                mashTemp.setText(mMetricsProvider.getTempToString(currentRecipe.getMashTemp()));
+            }
+
+
+
+
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

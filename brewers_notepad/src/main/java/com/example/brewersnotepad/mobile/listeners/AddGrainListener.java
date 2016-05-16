@@ -44,8 +44,10 @@ public class AddGrainListener implements ImageButton.OnClickListener {
 
     @Override
     public void onClick(View v) {
-            String grainType = ((TextView)fragmentView.findViewById(R.id.inputGrainType)).getText().toString();
-            String grainQuantity = ((TextView)fragmentView.findViewById(R.id.inputGrainQuantity)).getText().toString();
+            TextView grainTypeInput = ((TextView)fragmentView.findViewById(R.id.inputGrainType));
+            TextView grainQuantityInput = ((TextView)fragmentView.findViewById(R.id.inputGrainQuantity));
+            String grainType = grainTypeInput.getText().toString();
+            String grainQuantity = grainQuantityInput.getText().toString();
             if(isInputValid(grainType,grainQuantity)) {
                 GrainEntry grains = new GrainEntry();
                 grains.setGrainQuantity(Double.parseDouble(grainQuantity));
@@ -53,6 +55,9 @@ public class AddGrainListener implements ImageButton.OnClickListener {
                 RecipeRuntimeManager.getCurrentRecipe().addGrains(grains);
                 grainAdapter.add(grains);
                 grainAdapter.notifyDataSetChanged();
+                grainTypeInput.setText(null);
+                grainQuantityInput.setText(null);
+                grainTypeInput.requestFocus();
             }
     }
 }

@@ -2,6 +2,8 @@ package com.example.brewersnotepad.mobile.adapters;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -11,6 +13,9 @@ import com.example.brewersnotepad.mobile.activities.CreateRecipeActivity;
 import com.example.brewersnotepad.mobile.fragments.CreateRecipeExtrasFragment;
 import com.example.brewersnotepad.mobile.fragments.CreateRecipeFragmentSecondary;
 import com.example.brewersnotepad.mobile.fragments.CreateRecipeFramentMain;
+import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
+
+import java.util.ArrayList;
 
 /**
  * Created by xnml on 11.5.2016 г..
@@ -23,10 +28,10 @@ public class CreateRecipePagerAdapter extends FragmentPagerAdapter implements Cr
     private CreateRecipeFragmentSecondary mFragmentSecondary;
     private CreateRecipeFramentMain mFragmentMain;
     private CreateRecipeExtrasFragment mFragmentExtra;
-    private Context ctx;
-    public CreateRecipePagerAdapter(FragmentManager supportFragmentManager, Context ctx) {
+    private CreateRecipeActivity activity;
+    public CreateRecipePagerAdapter(FragmentManager supportFragmentManager, CreateRecipeActivity activity) {
         super(supportFragmentManager);
-        this.ctx = ctx;
+        this.activity = activity;
     }
 
     @Override
@@ -35,6 +40,10 @@ public class CreateRecipePagerAdapter extends FragmentPagerAdapter implements Cr
             case 0:
             if(mFragmentMain == null) {
                 mFragmentMain = new CreateRecipeFramentMain();
+                Bundle args = new Bundle();
+                args.putBoolean(CreateRecipeActivity.NEW_RECIPE_KEY,activity.isNewRecipe());
+                args.putParcelableArrayList(CreateRecipeFramentMain.GRAIN_PARCELABLE, (ArrayList<? extends Parcelable>) RecipeRuntimeManager.getCurrentRecipe().getRecipe_grains());
+                mFragmentMain.setArguments(args);
             }
             return mFragmentMain;
             case 1:
@@ -60,11 +69,11 @@ public class CreateRecipePagerAdapter extends FragmentPagerAdapter implements Cr
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return ctx.getString(R.string.create_tabs_main);
+                return activity.getString(R.string.create_tabs_main);
             case 1:
-                return ctx.getString(R.string.create_tabs_second);
+                return activity.getString(R.string.create_tabs_second);
             case 2:
-                return ctx.getString(R.string.create_tabs_third);
+                return activity.getString(R.string.create_tabs_third);
         }
         return null;
     }

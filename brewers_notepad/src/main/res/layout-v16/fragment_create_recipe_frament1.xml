@@ -7,6 +7,8 @@
     android:layout_width="wrap_content"
     android:layout_height="fill_parent"
     tools:context=".mobile.fragments.CreateRecipeFramentMain"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     android:orientation="vertical">
 
     <GridLayout
@@ -20,9 +22,7 @@
         android:theme="@style/AppTheme"
         android:alignmentMode="alignBounds"
         android:useDefaultMargins="true"
-        android:visibility="visible"
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp">
+        android:visibility="visible">
 
 
         <TextView
@@ -49,11 +49,9 @@
             android:lines="1"
             android:singleLine="true"
             android:focusable="true"
-            android:enabled="true"
+            android:enabled="false"
             android:typeface="serif"
-            android:editable="true"
-            android:textAlignment="center"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:editable="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -81,16 +79,13 @@
             android:importantForAccessibility="yes"
             android:layoutMode="clipBounds"
             android:nestedScrollingEnabled="false"
-            android:layout_gravity="right"
-            android:textAlignment="center" />
+            android:layout_gravity="right" />
 
     </GridLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:layout_height="wrap_content">
 
         <GridLayout
 
@@ -222,8 +217,6 @@
         android:footerDividersEnabled="true"
         android:choiceMode="singleChoice"
         android:scrollIndicators="top|bottom"
-        android:background="@color/button_material_dark"
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp" />
+        android:background="@color/button_material_dark" />
 </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
