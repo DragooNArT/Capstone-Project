@@ -20,7 +20,7 @@
             android:orientation="vertical"
             android:gravity="center"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/list_margin">
+            android:layout_marginStart="@dimen/list_margin">
             <ImageView
                 android:id="@+id/thumbnail"
                 android:layout_width="wrap_content"
@@ -42,27 +42,27 @@
             android:layout_gravity="fill_horizontal|center_vertical"
             android:columnCount="1"
             android:rowCount="2"
-            android:layout_marginRight="@dimen/list_margin"
+            android:layout_marginEnd="@dimen/list_margin"
             android:theme="@style/AppTheme">
             <TextView
                 android:id="@+id/recipe_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="16dp"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_horizontal_margin"
                 android:paddingBottom="4dp"
                 android:ellipsize="marquee"
                 android:maxLines="4"
                 android:text="Recipe Name"
-                android:paddingRight="16dp"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:theme="@style/AppTheme" />
 
             <TextView
                 android:id="@+id/recipe_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:paddingBottom="16dp"
                 android:maxLines="1"
                 android:singleLine="true"

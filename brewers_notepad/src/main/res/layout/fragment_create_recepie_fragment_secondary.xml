@@ -33,8 +33,8 @@
             android:visibility="visible"
             android:id="@+id/gridLayout"
             android:touchscreenBlocksFocus="false"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin">
 
             <EditText
                 android:layout_width="185dp"
@@ -42,9 +42,9 @@
                 android:id="@+id/hopPhaseDurationInput"
                 android:layout_row="0"
                 android:layout_column="1"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginRight="100dp"
+                android:layout_marginEnd="100dp"
                 android:hint="@string/mash_duration_hint"
                 android:lines="1"
                 android:singleLine="true"
@@ -70,8 +70,8 @@
             android:layout_height="2dp"
             android:background="@color/colorAccent"
             android:layout_gravity="center_horizontal"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp" />
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp" />
 
         <GridLayout
             android:layout_width="match_parent"
@@ -79,8 +79,8 @@
             android:layout_below="@+id/mashLayout"
             android:columnCount="3"
             android:rowCount="2"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin">
 
             <EditText
                 android:layout_width="wrap_content"
@@ -155,8 +155,8 @@
             android:layout_height="2dp"
             android:background="@color/colorAccent"
             android:layout_gravity="center_horizontal"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp" />
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp" />
         <ListView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -166,8 +166,8 @@
             android:headerDividersEnabled="true"
             android:footerDividersEnabled="true"
             android:choiceMode="singleChoice"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
             android:scrollIndicators="top|bottom"
             android:background="@color/button_material_dark" />
 
@@ -186,8 +186,8 @@
             android:layout_below="@+id/mashLayout"
             android:columnCount="4"
             android:rowCount="1"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin">
 
             <EditText
                 android:layout_width="wrap_content"
@@ -248,8 +248,8 @@
             android:layout_height="2dp"
             android:background="@color/colorAccent"
             android:layout_gravity="center_horizontal"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp" />
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp" />
 
         <ListView
             android:layout_width="match_parent"
@@ -258,8 +258,8 @@
             android:clickable="true"
             android:nestedScrollingEnabled="true"
             android:choiceMode="singleChoice"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:scrollIndicators="top|bottom"
             android:background="@color/button_material_dark" />
     </LinearLayout>

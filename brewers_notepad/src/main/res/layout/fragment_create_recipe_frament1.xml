@@ -21,8 +21,8 @@
         android:alignmentMode="alignBounds"
         android:useDefaultMargins="true"
         android:visibility="visible"
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp">
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
 
 
         <TextView
@@ -43,9 +43,9 @@
             android:layout_row="0"
             android:layout_column="1"
             android:hint="@string/inputRecepieHint"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginRight="100dp"
+            android:layout_marginEnd="100dp"
             android:lines="1"
             android:singleLine="true"
             android:focusable="true"
@@ -74,7 +74,7 @@
             android:focusable="true"
             android:spinnerMode="dropdown"
             android:theme="@style/AppTheme"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_row="1"
             android:layout_rowSpan="1"
             android:clickable="true"
@@ -89,8 +89,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
 
         <GridLayout
 
@@ -122,9 +122,9 @@
                 android:id="@+id/inputMashDuration"
                 android:layout_row="0"
                 android:layout_column="1"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginRight="100dp"
+                android:layout_marginEnd="100dp"
                 android:hint="@string/mash_duration_hint"
                 android:lines="1"
                 android:singleLine="true"
@@ -150,9 +150,9 @@
                 android:id="@+id/mashTempInput"
                 android:layout_row="1"
                 android:layout_column="1"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginRight="100dp"
+                android:layout_marginEnd="100dp"
                 android:hint="@string/mash_temp_hint"
                 android:lines="1"
                 android:singleLine="true"
@@ -227,7 +227,7 @@
         android:choiceMode="singleChoice"
         android:scrollIndicators="top|bottom"
         android:background="@color/button_material_dark"
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp" />
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp" />
 </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
