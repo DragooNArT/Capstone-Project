@@ -65,7 +65,6 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
         } else {
             activity.fillData(recipeInstance,newRecipe);
             Intent intent = new Intent(activity, MainActivity.class);
-            intent.putExtra(MainActivity.EXTRA_REFRESH, true);
             activity.startActivity(intent);
         }
     }
@@ -110,10 +109,12 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
         String hopDurVal = hop_duration.getText().toString();
         if (hopDurVal != null) {
                 try {
-                    recipeInstance.setHopSteepDuration(Integer.parseInt(hopDurVal));
-                } catch (NumberFormatException e) {
-                    recipeInstance.setHopSteepDuration(-1);
+                    recipeInstance.setHopSteepDuration(metricsProvider.convertMinsToValue(hopDurVal));
+                } catch (Exception e) {
+                    recipeInstance.setHopSteepDuration(Integer.MAX_VALUE);
                 }
+        } else if(hopDurVal.isEmpty()) {
+            recipeInstance.setHopSteepDuration(Integer.MAX_VALUE);
         }
     }
 
@@ -130,9 +131,8 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
         String mashDurValue = mash_duration.getText().toString();
         if(mashDurValue!=null) {
             try {
-                mashDurValue = mashDurValue.substring(0,mashDurValue.length()-activity.getString(R.string.time_in_minutes).length());
-                recipeInstance.setMashDuration(Integer.parseInt(mashDurValue));
-            } catch(NumberFormatException e) {
+                recipeInstance.setMashDuration(metricsProvider.convertMinsToValue(mashDurValue));
+            } catch(Exception e) {
                 recipeInstance.setMashDuration(-1);
             }
         }
@@ -141,11 +141,13 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
         String mashTempVal = mash_temp_input.getText().toString();
         if(mashTempVal!=null) {
             try {
-                int temp = metricsProvider.convertTempForStorage(mashTempVal);
+                double temp = metricsProvider.convertTempForStorage(mashTempVal);
                 recipeInstance.setMashTemp(temp);
-            } catch(NumberFormatException e) {
-                recipeInstance.setMashTemp(-1);
+            } catch(Exception e) {
+                recipeInstance.setMashTemp(Integer.MAX_VALUE);
             }
+        } else if(mashTempVal.isEmpty()) {
+            recipeInstance.setMashTemp(Integer.MAX_VALUE);
         }
     }
 }

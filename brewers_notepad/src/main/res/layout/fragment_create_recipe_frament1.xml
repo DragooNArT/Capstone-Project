@@ -181,7 +181,8 @@
                 android:layout_gravity="center_vertical"
                 android:singleLine="true"
                 android:maxWidth="150dp"
-                android:minWidth="150dp" />
+                android:minWidth="150dp"
+                android:lines="1" />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -190,13 +191,16 @@
                 android:id="@+id/inputGrainQuantity"
                 android:layout_row="0"
                 android:layout_column="1"
-                android:hint="@string/input_grainQuantity_hint"
+                android:hint="@string/input_quantity_hint"
                 android:layout_gravity="left|center_vertical"
-                android:numeric="integer"
                 android:singleLine="true"
                 android:minWidth="135dp"
                 android:maxWidth="135dp"
-                android:inputType="number" />
+                android:focusable="true"
+                android:enabled="true"
+                android:typeface="serif"
+                android:inputType="numberDecimal"
+                android:lines="1" />
 
             <ImageButton
                 android:layout_width="wrap_content"

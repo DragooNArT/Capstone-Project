@@ -24,7 +24,6 @@ import com.example.brewersnotepad.mobile.listeners.MainActivityNavigationListene
 public class MainActivity extends AppCompatActivity implements MainRecipeListFragment.OnFragmentInteractionListener, MainAboutFragment.OnFragmentInteractionListener, MainPreferencesFragment.OnFragmentInteractionListener {
 
 
-    public static final String EXTRA_REFRESH = "REFRESH_ENTRIES";
     public static final String FRAGMENT_STATE = "FRAGMENT_ID";
     private MainActivityNavigationListener navListener;
 

@@ -56,7 +56,7 @@
         android:id="@+id/hop_list_quantity_entry"
         android:layout_row="0"
         android:layout_column="3"
-        android:hint="@string/input_grainQuantity_hint"
+        android:hint="@string/input_quantity_hint"
         android:layout_gravity="left|center_vertical"
         android:singleLine="true"
         android:maxWidth="60dp"

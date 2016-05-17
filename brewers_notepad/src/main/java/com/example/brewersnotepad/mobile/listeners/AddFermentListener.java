@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.adapters.FermentListAdapter;
 import com.example.brewersnotepad.mobile.data.FermentationEntry;
+import com.example.brewersnotepad.mobile.providers.MetricsProvider;
 import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
 /**
@@ -16,9 +17,11 @@ import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 public class AddFermentListener implements ImageButton.OnClickListener {
     private View fragmentView;
     private FermentListAdapter<FermentationEntry> fermentAdapter;
-    public AddFermentListener(FermentListAdapter<FermentationEntry> fermentAdapter, View fragmentView) {
+    private MetricsProvider metricsProvider;
+    public AddFermentListener(FermentListAdapter<FermentationEntry> fermentAdapter, View fragmentView,MetricsProvider metricsProvider) {
         this.fermentAdapter = fermentAdapter;
         this.fragmentView = fragmentView;
+        this.metricsProvider = metricsProvider;
     }
 
     private boolean isInputValid(String fermentName,String fermentTemp,String fermentTime) {
@@ -35,14 +38,14 @@ public class AddFermentListener implements ImageButton.OnClickListener {
         }
 
         try {
-            Integer.parseInt(fermentTemp);
+            metricsProvider.convertTempForStorage(fermentTemp);
         } catch(NumberFormatException e) {
             Toast.makeText(fragmentView.getContext(), "Ferment temp is an invalid decimal number!", Toast.LENGTH_LONG).show();
             return false;
         }
 
         try {
-            Integer.parseInt(fermentTime);
+            metricsProvider.convertDaysToValue(fermentTime);
         } catch(NumberFormatException e) {
             Toast.makeText(fragmentView.getContext(), "Ferment time is an invalid decimal number!", Toast.LENGTH_LONG).show();
             return false;
@@ -63,8 +66,8 @@ public class AddFermentListener implements ImageButton.OnClickListener {
         if(isInputValid(fermentName,fermentTemp,fermentTime)) {
             FermentationEntry fermentPhase = new FermentationEntry();
             fermentPhase.setPhaseName(fermentName);
-            fermentPhase.setPhaseDuration(Integer.parseInt(fermentTime));
-            fermentPhase.setTargetPhaseTemp(Integer.parseInt(fermentTemp));
+            fermentPhase.setPhaseDuration(metricsProvider.convertDaysToValue(fermentTime));
+            fermentPhase.setTargetPhaseTemp(metricsProvider.convertTempForStorage(fermentTemp));
             RecipeRuntimeManager.getCurrentRecipe().addFermentPhase(fermentPhase);
             fermentAdapter.add(fermentPhase);
             fermentAdapter.notifyDataSetChanged();

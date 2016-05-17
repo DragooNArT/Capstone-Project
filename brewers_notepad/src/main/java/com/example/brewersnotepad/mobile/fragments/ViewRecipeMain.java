@@ -7,13 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.brewersnotepad.R;
-import com.example.brewersnotepad.mobile.activities.ViewRecipeActivity;
-import com.example.brewersnotepad.mobile.adapters.GrainListAdapter;
 import com.example.brewersnotepad.mobile.adapters.ViewGrainListAdapter;
 import com.example.brewersnotepad.mobile.data.GrainEntry;
 import com.example.brewersnotepad.mobile.data.RecipeDataHolder;
@@ -85,13 +82,13 @@ public class ViewRecipeMain extends Fragment {
         int mashDuration = currentRecipe.getMashDuration();
         if(mashDuration>0) {
             TextView mashDurationView = (TextView)view.findViewById(R.id.viewMashDuration);
-            mashDurationView.setText(mashDuration+getString(R.string.time_in_minutes));
+            mashDurationView.setText(mMetricsProvider.convertMinsToText(mashDuration));
         }
 
         //Mash temp
-        int mashTemp = currentRecipe.getMashTemp();
+        double mashTemp = currentRecipe.getMashTemp();
         TextView mashTempView = (TextView)view.findViewById(R.id.viewMashTemp);
-        mashTempView.setText(mMetricsProvider.getTempToString(mashTemp));
+        mashTempView.setText(mMetricsProvider.convertTempToText(mashTemp));
 
 
     }

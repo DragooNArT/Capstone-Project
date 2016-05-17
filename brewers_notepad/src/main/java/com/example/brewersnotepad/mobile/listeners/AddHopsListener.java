@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.data.HopEntry;
+import com.example.brewersnotepad.mobile.providers.MetricsProvider;
 import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
 import com.example.brewersnotepad.mobile.adapters.HopListAdapter;
@@ -18,10 +19,12 @@ public class AddHopsListener implements ImageButton.OnClickListener {
 
     private HopListAdapter<HopEntry> hopAdapter;
     private View fragmentView;
-
-    public AddHopsListener(HopListAdapter<HopEntry> grainAdapter, View fragmentView) {
+    private MetricsProvider metricsProvider;
+    public AddHopsListener(HopListAdapter<HopEntry> grainAdapter, View fragmentView,MetricsProvider metricsProvider) {
         this.hopAdapter = grainAdapter;
         this.fragmentView = fragmentView;
+        this.metricsProvider = metricsProvider;
+
     }
 
     private boolean isInputValid(String hopVariety,String hopType,String hopQuantity,String hopTime) {
@@ -40,13 +43,13 @@ public class AddHopsListener implements ImageButton.OnClickListener {
             return false ;
         }
         try {
-            Integer.parseInt(hopTime);
+            metricsProvider.convertMinsToValue(hopTime);
         } catch(NumberFormatException e) {
             Toast.makeText(fragmentView.getContext(), "Hop time is an invalid decimal number!", Toast.LENGTH_LONG).show();
             return false;
         }
         try {
-            Integer.parseInt(hopQuantity);
+            metricsProvider.convertSmallWeightToValue(hopQuantity);
         } catch(NumberFormatException e) {
             Toast.makeText(fragmentView.getContext(), "Hop quantity is an invalid decimal number!", Toast.LENGTH_LONG).show();
             return false;
@@ -70,9 +73,9 @@ public class AddHopsListener implements ImageButton.OnClickListener {
             if(isInputValid(hopVariety,hopType,hopQuantity,hopTime)) {
                 HopEntry hops = new HopEntry();
                 hops.setHopVariety(hopVariety);
-                hops.setHopQuantity(Integer.parseInt(hopQuantity));
+                hops.setHopQuantity(metricsProvider.convertSmallWeightToValue(hopQuantity));
                 hops.setHopType(hopType);
-                hops.setTimeToAdd(Integer.parseInt(hopTime));
+                hops.setTimeToAdd(metricsProvider.convertMinsToValue(hopTime));
                 RecipeRuntimeManager.getCurrentRecipe().addHops(hops);
                 hopAdapter.add(hops);
                 hopAdapter.notifyDataSetChanged();

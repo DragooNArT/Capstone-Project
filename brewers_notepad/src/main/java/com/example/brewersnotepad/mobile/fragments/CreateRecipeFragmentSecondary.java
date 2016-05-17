@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -22,6 +23,8 @@ import com.example.brewersnotepad.mobile.data.HopEntry;
 import com.example.brewersnotepad.mobile.data.RecipeDataHolder;
 import com.example.brewersnotepad.mobile.listeners.AddFermentListener;
 import com.example.brewersnotepad.mobile.listeners.AddHopsListener;
+import com.example.brewersnotepad.mobile.listeners.SuffixTextWatcher;
+import com.example.brewersnotepad.mobile.providers.MetricsProvider;
 import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
 import java.util.ArrayList;
@@ -45,7 +48,7 @@ public class CreateRecipeFragmentSecondary extends Fragment {
     private AddHopsListener addHopsListener;
     private AddFermentListener addFermentListener;
     private OnFragmentInteractionListener mListener;
-
+    private MetricsProvider mMetricsProvider;
     public CreateRecipeFragmentSecondary() {
         // Required empty public constructor
     }
@@ -54,6 +57,7 @@ public class CreateRecipeFragmentSecondary extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mMetricsProvider = new MetricsProvider(getContext());
 
     }
 
@@ -82,16 +86,16 @@ public class CreateRecipeFragmentSecondary extends Fragment {
         hopAdapter = new HopListAdapter<HopEntry>(getContext(),
                 android.R.layout.simple_list_item_1, hopsList);
 
-        addHopsListener = new AddHopsListener(hopAdapter, view);
+        addHopsListener = new AddHopsListener(hopAdapter,view,mMetricsProvider);
 
         ImageButton addHopsButton = (ImageButton) view.findViewById(R.id.addHopsButton);
         addHopsButton.setOnClickListener(addHopsListener);
 
         ListView fermentList = (ListView) view.findViewById(R.id.fermentListView);
         fermentAdapter = new FermentListAdapter<FermentationEntry>(getContext(),
-                android.R.layout.simple_list_item_1, fermentList);
+                android.R.layout.simple_list_item_1, fermentList,mMetricsProvider);
 
-        addFermentListener = new AddFermentListener(fermentAdapter, view);
+        addFermentListener = new AddFermentListener(fermentAdapter, view,mMetricsProvider);
         if (savedInstanceState != null) {
             ArrayList<HopEntry> hopList = savedInstanceState.getParcelableArrayList(HOP_PARCELABLE);
             hopAdapter.addAll(hopList);
@@ -102,8 +106,27 @@ public class CreateRecipeFragmentSecondary extends Fragment {
         hopsList.setAdapter(hopAdapter);
         ImageButton addFermentButton = (ImageButton) view.findViewById(R.id.addFermentButton);
         addFermentButton.setOnClickListener(addFermentListener);
+        setSuffixListeners(view);
         fillData(view,hopAdapter,fermentAdapter);
         return view;
+    }
+
+    private void setSuffixListeners(View view) {
+        EditText hopPhaseInput = (EditText)view.findViewById(R.id.hopPhaseDurationInput);
+        hopPhaseInput.addTextChangedListener(new SuffixTextWatcher(hopPhaseInput,getString(R.string.time_in_minutes)));
+
+        EditText hopQuantityInput = (EditText)view.findViewById(R.id.hopQuantityInput);
+        hopQuantityInput.addTextChangedListener(new SuffixTextWatcher(hopQuantityInput,mMetricsProvider.getSmallWeightPrefix()));
+
+        EditText hopTimeAddInput = (EditText)view.findViewById(R.id.hopTimeAddInput);
+        hopTimeAddInput.addTextChangedListener(new SuffixTextWatcher(hopTimeAddInput,getString(R.string.time_in_minutes)));
+
+        EditText fermentTemp = (EditText)view.findViewById(R.id.fermentTemp);
+        fermentTemp.addTextChangedListener(new SuffixTextWatcher(fermentTemp,mMetricsProvider.getTempPrefix()));
+
+        EditText fermentTime = (EditText)view.findViewById(R.id.fermentTime);
+        fermentTime.addTextChangedListener(new SuffixTextWatcher(fermentTime,getString(R.string.time_in_days)));
+
     }
 
     private void fillData(View view, HopListAdapter<HopEntry> hopAdapter, FermentListAdapter<FermentationEntry> fermentAdapter) {
@@ -111,12 +134,14 @@ public class CreateRecipeFragmentSecondary extends Fragment {
         if (currentRecipe != null) {
             TextView hopDurationInput = (TextView)view.findViewById(R.id.hopPhaseDurationInput);
             if (currentRecipe.getHopSteepDuration() > 0) {
-                hopDurationInput.setText(Integer.toString(currentRecipe.getHopSteepDuration()));
+                hopDurationInput.setText(mMetricsProvider.convertMinsToText(currentRecipe.getHopSteepDuration()));
             }
             hopAdapter.clear();
             hopAdapter.addAll(currentRecipe.getRecipe_hops());
+            hopAdapter.notifyDataSetChanged();
             fermentAdapter.clear();
             fermentAdapter.addAll(currentRecipe.getFermentation_phases());
+            fermentAdapter.notifyDataSetChanged();
         }
 
 

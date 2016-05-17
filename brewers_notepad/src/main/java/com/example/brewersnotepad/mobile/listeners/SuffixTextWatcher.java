@@ -29,20 +29,37 @@ public class SuffixTextWatcher implements TextWatcher,View.OnFocusChangeListener
 
     @Override
     public void afterTextChanged(Editable editable) {
-        if(editable.toString().isEmpty() || !editable.toString().endsWith(suffix)){
+        if(isFocused && (editable.toString().isEmpty() || !editable.toString().endsWith(suffix))){
             view.setText(suffix);
-            Selection.setSelection(view.getText(),0);
+            view.post(new Runnable() {
+                @Override
+                public void run() {
+                    view.setSelection(0);
+                }
+            });
         }
     }
-
-
+    private boolean isFocused = false;
 
     @Override
-    public void onFocusChange(View view, boolean b) {
-        if(b && this.view == view) {
-            if (this.view.getText().length() == 0) {
-                this.view.setText(suffix);
-                Selection.setSelection(this.view.getText(),0);
+    public void onFocusChange(View view, boolean focused) {
+        if(this.view == view) {
+            isFocused = focused;
+
+            final EditText localView = this.view;
+            if (focused && this.view.getText().length() == 0) {
+                localView.setText(suffix);
+
+            } else if(!focused && suffix.equals(this.view.getText().toString())) {
+                localView.setText(null);
+            }
+            if(focused) {
+                localView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        localView.setSelection(0);
+                    }
+                });
             }
         }
     }

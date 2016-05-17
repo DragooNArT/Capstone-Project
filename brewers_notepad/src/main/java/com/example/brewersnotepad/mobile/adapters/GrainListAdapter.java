@@ -59,7 +59,7 @@ public class GrainListAdapter<T> extends BaseListAdapter<GrainEntry> {
         //TODO always removes last element(fixme)
         deleteGrainBtn.setOnClickListener(removeListener);
         grainTypeUi.setText(grainEntry.getGrainType());
-        grainQuantityUi.setText(metricsProvider.getWeightText(grainEntry.getGrainQuantity()));
+        grainQuantityUi.setText(metricsProvider.convertWeightToText(grainEntry.getGrainQuantity()));
         return convertView;
     }
 }

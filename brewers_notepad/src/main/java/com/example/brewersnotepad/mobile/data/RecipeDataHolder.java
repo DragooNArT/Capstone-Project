@@ -21,7 +21,7 @@ public class RecipeDataHolder {
 
     private int mashDuration;
 
-    private int mashTemp;
+    private double mashTemp = Integer.MAX_VALUE;
 
     private int hopSteepDuration;
 
@@ -87,11 +87,11 @@ public class RecipeDataHolder {
         this.mashDuration = mashDuration;
     }
 
-    public int getMashTemp() {
+    public double getMashTemp() {
         return mashTemp;
     }
 
-    public void setMashTemp(int mashTemp) {
+    public void setMashTemp(double mashTemp) {
         this.mashTemp = mashTemp;
     }
 
@@ -131,16 +131,11 @@ public class RecipeDataHolder {
 
             return false;
         }
-
-        if(getRecipe_grains().isEmpty()) {
-
-            return false;
-        }
         if(getHopSteepDuration()<=0) {
 
             return false;
         }
-        if(getMashTemp()<=0) {
+        if(getMashTemp()!=Integer.MAX_VALUE) {
 
             return false;
         }

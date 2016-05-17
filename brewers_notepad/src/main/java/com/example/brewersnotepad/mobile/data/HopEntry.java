@@ -14,7 +14,7 @@ public class HopEntry implements Parcelable {
 
     private int timeToAdd;
 
-    private int hopQuantity;
+    private double hopQuantity;
     public HopEntry() {
 
     }
@@ -61,11 +61,11 @@ public class HopEntry implements Parcelable {
         this.timeToAdd = timeToAdd;
     }
 
-    public int getHopQuantity() {
+    public double getHopQuantity() {
         return hopQuantity;
     }
 
-    public void setHopQuantity(int hopQuantity) {
+    public void setHopQuantity(double hopQuantity) {
         this.hopQuantity = hopQuantity;
     }
 
@@ -79,6 +79,6 @@ public class HopEntry implements Parcelable {
         parcel.writeString(hopVariety);
         parcel.writeString(hopType);
         parcel.writeInt(timeToAdd);
-        parcel.writeInt(hopQuantity);
+        parcel.writeDouble(hopQuantity);
     }
 }

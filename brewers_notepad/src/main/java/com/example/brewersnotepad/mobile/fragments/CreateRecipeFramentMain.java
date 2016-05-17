@@ -3,9 +3,7 @@ package com.example.brewersnotepad.mobile.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.BoringLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,17 +17,14 @@ import android.widget.TextView;
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.activities.CreateRecipeActivity;
 import com.example.brewersnotepad.mobile.adapters.GrainListAdapter;
-import com.example.brewersnotepad.mobile.adapters.ViewGrainListAdapter;
 import com.example.brewersnotepad.mobile.data.GrainEntry;
 import com.example.brewersnotepad.mobile.data.RecipeDataHolder;
 import com.example.brewersnotepad.mobile.listeners.AddGrainListener;
-import com.example.brewersnotepad.mobile.listeners.PreferencesChangedListener;
 import com.example.brewersnotepad.mobile.listeners.SuffixTextWatcher;
 import com.example.brewersnotepad.mobile.providers.MetricsProvider;
 import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class CreateRecipeFramentMain extends Fragment {
@@ -134,10 +129,12 @@ public class CreateRecipeFramentMain extends Fragment {
             }
             if(currentRecipe.getMashDuration()>0) {
                 TextView mashDuration = (TextView) view.findViewById(R.id.inputMashDuration);
-                mashDuration.setText(currentRecipe.getMashDuration()+getContext().getString(R.string.time_in_minutes));
+                mashDuration.setText(mMetricsProvider.convertMinsToText(currentRecipe.getMashDuration()));
             }
             TextView mashTemp = (TextView) view.findViewById(R.id.mashTempInput);
-            mashTemp.setText(mMetricsProvider.getTempToString(currentRecipe.getMashTemp()));
+            if(currentRecipe.getMashTemp() != Integer.MAX_VALUE) {
+                mashTemp.setText(mMetricsProvider.convertTempToText(currentRecipe.getMashTemp()));
+            }
 
 
 

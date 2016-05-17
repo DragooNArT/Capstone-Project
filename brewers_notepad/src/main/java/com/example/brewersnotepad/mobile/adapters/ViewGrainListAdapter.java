@@ -2,23 +2,17 @@ package com.example.brewersnotepad.mobile.adapters;
 
 import android.app.ActionBar;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.data.GrainEntry;
-import com.example.brewersnotepad.mobile.data.HopEntry;
-import com.example.brewersnotepad.mobile.listeners.DeleteListListener;
 import com.example.brewersnotepad.mobile.providers.MetricsProvider;
-
-import java.util.List;
 
 /**
  * Created by DragooNArT-PC on 5/16/2016.
@@ -55,7 +49,7 @@ public class ViewGrainListAdapter<T> extends BaseListAdapter<GrainEntry> {
         grainType.setText(grainEntry.getGrainType());
         TextView grainQuantity = (TextView)convertView.findViewById(R.id.grain_list_quantity_entry);
         if(grainEntry.getGrainQuantity() > 0) {
-            grainQuantity.setText(mMetricsProvider.getWeightText(grainEntry.getGrainQuantity()));
+            grainQuantity.setText(mMetricsProvider.convertWeightToText(grainEntry.getGrainQuantity()));
         }
         return convertView;
     }

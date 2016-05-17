@@ -18,7 +18,7 @@
     <string name="mash_duration_hint">e.g. 60mins</string>
     <string name="mash_temp_hint">e.g. 56C</string>
     <string name="input_grainType_hint">Grain type</string>
-    <string name="input_grainQuantity_hint">Quantity</string>
+    <string name="input_quantity_hint">Quantity</string>
     <string name="create_recipe_view_title">Create a new recipe</string>
     <string name="fermentation_phase_label">Fermentation Phase:</string>
     <string name="hop_phase_label">Hop Steeping Phase:</string>
@@ -49,6 +49,7 @@
     <string name="view_grain_list_quantity_title">Quantity</string>
     <string name="view_grain_list_name_label">Grain Name</string>
     <string name="no_entry_hint">No Entry</string>
+    <string name="time_in_days">days</string>
     <string-array name="recipe_types_list">
         <item>All Grain</item>
         <item>Partial Mash</item>

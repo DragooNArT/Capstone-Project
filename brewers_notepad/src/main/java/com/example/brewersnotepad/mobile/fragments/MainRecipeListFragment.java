@@ -69,8 +69,6 @@ public class MainRecipeListFragment extends Fragment implements LoaderManager.Lo
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLoaderManager().initLoader(LOADER_ID, null,this);
-
-
     }
 
     public void loadData(Cursor data) {
@@ -205,6 +203,7 @@ public class MainRecipeListFragment extends Fragment implements LoaderManager.Lo
 
     @Override
     public android.support.v4.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
         String[] columns = new String[]{RecipeStorageProvider.FIELD_RECIPE_NAME,RecipeStorageProvider.FIELD_RECIPE_DATA};
         return new CursorLoader(getContext(),RecipeStorageProvider.CONTENT_URI, columns,null,null,null);
     }

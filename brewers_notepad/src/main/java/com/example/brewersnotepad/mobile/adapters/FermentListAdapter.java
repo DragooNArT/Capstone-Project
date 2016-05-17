@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.data.FermentationEntry;
-import com.example.brewersnotepad.mobile.data.HopEntry;
 import com.example.brewersnotepad.mobile.listeners.DeleteListListener;
+import com.example.brewersnotepad.mobile.providers.MetricsProvider;
 import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
 /**
@@ -24,12 +24,14 @@ public class FermentListAdapter<T> extends BaseListAdapter<FermentationEntry> {
     private LayoutInflater inflater;
     private ListView mFermentList;
     private DeleteListListener removeListener;
-    public FermentListAdapter(Context context, int resource,ListView fermentList) {
+    private MetricsProvider metricsProvider;
+    public FermentListAdapter(Context context, int resource, ListView fermentList, MetricsProvider metricsProvider) {
         super(context, resource);
         this.mFermentList = fermentList;
         MAX_HEIGHT = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 180, getContext().getResources().getDisplayMetrics());
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.removeListener = new DeleteListListener(this);
+        this.metricsProvider = metricsProvider;
     }
 
     @Override
@@ -58,7 +60,7 @@ public class FermentListAdapter<T> extends BaseListAdapter<FermentationEntry> {
         fermentDuration.setText(getContext().getString(R.string.fermentTimeFormat,fermentationEntry.getPhaseDuration()));
 
         TextView fermentTemp = (TextView)convertView.findViewById(R.id.ferment_list_temp_entry);
-        fermentTemp.setText(fermentationEntry.getTargetPhaseTemp()+" "+metricsProvider.getTempPrefix());
+        fermentTemp.setText(metricsProvider.convertTempToText(fermentationEntry.getTargetPhaseTemp()));
         ImageView deleteGrainBtn = (ImageView)convertView.findViewById(R.id.deleteGrainButton);
         deleteGrainBtn.setTag(position);
         deleteGrainBtn.setOnClickListener(removeListener);

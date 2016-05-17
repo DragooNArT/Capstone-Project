@@ -12,7 +12,7 @@ public class FermentationEntry implements Parcelable {
 
     private int phaseDuration;
 
-    private int targetPhaseTemp;
+    private double targetPhaseTemp;
     public FermentationEntry() {
 
     }
@@ -26,7 +26,7 @@ public class FermentationEntry implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(phaseName);
         dest.writeInt(phaseDuration);
-        dest.writeInt(targetPhaseTemp);
+        dest.writeDouble(targetPhaseTemp);
     }
 
     @Override
@@ -62,11 +62,11 @@ public class FermentationEntry implements Parcelable {
         this.phaseDuration = phaseDuration;
     }
 
-    public int getTargetPhaseTemp() {
+    public double getTargetPhaseTemp() {
         return targetPhaseTemp;
     }
 
-    public void setTargetPhaseTemp(int targetPhaseTemp) {
+    public void setTargetPhaseTemp(double targetPhaseTemp) {
         this.targetPhaseTemp = targetPhaseTemp;
     }
 }
