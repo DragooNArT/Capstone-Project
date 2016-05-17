@@ -86,7 +86,7 @@ public class MainRecipeListFragment extends Fragment implements LoaderManager.Lo
                    }
                RecipeRuntimeManager.getRecipesList().clear();
                RecipeRuntimeManager.getRecipesList().addAll(recipesList);
-                mBeerListAdapter.notifyDataSetChanged();
+               mBeerListAdapter.notifyDataSetChanged();
         } else {
            RecipeRuntimeManager.getRecipesList().clear();
        }

@@ -30,7 +30,7 @@ public class ViewRecipeActivity extends AppCompatActivity implements CreateRecip
     
     public static final String RECIPE_ID_EXTRA = "recipeIdExtra";
     
-    private RecipeDataHolder currentRecipe;
+    private String recipeName;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -56,19 +56,17 @@ public class ViewRecipeActivity extends AppCompatActivity implements CreateRecip
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new ViewRecipePagerAdapter(getSupportFragmentManager());
         
         Bundle extras = getIntent().getExtras();
         if(extras!=null) {
-            RecipeDataHolder currentRecipe =RecipeRuntimeManager.getRecipe(extras.getString(RECIPE_ID_EXTRA));
-            if(currentRecipe != null ) {
-                this.currentRecipe = currentRecipe;
-                RecipeRuntimeManager.setViewRecipe(currentRecipe);
-            }
+            recipeName = extras.getString(RECIPE_ID_EXTRA);
+            mSectionsPagerAdapter = new ViewRecipePagerAdapter(getSupportFragmentManager(),recipeName);
+
+            // Set up the ViewPager with the sections adapter.
+            mViewPager = (ViewPager) findViewById(R.id.view_recpie_pager);
+            mViewPager.setAdapter(mSectionsPagerAdapter);
         }
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.view_recpie_pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+
 
     }
 
@@ -96,7 +94,7 @@ public class ViewRecipeActivity extends AppCompatActivity implements CreateRecip
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_edit_recipe) {
             Intent intent = new Intent(this, CreateRecipeActivity.class);
-            intent.putExtra(ViewRecipeActivity.RECIPE_ID_EXTRA,currentRecipe.getRecipe_name());
+            intent.putExtra(ViewRecipeActivity.RECIPE_ID_EXTRA,recipeName);
             startActivity(intent);
             return true;
         }

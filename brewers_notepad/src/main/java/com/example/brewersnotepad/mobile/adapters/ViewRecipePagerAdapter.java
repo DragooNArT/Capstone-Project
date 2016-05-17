@@ -1,5 +1,6 @@
 package com.example.brewersnotepad.mobile.adapters;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -19,8 +20,16 @@ public class ViewRecipePagerAdapter extends FragmentPagerAdapter {
     private ViewRecipeMain mFragmentMain;
     private ViewRecipeSecondary mFragmentSecondary;
     private CreateRecipeExtrasFragment mFragmentExtra;
-    public ViewRecipePagerAdapter(FragmentManager fm) {
+    private String recipeId;
+    public ViewRecipePagerAdapter(FragmentManager fm,String recipeId) {
         super(fm);
+        this.recipeId = recipeId;
+    }
+
+    private void addRecipeNameToArgs(Fragment fragment) {
+        Bundle arguments = new Bundle();
+        arguments.putString(ViewRecipeActivity.RECIPE_ID_EXTRA,recipeId);
+        fragment.setArguments(arguments);
     }
 
     @Override
@@ -29,16 +38,19 @@ public class ViewRecipePagerAdapter extends FragmentPagerAdapter {
             case 0:
                 if(mFragmentMain == null) {
                     mFragmentMain = new ViewRecipeMain();
+                    addRecipeNameToArgs(mFragmentMain);
                 }
                 return mFragmentMain;
             case 1:
                 if(mFragmentSecondary == null) {
                     mFragmentSecondary =  new ViewRecipeSecondary();
+                    addRecipeNameToArgs(mFragmentSecondary);
                 }
                 return mFragmentSecondary;
             case 2:
                 if(mFragmentExtra == null) {
                     mFragmentExtra = new CreateRecipeExtrasFragment();
+                    addRecipeNameToArgs(mFragmentExtra);
                 }
                 return mFragmentExtra;
         }

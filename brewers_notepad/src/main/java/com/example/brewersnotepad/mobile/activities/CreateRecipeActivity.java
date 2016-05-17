@@ -44,7 +44,14 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_recipe);
-
+        recipeInstance = getRecipeFromExtras();
+        listener = new CreateRecipeListener(this,recipeInstance == null);
+        if(recipeInstance == null) {
+            //create a new recipe and make it globally available
+            recipeInstance = new RecipeDataHolder();
+            newRecipe = true;
+        }
+        RecipeRuntimeManager.setCurrentRecipe(recipeInstance);
         Toolbar toolbar = (Toolbar) findViewById(R.id.create_recipe_toolbar);
         toolbar.setTitle(getString(R.string.create_recipe_view_title));
         setSupportActionBar(toolbar);
@@ -54,13 +61,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
         mViewPager = (ViewPager) findViewById(R.id.create_recpie_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        recipeInstance = getRecipeFromExtras();
-        listener = new CreateRecipeListener(this,recipeInstance == null);
-        if(recipeInstance == null) {
-            //create a new recipe and make it globally available
-            recipeInstance = new RecipeDataHolder();
-            newRecipe = true;
-        }
+
     }
 
     public boolean isNewRecipe() {
