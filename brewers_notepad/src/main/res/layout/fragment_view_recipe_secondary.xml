@@ -20,7 +20,8 @@
             android:background="@color/colorPrimaryDark"
             android:autoText="false"
             android:textAlignment="center"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:contentDescription="@string/hop_phase_title_contentDesc" />
 
         <GridLayout
             android:layout_width="match_parent"
@@ -63,7 +64,8 @@
                 android:textStyle="bold|italic"
                 android:typeface="normal"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_marginEnd="180dp"/>
+                android:layout_marginEnd="180dp"
+                android:contentDescription="@string/hop_phase_time_contentDesc" />
 
         </GridLayout>
 
@@ -128,7 +130,8 @@
             android:scrollIndicators="top|bottom"
             android:divider="@color/colorPrimaryDark"
             android:dividerHeight="4px"
-            android:background="@color/accent_material_light" />
+            android:background="@color/accent_material_light"
+            android:contentDescription="@string/list_hop_contentDesc" />
 
         <TextView
             android:layout_width="fill_parent"
@@ -142,7 +145,8 @@
             android:background="@color/colorPrimaryDark"
             android:autoText="false"
             android:textAlignment="center"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:contentDescription="@string/fermentation_phase_title_contentDesc" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -195,6 +199,7 @@
             android:scrollIndicators="top|bottom"
             android:divider="@color/colorPrimaryDark"
             android:dividerHeight="4px"
-            android:background="@color/accent_material_light" />
+            android:background="@color/accent_material_light"
+            android:contentDescription="@string/ferm_list_contentDesc" />
     </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

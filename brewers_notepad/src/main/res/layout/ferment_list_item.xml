@@ -19,7 +19,8 @@
             android:layout_gravity="center_vertical"
             android:singleLine="true"
             android:maxWidth="120dp"
-            android:minWidth="120dp" />
+            android:minWidth="120dp"
+            android:contentDescription="@string/fermentation_phase_title_contentDesc" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,7 +33,8 @@
             android:layout_gravity="left|center_vertical"
             android:singleLine="true"
             android:maxWidth="80dp"
-            android:minWidth="80dp" />
+            android:minWidth="80dp"
+            android:contentDescription="@string/ferm_days_contentDesc" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,7 +47,8 @@
         android:layout_gravity="left|center_vertical"
         android:singleLine="true"
         android:maxWidth="80dp"
-        android:minWidth="80dp" />
+        android:minWidth="80dp"
+        android:contentDescription="@string/ferm_temp_contentDesc" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -56,6 +59,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/ic_delete_white_36dp"
         android:padding="0dp"
-        android:layout_gravity="center_vertical" />
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@string/ferm_delete_contentDesc" />
 
 </GridLayout>

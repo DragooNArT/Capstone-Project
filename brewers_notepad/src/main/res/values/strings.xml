@@ -57,4 +57,33 @@
         <item>Other</item>
     </string-array>
     <string name="interstitial_ad_id">ca-app-pub-1038077747487580/3263041952</string>
+    <string name="hop_variety_contentDesc">Hop variety</string>
+    <string name="hop_type_contentDesc">Hop type</string>
+    <string name="hop_quantity_contentDesc">Quantity of hops</string>
+    <string name="add_hop_contentDesc">when to add hops</string>
+    <string name="grain_type_contentDesc">Grain type</string>
+    <string name="grain_quantity_contentDesc">Quantity of grain</string>
+    <string name="hop_phase_time_contentDesc">length of hopping phase in minutes</string>
+    <string name="hop_phase_title_contentDesc">Hop phase title</string>
+    <string name="fermentation_phase_title_contentDesc">Fermentation phase title</string>
+    <string name="recipe_name_contentDesc">Recipe name</string>
+    <string name="select_recipe_type_contentDesc">Select recipe type</string>
+    <string name="mash_temp_contentDesc">Temperature of mash phase</string>
+    <string name="mash_duration_contentDesc">Duration of mash phase</string>
+    <string name="add_grain_contentDesc">Add new grain entry</string>
+    <string name="add_new_hop_contentDesc">Add new hop entry</string>
+    <string name="add_new_ferm_contentDesc">Add new fermentation phase</string>
+    <string name="ferm_days_contentDesc">length of fermentation in days</string>
+    <string name="ferm_temp_contentDesc">Target temperature of fermentation</string>
+    <string name="ferm_list_contentDesc">List of fermentation entries</string>
+    <string name="list_hop_contentDesc">List of hop entries</string>
+    <string name="list_grain_contentDesc">List of grain entries</string>
+    <string name="ferm_delete_contentDesc">Remove fermentation entry</string>
+    <string name="remove_hop_contentDesc">Remove hop entry</string>
+    <string name="remove_grain_contentDesc">Remove grain entry</string>
+    <string name="add_new_recipe_contentDesc">Add new recipe</string>
+    <string name="recipe_list_contentDesc">List of recipes</string>
+    <string name="imperial_contentDesc">Use Imperial or metric values</string>
+    <string name="celsius_btn_contentDesc">Fahrenheit of Celsius display temp</string>
+    <string name="sign_out_google_contentDesc">Sign out from google</string>
 </resources>

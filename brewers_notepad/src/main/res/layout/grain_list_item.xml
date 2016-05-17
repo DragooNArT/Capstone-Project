@@ -21,7 +21,8 @@
             android:layout_gravity="center_vertical"
             android:singleLine="true"
             android:maxWidth="150dp"
-            android:minWidth="150dp" />
+            android:minWidth="150dp"
+            android:contentDescription="@string/grain_type_contentDesc" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,7 +37,8 @@
             android:singleLine="true"
             android:inputType="number"
             android:maxWidth="140dp"
-            android:minWidth="140dp" />
+            android:minWidth="140dp"
+            android:contentDescription="@string/grain_quantity_contentDesc" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -45,6 +47,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/ic_delete_white_36dp"
         android:padding="0dp"
-        android:layout_gravity="center_vertical" />
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@string/remove_grain_contentDesc" />
 
 </GridLayout>

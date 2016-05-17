@@ -14,7 +14,8 @@
             android:text="Sign-out from Google"
             android:id="@+id/signOff"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="55dp" />
+            android:layout_marginTop="55dp"
+            android:contentDescription="@string/sign_out_google_contentDesc" />
 
         <GridLayout
 
@@ -56,7 +57,8 @@
                 android:layout_row="0"
                 android:layout_column="0"
                 android:layout_alignParentEnd="false"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:contentDescription="@string/imperial_contentDesc" />
 
             <ToggleButton
                 android:layout_width="wrap_content"
@@ -66,12 +68,8 @@
                 android:id="@+id/useCelsius"
                 android:layout_row="0"
                 android:layout_column="1"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/celsius_btn_contentDesc" />
         </RelativeLayout>
         </GridLayout>
-
-
-
-
-
     </LinearLayout>

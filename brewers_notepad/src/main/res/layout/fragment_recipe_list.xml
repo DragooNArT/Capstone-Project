@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:clickable="true" />
+        android:clickable="true"
+        android:contentDescription="@string/recipe_list_contentDesc" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addRecipeFab"
@@ -21,6 +22,7 @@
         android:src="@android:drawable/ic_input_add"
         android:clickable="true"
         app:elevation="4dp"
-        android:tint="@android:color/white" />
+        android:tint="@android:color/white"
+        android:contentDescription="@string/add_new_recipe_contentDesc" />
 
 </FrameLayout>

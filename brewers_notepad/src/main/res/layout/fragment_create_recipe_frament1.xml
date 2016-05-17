@@ -53,7 +53,9 @@
             android:typeface="serif"
             android:editable="true"
             android:textAlignment="center"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:clickable="false"
+            android:contentDescription="@string/inputRecepieHint" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -82,7 +84,8 @@
             android:layoutMode="clipBounds"
             android:nestedScrollingEnabled="false"
             android:layout_gravity="right"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:contentDescription="@string/select_recipe_type_contentDesc" />
 
     </GridLayout>
 
@@ -132,7 +135,8 @@
                 android:enabled="true"
                 android:typeface="serif"
                 android:editable="true"
-                android:inputType="time" />
+                android:inputType="time"
+                android:contentDescription="@string/mash_duration_contentDesc" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -159,7 +163,8 @@
                 android:focusable="true"
                 android:enabled="true"
                 android:typeface="serif"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal"
+                android:contentDescription="@string/mash_temp_contentDesc" />
         </GridLayout>
 
         <GridLayout
@@ -182,7 +187,8 @@
                 android:singleLine="true"
                 android:maxWidth="150dp"
                 android:minWidth="150dp"
-                android:lines="1" />
+                android:lines="1"
+                android:contentDescription="@string/grain_type_contentDesc" />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -200,7 +206,8 @@
                 android:enabled="true"
                 android:typeface="serif"
                 android:inputType="numberDecimal"
-                android:lines="1" />
+                android:lines="1"
+                android:contentDescription="@string/grain_quantity_contentDesc" />
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -210,7 +217,8 @@
                 android:padding="0dp"
                 android:layout_gravity="center_vertical"
                 android:onClick="onAddGrains"
-                android:id="@+id/addGrainButton" />
+                android:id="@+id/addGrainButton"
+                android:contentDescription="@string/add_grain_contentDesc" />
 
         </GridLayout>
 
@@ -228,6 +236,7 @@
         android:scrollIndicators="top|bottom"
         android:background="@color/button_material_dark"
         android:paddingEnd="16dp"
-        android:paddingStart="16dp" />
+        android:paddingStart="16dp"
+        android:contentDescription="@string/list_grain_contentDesc" />
 </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

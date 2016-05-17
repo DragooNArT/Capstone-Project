@@ -21,7 +21,8 @@
             android:layout_gravity="center_vertical"
             android:singleLine="true"
             android:maxWidth="90dp"
-            android:minWidth="90dp" />
+            android:minWidth="90dp"
+            android:contentDescription="@string/hop_variety_contentDesc" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,7 +35,8 @@
             android:layout_gravity="left|center_vertical"
             android:singleLine="true"
             android:maxWidth="80dp"
-            android:minWidth="80dp" />
+            android:minWidth="80dp"
+            android:contentDescription="@string/hop_type_contentDesc" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -47,7 +49,8 @@
         android:layout_gravity="left|center_vertical"
         android:singleLine="true"
         android:maxWidth="60dp"
-        android:minWidth="60dp" />
+        android:minWidth="60dp"
+        android:contentDescription="@string/add_hop_contentDesc" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -60,7 +63,9 @@
         android:layout_gravity="left|center_vertical"
         android:singleLine="true"
         android:maxWidth="60dp"
-        android:minWidth="60dp" />
+        android:minWidth="60dp"
+        android:clickable="false"
+        android:contentDescription="@string/hop_quantity_contentDesc" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -71,6 +76,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/ic_delete_white_36dp"
         android:padding="0dp"
-        android:layout_gravity="center_vertical" />
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@string/remove_hop_contentDesc" />
 
 </GridLayout>
