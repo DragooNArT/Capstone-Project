@@ -39,6 +39,7 @@
     <string name="prompt_save_draft_title">Incomplete Recipe</string>
     <string name="delete_swipe_prompt_title">Delete Swiped Item</string>
     <string name="prompt_delete_content_text">You are about to delete \"%s\" recipe. Are you sure?</string>
+    <string name="prompt_save_incomplete_recipe">You are about to save an incomplete recipe as draft. You can complete the recipe by editing it later.Are you sure?</string>
     <string name="metric_weight">kg</string>
     <string name="nonMetric_weight">lbs</string>
     <string name="celsius_prefix">°C</string>

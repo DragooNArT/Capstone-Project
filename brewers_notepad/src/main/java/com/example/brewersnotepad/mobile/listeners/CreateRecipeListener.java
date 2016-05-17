@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -84,6 +85,13 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
     private void promptSaveDraft(final RecipeDataHolder recipeInstance) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(activity.getString(R.string.prompt_save_draft_title));
+
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View dialogLayout = inflater.inflate(R.layout.prompt_content,null);
+        TextView text = (TextView)dialogLayout.findViewById(R.id.prompt_text);
+        text.setText(activity.getString(R.string.prompt_save_incomplete_recipe));
+        builder.setView(dialogLayout);
+
         builder.setPositiveButton(activity.getString(R.string.save_draft_button_text), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

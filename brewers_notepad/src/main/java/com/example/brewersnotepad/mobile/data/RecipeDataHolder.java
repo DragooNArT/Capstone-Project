@@ -135,7 +135,7 @@ public class RecipeDataHolder {
 
             return false;
         }
-        if(getMashTemp()!=Integer.MAX_VALUE) {
+        if(getMashTemp()==Integer.MAX_VALUE) {
 
             return false;
         }
