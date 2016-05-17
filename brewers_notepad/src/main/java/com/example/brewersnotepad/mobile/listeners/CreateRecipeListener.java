@@ -50,7 +50,7 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
                     promptSaveDraft(recipeInstance);
                 }
             } else {
-                Toast.makeText(activity, "Can't save recipe with no name!", Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, R.string.Toast_noRecipeName, Toast.LENGTH_LONG).show();
                 focusOnRecipeName();
             }
             return true;
@@ -60,7 +60,7 @@ public class CreateRecipeListener implements MenuItem.OnMenuItemClickListener {
 
     private void finalizeRecipe(RecipeDataHolder recipeInstance) {
         if(newRecipe && RecipeRuntimeManager.getRecipe(recipeInstance.getRecipe_name()) != null) {
-            Toast.makeText(activity, "Recipe name \""+recipeInstance.getRecipe_name()+"\" already exists!", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, activity.getString(R.string.Toast_recipe_exists,recipeInstance.getRecipe_name()), Toast.LENGTH_LONG).show();
             focusOnRecipeName();
         } else {
             activity.fillData(recipeInstance,newRecipe);

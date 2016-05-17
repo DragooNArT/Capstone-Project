@@ -86,4 +86,18 @@
     <string name="imperial_contentDesc">Use Imperial or metric values</string>
     <string name="celsius_btn_contentDesc">Fahrenheit of Celsius display temp</string>
     <string name="sign_out_google_contentDesc">Sign out from google</string>
+    <string name="Toast_ferment_temp">Please type in \"Ferment temp\"!</string>
+    <string name="Toast_ferment_time">Please type in \"Ferment time\"!</string>
+    <string name="Toast_ferment_name">Please type in \"Ferment phase name\"!</string>
+    <string name="Toast_invalid_num">Ferment temp is an invalid decimal number!</string>
+    <string name="Toast_input_hop_variety">Please type in \"Hop variety\"!</string>
+    <string name="Toast_input_hop_type">Please type in \"Hop type\"!</string>
+    <string name="Tost_input_hop_quantity">Please type in \"The quantity of hops\"!</string>
+    <string name="Toast_input_hop_time">Please type in \"When to add hops\"!</string>
+    <string name="Toast_noRecipeName">Can\'t save recipe with no name!</string>
+    <string name="Toast_input_grainType">Please type in \"Grain type\"!</string>
+    <string name="Toast_input_grain_quantity">Please type in \"Quantity\"!</string>
+    <string name="Toast_grain_quantity_invalid">Grain quantity is an invalid decimal number!</string>
+
+    <string name="Toast_recipe_exists">Recipe name "%1$s" already exists!</string>
 </resources>

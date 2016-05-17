@@ -27,27 +27,27 @@ public class AddFermentListener implements ImageButton.OnClickListener {
     private boolean isInputValid(String fermentName,String fermentTemp,String fermentTime) {
         if(fermentName.isEmpty()) {
 
-            Toast.makeText(fragmentView.getContext(), "Please type in \"Ferment phase name\"!", Toast.LENGTH_LONG).show();
+            Toast.makeText(fragmentView.getContext(), R.string.Toast_ferment_name, Toast.LENGTH_LONG).show();
             return false;
         } else if (fermentTemp.isEmpty()) {
-            Toast.makeText(fragmentView.getContext(), "Please type in \"Ferment temp\"!", Toast.LENGTH_LONG).show();
+            Toast.makeText(fragmentView.getContext(), R.string.Toast_ferment_temp, Toast.LENGTH_LONG).show();
             return false ;
         } else if (fermentTime.isEmpty()) {
-            Toast.makeText(fragmentView.getContext(), "Please type in \"Ferment time\"!", Toast.LENGTH_LONG).show();
+            Toast.makeText(fragmentView.getContext(), R.string.Toast_ferment_time, Toast.LENGTH_LONG).show();
             return false ;
         }
 
         try {
             metricsProvider.convertTempForStorage(fermentTemp);
         } catch(NumberFormatException e) {
-            Toast.makeText(fragmentView.getContext(), "Ferment temp is an invalid decimal number!", Toast.LENGTH_LONG).show();
+            Toast.makeText(fragmentView.getContext(), R.string.Toast_invalid_num, Toast.LENGTH_LONG).show();
             return false;
         }
 
         try {
             metricsProvider.convertDaysToValue(fermentTime);
         } catch(NumberFormatException e) {
-            Toast.makeText(fragmentView.getContext(), "Ferment time is an invalid decimal number!", Toast.LENGTH_LONG).show();
+            Toast.makeText(fragmentView.getContext(), R.string.Toast_invalid_num, Toast.LENGTH_LONG).show();
             return false;
         }
 

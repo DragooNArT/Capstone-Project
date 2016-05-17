@@ -12,6 +12,8 @@ import com.example.brewersnotepad.mobile.data.GrainEntry;
 import com.example.brewersnotepad.mobile.providers.MetricsProvider;
 import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 
+import static android.widget.Toast.*;
+
 /**
  * Created by xnml on 12.5.2016 г..
  */
@@ -29,16 +31,16 @@ public class AddGrainListener implements ImageButton.OnClickListener {
     private boolean isInputValid(String grainType,String grainQuantity) {
         if(grainType.isEmpty()) {
 
-            Toast.makeText(fragmentView.getContext(), "Please type in \"Grain type\"!", Toast.LENGTH_LONG).show();
+            makeText(fragmentView.getContext(), R.string.Toast_input_grainType, LENGTH_LONG).show();
             return false;
         } else if (grainQuantity.isEmpty()) {
-            Toast.makeText(fragmentView.getContext(), "Please type in \"Quantity\"!", Toast.LENGTH_LONG).show();
+            makeText(fragmentView.getContext(), R.string.Toast_input_grain_quantity, LENGTH_LONG).show();
             return false ;
         }
         try {
             mMetricsProvider.convertWeightTextForStorage(grainQuantity);
         } catch(NumberFormatException e) {
-            Toast.makeText(fragmentView.getContext(), "Grain quantity is an invalid decimal number!", Toast.LENGTH_LONG).show();
+            makeText(fragmentView.getContext(), R.string.Toast_grain_quantity_invalid, LENGTH_LONG).show();
             return false;
         }
 

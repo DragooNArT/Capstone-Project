@@ -30,28 +30,28 @@ public class AddHopsListener implements ImageButton.OnClickListener {
     private boolean isInputValid(String hopVariety,String hopType,String hopQuantity,String hopTime) {
         if(hopVariety.isEmpty()) {
 
-            Toast.makeText(fragmentView.getContext(), "Please type in \"Hop variety\"!", Toast.LENGTH_LONG).show();
+            Toast.makeText(fragmentView.getContext(), R.string.Toast_input_hop_variety, Toast.LENGTH_LONG).show();
             return false;
         } else if(hopType.isEmpty()) {
-            Toast.makeText(fragmentView.getContext(), "Please type in \"Hop type\"!", Toast.LENGTH_LONG).show();
+            Toast.makeText(fragmentView.getContext(), R.string.Toast_input_hop_type, Toast.LENGTH_LONG).show();
             return false;
         } else if (hopQuantity.isEmpty()) {
-            Toast.makeText(fragmentView.getContext(), "Please type in \"The quantity of hops\"!", Toast.LENGTH_LONG).show();
+            Toast.makeText(fragmentView.getContext(), R.string.Tost_input_hop_quantity, Toast.LENGTH_LONG).show();
             return false ;
         }  else if (hopTime.isEmpty()) {
-            Toast.makeText(fragmentView.getContext(), "Please type in \"When to add hops\"!", Toast.LENGTH_LONG).show();
+            Toast.makeText(fragmentView.getContext(), R.string.Toast_input_hop_time, Toast.LENGTH_LONG).show();
             return false ;
         }
         try {
             metricsProvider.convertMinsToValue(hopTime);
         } catch(NumberFormatException e) {
-            Toast.makeText(fragmentView.getContext(), "Hop time is an invalid decimal number!", Toast.LENGTH_LONG).show();
+            Toast.makeText(fragmentView.getContext(), R.string.Toast_invalid_num, Toast.LENGTH_LONG).show();
             return false;
         }
         try {
             metricsProvider.convertSmallWeightToValue(hopQuantity);
         } catch(NumberFormatException e) {
-            Toast.makeText(fragmentView.getContext(), "Hop quantity is an invalid decimal number!", Toast.LENGTH_LONG).show();
+            Toast.makeText(fragmentView.getContext(), R.string.Toast_invalid_num, Toast.LENGTH_LONG).show();
             return false;
         }
 
