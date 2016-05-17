@@ -56,4 +56,5 @@
         <item>Extract</item>
         <item>Other</item>
     </string-array>
+    <string name="interstitial_ad_id">ca-app-pub-1038077747487580/3263041952</string>
 </resources>

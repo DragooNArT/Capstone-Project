@@ -43,4 +43,5 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.4'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.4'
     compile 'com.github.satyan:sugar:1.4'
+    compile 'com.google.android.gms:play-services-ads:8.4.0'
 }

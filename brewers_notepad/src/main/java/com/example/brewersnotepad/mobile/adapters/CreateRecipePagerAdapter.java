@@ -42,7 +42,9 @@ public class CreateRecipePagerAdapter extends FragmentPagerAdapter implements Cr
                 mFragmentMain = new CreateRecipeFramentMain();
                 Bundle args = new Bundle();
                 args.putBoolean(CreateRecipeActivity.NEW_RECIPE_KEY,activity.isNewRecipe());
-                args.putParcelableArrayList(CreateRecipeFramentMain.GRAIN_PARCELABLE, (ArrayList<? extends Parcelable>) RecipeRuntimeManager.getCurrentRecipe().getRecipe_grains());
+                if(!activity.isNewRecipe()) {
+                    args.putParcelableArrayList(CreateRecipeFramentMain.GRAIN_PARCELABLE, (ArrayList<? extends Parcelable>) RecipeRuntimeManager.getCurrentRecipe().getRecipe_grains());
+                }
                 mFragmentMain.setArguments(args);
             }
             return mFragmentMain;

@@ -24,6 +24,8 @@ import com.example.brewersnotepad.mobile.json.JsonUtility;
 import com.example.brewersnotepad.mobile.listeners.CreateRecipeListener;
 import com.example.brewersnotepad.mobile.providers.RecipeRuntimeManager;
 import com.example.brewersnotepad.mobile.providers.RecipeStorageProvider;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
@@ -59,7 +61,6 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
             recipeInstance = new RecipeDataHolder();
             newRecipe = true;
         }
-        RecipeRuntimeManager.setCurrentRecipe(recipeInstance);
     }
 
     public boolean isNewRecipe() {
