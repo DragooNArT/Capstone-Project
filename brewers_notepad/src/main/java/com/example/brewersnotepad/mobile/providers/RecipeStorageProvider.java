@@ -59,7 +59,6 @@ public class RecipeStorageProvider extends ContentProvider {
         /**
          * If record is added successfully
          */
-
         if (rowID > 0)
         {
             Uri _uri = ContentUris.withAppendedId(CONTENT_URI, rowID);

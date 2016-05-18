@@ -120,7 +120,7 @@ public class ViewRecipeMain extends ViewBaseFragment {
         if (!data.isAfterLast()) {
             data.moveToFirst();
             String recipe_data = data.getString(data.getColumnIndex(RecipeStorageProvider.FIELD_RECIPE_DATA));
-            if(recipe_data != null) {
+            if (recipe_data != null) {
                 currentRecipe = JsonUtility.JsonToObject(recipe_data);
                 fill_In_View();
             }

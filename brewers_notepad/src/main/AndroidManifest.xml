@@ -3,16 +3,19 @@
     package="com.example.brewersnotepad">
 
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mobile.activities.MainActivity" android:launchMode="singleTop">
+        <activity
+            android:name=".mobile.activities.MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,16 +29,31 @@
         <activity
             android:name=".mobile.activities.ViewRecipeActivity"
             android:label="@string/title_activity_view_recipe"
-            android:theme="@style/AppTheme"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="LAUNCH_ACTIVITY" />
+            </intent-filter>
+        </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <provider android:name=".mobile.providers.RecipeStorageProvider"
-        android:authorities="com.example.brewersnotepad.RecipeData"
-            >
-    </provider>
+        <provider
+            android:exported="true"
+            android:name=".mobile.providers.RecipeStorageProvider"
+            android:authorities="com.example.brewersnotepad.RecipeData"></provider>
+
+        <receiver android:name=".mobile.widget.WidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/appwidgetprovider" />
+        </receiver>
+        <service
+            android:name=".mobile.widget.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

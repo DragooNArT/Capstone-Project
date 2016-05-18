@@ -1,8 +1,13 @@
 package com.example.brewersnotepad.mobile.activities;
 
+import android.accounts.AccountManager;
+import android.content.Intent;
+import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,26 +15,70 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuItemImpl;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.brewersnotepad.R;
 import com.example.brewersnotepad.mobile.fragments.MainAboutFragment;
 import com.example.brewersnotepad.mobile.fragments.MainPreferencesFragment;
 import com.example.brewersnotepad.mobile.fragments.MainRecipeListFragment;
+import com.example.brewersnotepad.mobile.listeners.GoogleSignInListener;
 import com.example.brewersnotepad.mobile.listeners.MainActivityNavigationListener;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.drive.Drive;
+import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
+import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity implements MainRecipeListFragment.OnFragmentInteractionListener, MainAboutFragment.OnFragmentInteractionListener, MainPreferencesFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,MainRecipeListFragment.OnFragmentInteractionListener, MainAboutFragment.OnFragmentInteractionListener, MainPreferencesFragment.OnFragmentInteractionListener {
 
 
     public static final String FRAGMENT_STATE = "FRAGMENT_ID";
+    private static final String STORAGE_USERNAME_KEY = "UserPrefKey";
+
     private MainActivityNavigationListener navListener;
+
+    /**
+     * Request code for auto Google Play Services error resolution.
+     */
+    public static final int REQUEST_CODE_RESOLUTION = 1;
+
+    /**
+     * Google API client.
+     */
+    private GoogleApiClient mGoogleApiClient;
+
+    private GoogleSignInListener mGoogleListener;
+
+    private View sideNavHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String accountName = getPreferences(MODE_PRIVATE).getString(STORAGE_USERNAME_KEY,null);
+        if (mGoogleApiClient == null && accountName!=null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addApi(Drive.API)
+                    .setAccountName(accountName)
+                    .addScope(Drive.SCOPE_FILE)
+                    .addScope(Drive.SCOPE_APPFOLDER) // required for App Folder sample
+                    .addScope(Plus.SCOPE_PLUS_LOGIN)
+                    .addScope(Plus.SCOPE_PLUS_PROFILE)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .build();
+            mGoogleApiClient.connect();
+        }
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -40,9 +89,15 @@ public class MainActivity extends AppCompatActivity implements MainRecipeListFra
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        sideNavHeader =
+                navigationView.inflateHeaderView(R.layout.nav_header_main);
+        mGoogleListener = new GoogleSignInListener(this);
+        SignInButton signButton = (SignInButton)sideNavHeader.findViewById(R.id.sign_in_button);
+        signButton.setOnClickListener(mGoogleListener);
         navListener = new MainActivityNavigationListener(this);
         navigationView.setNavigationItemSelectedListener(navListener);
         boolean recoveredFragment = false;
+
         if (savedInstanceState != null) {
             int menuItemId = savedInstanceState.getInt(FRAGMENT_STATE);
             if (menuItemId > 0) {
@@ -50,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements MainRecipeListFra
                 recoveredFragment = true;
             }
         }
+
         if (!recoveredFragment) {
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction transaction = fm.beginTransaction();
@@ -57,6 +113,8 @@ public class MainActivity extends AppCompatActivity implements MainRecipeListFra
 
             transaction.commit();
         }
+
+
 
     }
 
@@ -80,8 +138,84 @@ public class MainActivity extends AppCompatActivity implements MainRecipeListFra
         return true;
     }
 
+    /**
+     * Handles resolution callbacks.
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_RESOLUTION && resultCode == RESULT_OK) {
+            String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+            if(accountName!=null) {
+                SharedPreferences.Editor prefEdit = getPreferences(MODE_PRIVATE).edit();
+                prefEdit.putString(STORAGE_USERNAME_KEY, accountName);
+                mGoogleApiClient = new GoogleApiClient.Builder(this)
+                        .addApi(Drive.API)
+                        .setAccountName(accountName)
+                        .addScope(Drive.SCOPE_FILE)
+                        .addScope(Drive.SCOPE_APPFOLDER) // required for App Folder sample
+                        .addScope(Plus.SCOPE_PLUS_LOGIN)
+                        .addScope(Plus.SCOPE_PLUS_PROFILE)
+                        .addConnectionCallbacks(this)
+                        .addOnConnectionFailedListener(this)
+                        .build();
+                mGoogleApiClient.connect();
+                prefEdit.commit();
+            }
+        }
+    }
+
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    private void configurNavHeader(Person userInfo) {
+        String personName = userInfo.getDisplayName();
+        Person.Image personPhoto = userInfo.getImage();
+        String personGooglePlusProfile = userInfo.getId();
+        TextView username = (TextView)sideNavHeader.findViewById(R.id.googleUsername);
+        username.setText(personName);
+        TextView mail = (TextView)sideNavHeader.findViewById(R.id.googleMail);
+        mail.setText(Plus.AccountApi.getAccountName(mGoogleApiClient));
+        ImageView userImage = (ImageView)sideNavHeader.findViewById(R.id.googleImage);
+        Picasso.with(this).load(personPhoto.getUrl()).into(userImage);
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        Log.i(getClass().getName(), "GoogleApiClient connected");
+        if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
+            configurNavHeader(Plus.PeopleApi.getCurrentPerson(mGoogleApiClient));
+
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.i(getClass().getName(), "GoogleApiClient connection suspended");
+    }
+
+    /**
+     * Getter for the {@code GoogleApiClient}.
+     */
+    public GoogleApiClient getGoogleApiClient() {
+        return mGoogleApiClient;
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult result) {
+        Log.i(getClass().getName(), "GoogleApiClient connection failed: " + result.toString());
+        if (!result.hasResolution()) {
+            // show the localized error dialog.
+            GoogleApiAvailability.getInstance().getErrorDialog(this, result.getErrorCode(), 0).show();
+            return;
+        }
+        try {
+            result.startResolutionForResult(this, REQUEST_CODE_RESOLUTION);
+        } catch (IntentSender.SendIntentException e) {
+            Log.e(getClass().getName(), "Exception while starting resolution activity", e);
+        }
     }
 }

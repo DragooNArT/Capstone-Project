@@ -101,4 +101,5 @@
     <string name="Toast_grain_quantity_invalid">Grain quantity is an invalid decimal number!</string>
 
     <string name="Toast_recipe_exists">Recipe name "%1$s" already exists!</string>
+    <string name="widget_title">My Recipes</string>
 </resources>
