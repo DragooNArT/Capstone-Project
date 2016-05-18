@@ -19,6 +19,8 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -42,7 +44,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.4'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.4'
-    compile 'com.github.satyan:sugar:1.4'
+//    compile 'com.github.satyan:sugar:1.4'
     compile 'com.google.android.gms:play-services-ads:8.4.0'
     compile 'com.android.support:support-v4:23.0.1'
     compile 'com.google.android.gms:play-services:8.4.0'

@@ -1,9 +1,11 @@
-package home.dragoonart.brewersnotepad;
+package com.example.brewersnotepad;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.widget.TextView;
+
+import com.example.brewersnotepad.R;
 
 public class BrewTimerActivity extends Activity {
 

@@ -28,6 +28,11 @@ import com.example.brewersnotepad.mobile.fragments.MainPreferencesFragment;
 import com.example.brewersnotepad.mobile.fragments.MainRecipeListFragment;
 import com.example.brewersnotepad.mobile.listeners.GoogleSignInListener;
 import com.example.brewersnotepad.mobile.listeners.MainActivityNavigationListener;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInApi;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.SignInButton;
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements
 
     public static final String FRAGMENT_STATE = "FRAGMENT_ID";
     private static final String STORAGE_USERNAME_KEY = "UserPrefKey";
+    private static final int GET_USER_INFO_KEY = 12412;
 
     private MainActivityNavigationListener navListener;
 
@@ -66,17 +72,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         String accountName = getPreferences(MODE_PRIVATE).getString(STORAGE_USERNAME_KEY,null);
         if (mGoogleApiClient == null && accountName!=null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addApi(Drive.API)
-                    .setAccountName(accountName)
-                    .addScope(Drive.SCOPE_FILE)
-                    .addScope(Drive.SCOPE_APPFOLDER) // required for App Folder sample
-                    .addScope(Plus.SCOPE_PLUS_LOGIN)
-                    .addScope(Plus.SCOPE_PLUS_PROFILE)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .build();
-            mGoogleApiClient.connect();
+            createGoogleApiClient_and_connect(accountName);
         }
 
         setContentView(R.layout.activity_main);
@@ -118,6 +114,25 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
+    private void createGoogleApiClient_and_connect(String accountName) {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .setAccountName(accountName)
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Plus.API)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .addScope(Drive.SCOPE_FILE)
+                .addScope(Drive.SCOPE_APPFOLDER) // required for App Folder sample
+                .addScope(Plus.SCOPE_PLUS_LOGIN)
+                .addScope(Plus.SCOPE_PLUS_PROFILE)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+        mGoogleApiClient.connect();
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -145,23 +160,18 @@ public class MainActivity extends AppCompatActivity implements
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_RESOLUTION && resultCode == RESULT_OK) {
-            String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-            if(accountName!=null) {
-                SharedPreferences.Editor prefEdit = getPreferences(MODE_PRIVATE).edit();
-                prefEdit.putString(STORAGE_USERNAME_KEY, accountName);
-                mGoogleApiClient = new GoogleApiClient.Builder(this)
-                        .addApi(Drive.API)
-                        .setAccountName(accountName)
-                        .addScope(Drive.SCOPE_FILE)
-                        .addScope(Drive.SCOPE_APPFOLDER) // required for App Folder sample
-                        .addScope(Plus.SCOPE_PLUS_LOGIN)
-                        .addScope(Plus.SCOPE_PLUS_PROFILE)
-                        .addConnectionCallbacks(this)
-                        .addOnConnectionFailedListener(this)
-                        .build();
-                mGoogleApiClient.connect();
-                prefEdit.commit();
+        if (data != null && resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_CODE_RESOLUTION) {
+                String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+                if (accountName != null) {
+                    SharedPreferences.Editor prefEdit = getPreferences(MODE_PRIVATE).edit();
+                    prefEdit.putString(STORAGE_USERNAME_KEY, accountName);
+                    createGoogleApiClient_and_connect(accountName);
+                    prefEdit.commit();
+                }
+            } else if (requestCode == GET_USER_INFO_KEY) {
+                GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+                configurNavHeader(result.getSignInAccount());
             }
         }
     }
@@ -171,25 +181,21 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-    private void configurNavHeader(Person userInfo) {
+    private void configurNavHeader(GoogleSignInAccount userInfo) {
         String personName = userInfo.getDisplayName();
-        Person.Image personPhoto = userInfo.getImage();
-        String personGooglePlusProfile = userInfo.getId();
         TextView username = (TextView)sideNavHeader.findViewById(R.id.googleUsername);
         username.setText(personName);
         TextView mail = (TextView)sideNavHeader.findViewById(R.id.googleMail);
-        mail.setText(Plus.AccountApi.getAccountName(mGoogleApiClient));
+        mail.setText(userInfo.getEmail());
         ImageView userImage = (ImageView)sideNavHeader.findViewById(R.id.googleImage);
-        Picasso.with(this).load(personPhoto.getUrl()).into(userImage);
+        Picasso.with(this).load(userInfo.getPhotoUrl()).into(userImage);
     }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.i(getClass().getName(), "GoogleApiClient connected");
-        if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
-            configurNavHeader(Plus.PeopleApi.getCurrentPerson(mGoogleApiClient));
-
-        }
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, GET_USER_INFO_KEY);
     }
 
     @Override
