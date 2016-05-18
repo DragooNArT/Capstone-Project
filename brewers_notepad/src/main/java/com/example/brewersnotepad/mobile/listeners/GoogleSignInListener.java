@@ -21,7 +21,7 @@ public class GoogleSignInListener implements Button.OnClickListener {
     public void onClick(View v) {
         Intent googlePicker = AccountPicker.newChooseAccountIntent(null, null,
                 new String[] { GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE }, true, null, null, null, null);
-        mainActivity.startActivityForResult(googlePicker, mainActivity.REQUEST_CODE_RESOLUTION);
+        mainActivity.createGoogleApiClient_and_connect(true);
 //        mainActivity.getGoogleApiClient().connect();
     }
 

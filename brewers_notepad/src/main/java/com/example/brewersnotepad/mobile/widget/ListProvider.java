@@ -62,7 +62,7 @@ public class ListProvider implements RemoteViewsService.RemoteViewsFactory {
         final RemoteViews remoteView = new RemoteViews(
                 ctx.getPackageName(), R.layout.widget_list_item);
         remoteView.setTextViewText(R.id.widget_list_item_name, recipeList.get(position).getRecipe_name());
-        Intent configIntent = new Intent("LAUNCH_ACTIVITY");
+        Intent configIntent = new Intent();
         configIntent.putExtra(ViewRecipeActivity.RECIPE_ID_EXTRA,recipeList.get(position).getRecipe_name());
         remoteView.setOnClickFillInIntent(R.id.widget_item_root, configIntent);
         return remoteView;

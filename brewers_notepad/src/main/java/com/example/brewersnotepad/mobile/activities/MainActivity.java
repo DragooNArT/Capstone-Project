@@ -70,9 +70,9 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String accountName = getPreferences(MODE_PRIVATE).getString(STORAGE_USERNAME_KEY, null);
-        if (mGoogleApiClient == null && accountName != null) {
-            createGoogleApiClient_and_connect(accountName);
-        }
+//        if (mGoogleApiClient == null && accountName != null) {
+//            createGoogleApiClient_and_connect(false);
+//        }
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -110,9 +110,9 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-    private void createGoogleApiClient_and_connect(String accountName) {
+    public void createGoogleApiClient_and_connect(boolean shouldConnect) {
         try {
-            if (!(mGoogleApiClient != null && mGoogleApiClient.isConnected())) {
+            if (!(mGoogleApiClient != null && mGoogleApiClient.isConnected())&& shouldConnect) {
                 GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                         .requestEmail()
 //                .requestIdToken("AIzaSyA8uW-O5Q45Yg7abcH94Uw0FSduwA8LEX0")
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements
                     if (accountName != null) {
                         SharedPreferences.Editor prefEdit = getPreferences(MODE_PRIVATE).edit();
                         prefEdit.putString(STORAGE_USERNAME_KEY, accountName);
-                        createGoogleApiClient_and_connect(accountName);
+                        createGoogleApiClient_and_connect(true);
                         prefEdit.commit();
                     }
                 } else if (requestCode == GET_USER_INFO_KEY) {
