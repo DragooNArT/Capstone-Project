@@ -1,68 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/mashLayout"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        android:clickable="true"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/mashLayout"
+    android:layout_margin="@dimen/common_edge_margin"
+    android:baselineAligned="true"
+    android:clickable="true"
 
-        android:baselineAligned="true"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingEnd="@dimen/activity_horizontal_margin">
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/common_small_margin"
+    android:paddingStart="@dimen/common_small_margin">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/ferment_list_name_entry"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:inputType="textAutoComplete"
-            android:hint="@string/fermentPhaseName_hint"
-            android:layout_gravity="center_vertical"
-            android:singleLine="true"
-            android:textAlignment="center"
-            android:typeface="sans"
-            android:layout_weight="1"
-            android:contentDescription="@string/fermentation_phase_title_contentDesc" />
-    <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/ferment_list_duration_entry"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:hint="@string/fermentPhaseDuration_hint"
-            android:layout_gravity="center_vertical|bottom"
-            android:singleLine="true"
-            android:inputType="number"
-            android:textAlignment="center"
-            android:typeface="sans"
-            android:layout_weight="1"
-            android:contentDescription="@string/ferm_days_contentDesc" />
-    <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary" />
     <TextView
+        android:id="@+id/ferment_list_name_entry"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/ferment_list_temp_entry"
+        android:layout_column="0"
+        android:layout_gravity="center_vertical"
         android:layout_row="0"
-        android:layout_column="1"
-        android:hint="@string/fermentPhaseTemp_hint"
-        android:layout_gravity="center_vertical|bottom"
-        android:singleLine="true"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:typeface="sans"
         android:layout_weight="1"
-        android:contentDescription="@string/ferm_temp_contentDesc" />
+        android:contentDescription="@string/fermentation_phase_title_contentDesc"
+        android:hint="@string/fermentPhaseName_hint"
+        android:inputType="textAutoComplete"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:typeface="sans" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/ferment_list_duration_entry"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_column="1"
+        android:layout_gravity="center_vertical|bottom"
+        android:layout_row="0"
+        android:layout_weight="1"
+        android:contentDescription="@string/ferm_days_contentDesc"
+        android:hint="@string/fermentPhaseDuration_hint"
+        android:inputType="number"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:typeface="sans" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/ferment_list_temp_entry"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_column="1"
+        android:layout_gravity="center_vertical|bottom"
+        android:layout_row="0"
+        android:layout_weight="1"
+        android:contentDescription="@string/ferm_temp_contentDesc"
+        android:hint="@string/fermentPhaseTemp_hint"
+        android:inputType="number"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:typeface="sans" />
 
 </LinearLayout>

@@ -1,242 +1,238 @@
-
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent">
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="fill_parent"
-    tools:context=".mobile.fragments.CreateRecipeFramentMain"
-    android:orientation="vertical">
 
-    <GridLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:gravity="center"
-        android:columnCount="2"
-        android:rowCount="2"
-        android:theme="@style/AppTheme"
-        android:alignmentMode="alignBounds"
-        android:useDefaultMargins="true"
-        android:visibility="visible"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/recipe_title_label"
-            android:id="@+id/recipeNameLabel"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_gravity="center_vertical"
-            android:focusable="true" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/inputRecipeName"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:hint="@string/inputRecepieHint"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="100dp"
-            android:lines="1"
-            android:singleLine="true"
-            android:focusable="true"
-            android:enabled="true"
-            android:typeface="serif"
-            android:editable="true"
-            android:textAlignment="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:clickable="false"
-            android:contentDescription="@string/inputRecepieHint" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/recipe_type_label"
-            android:id="@+id/recipeTypeLabel"
-            android:layout_row="1"
-            android:layout_column="0"
-            android:layout_gravity="center_vertical" />
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/recipe_type_spinner"
-            android:layout_column="1"
-            android:entries="@array/recipe_types_list"
-            android:focusable="true"
-            android:spinnerMode="dropdown"
-            android:theme="@style/AppTheme"
-            android:layout_marginStart="10dp"
-            android:layout_row="1"
-            android:layout_rowSpan="1"
-            android:clickable="true"
-            android:importantForAccessibility="yes"
-            android:layoutMode="clipBounds"
-            android:nestedScrollingEnabled="false"
-            android:layout_gravity="right"
-            android:textAlignment="center"
-            android:contentDescription="@string/select_recipe_type_contentDesc" />
-
-    </GridLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        tools:context=".mobile.fragments.CreateRecipeFramentMain">
 
         <GridLayout
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:alignmentMode="alignBounds"
+            android:columnCount="2"
             android:gravity="center"
-            android:columnCount="3"
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/common_small_margin"
+            android:paddingStart="@dimen/common_small_margin"
             android:rowCount="2"
             android:theme="@style/AppTheme"
-            android:alignmentMode="alignBounds"
             android:useDefaultMargins="true"
-            android:visibility="visible"
-            android:id="@+id/mashLayout">>
+            android:visibility="visible">
+
+
             <TextView
+                android:id="@+id/recipeNameLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/mash_duration_label"
-                android:id="@+id/mashDurationLabel"
-                android:layout_row="0"
                 android:layout_column="0"
                 android:layout_gravity="center_vertical"
-                android:focusable="true" />
+                android:layout_row="0"
+                android:focusable="true"
+                android:text="@string/recipe_title_label"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
+                android:id="@+id/inputRecipeName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/inputMashDuration"
-                android:layout_row="0"
                 android:layout_column="1"
-                android:layout_marginStart="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="100dp"
-                android:hint="@string/mash_duration_hint"
+                android:layout_marginBottom="@dimen/common_tiny_margin"
+                android:layout_marginEnd="@dimen/grid_right_margin"
+                android:layout_marginStart="@dimen/common_tiny_margin"
+                android:layout_row="0"
+                android:clickable="false"
+                android:contentDescription="@string/inputRecepieHint"
+                android:editable="true"
+                android:enabled="true"
+                android:focusable="true"
+                android:hint="@string/inputRecepieHint"
                 android:lines="1"
                 android:singleLine="true"
-                android:focusable="true"
-                android:enabled="true"
-                android:typeface="serif"
-                android:editable="true"
-                android:inputType="time"
-                android:contentDescription="@string/mash_duration_contentDesc" />
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:typeface="serif" />
 
             <TextView
+                android:id="@+id/recipeTypeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/mash_temp_label"
-                android:id="@+id/mashTempLabel"
-                android:layout_row="1"
                 android:layout_column="0"
-                android:layout_gravity="center_vertical" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/mashTempInput"
+                android:layout_gravity="center_vertical"
                 android:layout_row="1"
+                android:text="@string/recipe_type_label"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Spinner
+                android:id="@+id/recipe_type_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_marginStart="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="100dp"
-                android:hint="@string/mash_temp_hint"
-                android:lines="1"
-                android:singleLine="true"
+                android:layout_gravity="end"
+                android:layout_marginStart="@dimen/common_small_margin"
+                android:layout_row="1"
+                android:layout_rowSpan="1"
+                android:clickable="true"
+                android:contentDescription="@string/select_recipe_type_contentDesc"
+                android:entries="@array/recipe_types_list"
                 android:focusable="true"
-                android:enabled="true"
-                android:typeface="serif"
-                android:inputType="numberDecimal"
-                android:contentDescription="@string/mash_temp_contentDesc" />
+                android:spinnerMode="dropdown"
+                android:textAlignment="center"
+                android:theme="@style/AppTheme" />
+
         </GridLayout>
 
-        <GridLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/mashLayout"
-            android:columnCount="3"
-            android:rowCount="1">
+            android:paddingEnd="@dimen/common_small_margin"
+            android:paddingStart="@dimen/common_small_margin">
 
-            <EditText
-                android:layout_width="wrap_content"
+            <GridLayout
+
+                android:id="@+id/mashLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/inputGrainType"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:inputType="textAutoComplete"
-                android:hint="@string/input_grainType_hint"
-                android:layout_gravity="center_vertical"
-                android:singleLine="true"
-                android:maxWidth="150dp"
-                android:minWidth="150dp"
-                android:lines="1"
-                android:contentDescription="@string/grain_type_contentDesc" />
+                android:alignmentMode="alignBounds"
+                android:columnCount="3"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:rowCount="2"
+                android:theme="@style/AppTheme"
+                android:useDefaultMargins="true"
+                android:visibility="visible">
 
-            <EditText
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/mashDurationLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_gravity="center_vertical"
+                    android:layout_row="0"
+                    android:focusable="true"
+                    android:text="@string/mash_duration_label"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/inputMashDuration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:layout_marginBottom="@dimen/common_tiny_margin"
+                    android:layout_marginEnd="@dimen/grid_right_margin"
+                    android:layout_marginStart="@dimen/common_tiny_margin"
+                    android:layout_row="0"
+                    android:contentDescription="@string/mash_duration_contentDesc"
+                    android:editable="true"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:hint="@string/mash_duration_hint"
+                    android:inputType="time"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:typeface="serif" />
+
+                <TextView
+                    android:id="@+id/mashTempLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_gravity="center_vertical"
+                    android:layout_row="1"
+                    android:text="@string/mash_temp_label"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/mashTempInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:layout_marginBottom="@dimen/common_tiny_margin"
+                    android:layout_marginEnd="@dimen/grid_right_margin"
+                    android:layout_marginStart="@dimen/common_tiny_margin"
+                    android:layout_row="1"
+                    android:contentDescription="@string/mash_temp_contentDesc"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:hint="@string/mash_temp_hint"
+                    android:inputType="numberDecimal"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:typeface="serif" />
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/inputGrainQuantity"
-                android:layout_row="0"
-                android:layout_column="1"
-                android:hint="@string/input_quantity_hint"
-                android:layout_gravity="left|center_vertical"
-                android:singleLine="true"
-                android:minWidth="135dp"
-                android:maxWidth="135dp"
-                android:focusable="true"
-                android:enabled="true"
-                android:typeface="serif"
-                android:inputType="numberDecimal"
-                android:lines="1"
-                android:contentDescription="@string/grain_quantity_contentDesc" />
+                android:layout_below="@+id/mashLayout"
+                android:columnCount="3"
+                android:rowCount="1">
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_add_box_white_36dp"
-                android:padding="0dp"
-                android:layout_gravity="center_vertical"
-                android:onClick="onAddGrains"
-                android:id="@+id/addGrainButton"
-                android:contentDescription="@string/add_grain_contentDesc" />
+                <EditText
+                    android:id="@+id/inputGrainType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_gravity="center_vertical"
+                    android:layout_row="0"
+                    android:contentDescription="@string/grain_type_contentDesc"
+                    android:hint="@string/input_grainType_hint"
+                    android:inputType="textAutoComplete"
+                    android:lines="1"
+                    android:maxWidth="150dp"
+                    android:minWidth="150dp"
+                    android:singleLine="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        </GridLayout>
+                <EditText
+                    android:id="@+id/inputGrainQuantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_row="0"
+                    android:contentDescription="@string/grain_quantity_contentDesc"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:hint="@string/input_quantity_hint"
+                    android:inputType="numberDecimal"
+                    android:lines="1"
+                    android:maxWidth="135dp"
+                    android:minWidth="135dp"
+                    android:singleLine="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:typeface="serif" />
+
+                <ImageButton
+                    android:id="@+id/addGrainButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/add_grain_contentDesc"
+                    android:padding="0dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_add_box_white_36dp" />
+
+            </GridLayout>
 
 
-    </RelativeLayout>
+        </RelativeLayout>
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/grain_list"
-        android:clickable="true"
-        android:headerDividersEnabled="true"
-        android:footerDividersEnabled="true"
-        android:choiceMode="singleChoice"
-        android:scrollIndicators="top|bottom"
-        android:background="@color/button_material_dark"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp"
-        android:contentDescription="@string/list_grain_contentDesc" />
-</LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+        <ListView
+            android:id="@+id/grain_list"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/button_material_dark"
+            android:choiceMode="singleChoice"
+            android:clickable="true"
+            android:contentDescription="@string/list_grain_contentDesc"
+            android:footerDividersEnabled="true"
+            android:headerDividersEnabled="true"
+            android:paddingEnd="@dimen/common_small_margin"
+            android:paddingStart="@dimen/common_small_margin" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

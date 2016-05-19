@@ -1,14 +1,18 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
-    <dimen name="fab_margin_bottom">16dp</dimen>
-    <dimen name="fab_margin_right">16dp</dimen>
     <dimen name="list_icon_layout_width">56dp</dimen>
-    <dimen name="list_margin">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="common_small_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+    <dimen name="grid_right_margin">100dp</dimen>
+    <dimen name="editTextMedim">80dp</dimen>
+    <dimen name="editTextLarge">200dp</dimen>
+    <dimen name="common_tiny_margin">5dp</dimen>
+    <dimen name="separator_height">2dp</dimen>
+    <dimen name="common_separator_margin">8dp</dimen>
+    <dimen name="nav_header_vertical_spacing">80dp</dimen>
+    <dimen name="common_edge_margin">10dp</dimen>
+    <dimen name="widget_size">110dp</dimen>
+    <dimen name="google_profile_img_size">65dp</dimen>
 </resources>

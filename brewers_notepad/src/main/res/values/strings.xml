@@ -22,6 +22,8 @@
     <string name="create_recipe_view_title">Create a new recipe</string>
     <string name="fermentation_phase_label">Fermentation Phase:</string>
     <string name="hop_phase_label">Hop Steeping Phase:</string>
+
+    <string name="hop_phase_title">Hop Phase</string>
     <string name="input_hopVariety_hint">Hop Variety</string>
     <string name="input_hopType_hint">Hop type</string>
     <string name="input_hopAdd_hint">When?</string>
@@ -102,4 +104,19 @@
 
     <string name="Toast_recipe_exists">Recipe name "%1$s" already exists!</string>
     <string name="widget_title">My Recipes</string>
+    <string name="hop_table_variety_column">Variety</string>
+    <string name="hop_table_type_column">Type</string>
+    <string name="table_quantity_column">Quantity</string>
+    <string name="hop_table_when_column">Add on</string>
+    <string name="view_recipe_fermentation_title">Fermentation Phase</string>
+    <string name="ferment_table_name_column">Phase name</string>
+    <string name="table_duration_column">Duration</string>
+    <string name="table_temp_column">Temperature</string>
+    <string name="widget_textview_empty_text">Recipe Name</string>
+    <string name="prompt_text_contentDesc">\"Prompt content\"</string>
+    <string name="sign_in_button_contentDesc">Google Sign in button</string>
+    <string name="profile_img_contentDesc">Google account profile image</string>
+    <string name="grain_table_name_column">Grain name</string>
+    <string name="view_title_mash_grains">Mash And Grains</string>
+    <string name="view_title_recipe_metadata">Recipe Metadata</string>
 </resources>

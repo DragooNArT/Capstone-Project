@@ -1,115 +1,112 @@
-
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        tools:context=".mobile.fragments.CreateRecipeFramentMain"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".mobile.fragments.CreateRecipeFramentMain">
 
         <TextView
+            android:id="@+id/textView3"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Recipe Metadata"
-            android:id="@+id/textView3"
             android:layout_gravity="center_vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="10dp"
             android:background="@color/colorPrimaryDark"
-            android:autoText="false"
+            android:paddingBottom="@dimen/common_edge_margin"
+            android:paddingTop="@dimen/common_tiny_margin"
+            android:text="@string/view_title_recipe_metadata"
             android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textStyle="italic" />
 
         <GridLayout
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
+            android:alignmentMode="alignBounds"
             android:columnCount="2"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/common_small_margin"
+            android:paddingStart="@dimen/common_small_margin"
             android:rowCount="2"
             android:theme="@style/AppTheme"
-            android:alignmentMode="alignBounds"
             android:useDefaultMargins="true"
-            android:visibility="visible"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingEnd="@dimen/activity_horizontal_margin">
+            android:visibility="visible">
 
 
             <TextView
+                android:id="@+id/recipeNameLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/recipe_title_label"
-                android:id="@+id/recipeNameLabel"
-                android:layout_row="0"
                 android:layout_column="0"
                 android:layout_gravity="center_vertical"
-                android:focusable="true" />
+                android:layout_row="0"
+                android:focusable="true"
+                android:text="@string/recipe_title_label"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
+                android:id="@+id/viewRecipeName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/viewRecipeName"
-                android:layout_row="0"
                 android:layout_column="1"
-                android:hint="@string/no_entry_hint"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="@dimen/common_tiny_margin"
                 android:layout_marginEnd="120dp"
+                android:layout_row="0"
+                android:contentDescription="@string/recipe_name_contentDesc"
+                android:enabled="true"
+                android:focusable="true"
+                android:gravity="end"
+                android:hint="@string/no_entry_hint"
                 android:lines="1"
                 android:singleLine="true"
-                android:focusable="true"
-                android:enabled="true"
-                android:gravity="right"
-                android:textStyle="bold|italic"
-                android:typeface="normal"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:contentDescription="@string/recipe_name_contentDesc" />
+                android:textStyle="bold|italic"
+                android:typeface="normal" />
 
             <TextView
+                android:id="@+id/recipeTypeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/recipe_type_label"
-                android:id="@+id/recipeTypeLabel"
-                android:layout_row="1"
                 android:layout_column="0"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:layout_row="1"
+                android:text="@string/recipe_type_label"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
+                android:id="@+id/viewRecipeType"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/viewRecipeType"
                 android:layout_column="1"
-                android:focusable="true"
-                android:theme="@style/AppTheme"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="@dimen/common_small_margin"
                 android:layout_row="1"
                 android:clickable="true"
-                android:layoutMode="clipBounds"
-                android:nestedScrollingEnabled="false"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:gravity="right"
+                android:contentDescription="@string/recipe_type_label"
+                android:focusable="true"
+                android:gravity="end"
                 android:hint="@string/no_entry_hint"
-                android:contentDescription="@string/recipe_type_label" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:theme="@style/AppTheme" />
 
         </GridLayout>
 
         <TextView
+            android:id="@+id/viewGrainListTitle"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Mash And Grains"
-            android:id="@+id/viewGrainListTitle"
             android:layout_gravity="center_horizontal"
             android:background="@color/colorPrimaryDark"
-            android:textStyle="italic"
+            android:paddingBottom="@dimen/common_small_margin"
+            android:paddingTop="@dimen/common_tiny_margin"
+            android:text="@string/view_title_mash_grains"
             android:textAlignment="center"
-            android:paddingTop="5dp"
-            android:paddingBottom="10dp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="italic" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -117,127 +114,125 @@
 
             <GridLayout
 
+                android:id="@+id/mashLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
+                android:alignmentMode="alignBounds"
                 android:columnCount="3"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/common_small_margin"
+                android:paddingStart="@dimen/common_small_margin"
                 android:rowCount="2"
                 android:theme="@style/AppTheme"
-                android:alignmentMode="alignBounds"
                 android:useDefaultMargins="true"
-                android:visibility="visible"
-                android:id="@+id/mashLayout"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingEnd="@dimen/activity_horizontal_margin">
+                android:visibility="visible">
+
                 <TextView
+                    android:id="@+id/mashDurationLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/mash_duration_label"
-                    android:id="@+id/mashDurationLabel"
-                    android:layout_row="0"
                     android:layout_column="0"
                     android:layout_gravity="center_vertical"
-                    android:focusable="true" />
+                    android:layout_row="0"
+                    android:focusable="true"
+                    android:text="@string/mash_duration_label"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
+                    android:id="@+id/viewMashDuration"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/viewMashDuration"
-                    android:layout_row="0"
                     android:layout_column="1"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="@dimen/common_tiny_margin"
+                    android:layout_marginEnd="175dp"
+                    android:layout_marginStart="@dimen/common_tiny_margin"
+                    android:layout_row="0"
+                    android:contentDescription="@string/mash_duration_contentDesc"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:gravity="end"
                     android:hint="@string/no_entry_hint"
                     android:lines="1"
                     android:singleLine="true"
-                    android:focusable="true"
-                    android:enabled="true"
-                    android:typeface="serif"
-                    android:inputType="time"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:gravity="right"
-                    android:layout_marginEnd="175dp"
-                    android:contentDescription="@string/mash_duration_contentDesc" />
+                    android:typeface="serif" />
 
                 <TextView
+                    android:id="@+id/mashTempLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/mash_temp_label"
-                    android:id="@+id/mashTempLabel"
-                    android:layout_row="1"
                     android:layout_column="0"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_row="1"
+                    android:text="@string/mash_temp_label"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
+                    android:id="@+id/viewMashTemp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/viewMashTemp"
-                    android:layout_row="1"
                     android:layout_column="1"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="100dp"
+                    android:layout_marginBottom="@dimen/common_tiny_margin"
+                    android:layout_marginEnd="@dimen/grid_right_margin"
+                    android:layout_marginStart="@dimen/common_tiny_margin"
+                    android:layout_row="1"
+                    android:contentDescription="@string/mash_temp_contentDesc"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:gravity="end"
                     android:hint="@string/no_entry_hint"
                     android:lines="1"
                     android:singleLine="true"
-                    android:focusable="true"
-                    android:enabled="true"
-                    android:typeface="serif"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:gravity="right"
-                    android:contentDescription="@string/mash_temp_contentDesc" />
+                    android:typeface="serif" />
             </GridLayout>
 
 
         </RelativeLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/common_small_margin"
             android:background="@color/accent_material_light"
-            android:layout_marginTop="16dp"
-            android:paddingBottom="16dp">
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/common_small_margin">
 
             <TextView
+                android:id="@+id/grainNameLabel"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Grain name:"
-                android:id="@+id/grainNameLabel"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:text="@string/grain_table_name_column"
                 android:textAlignment="center"
-                android:layout_gravity="center_vertical" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
+                android:id="@+id/grainQuantityLabel"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Quantity"
-                android:id="@+id/grainQuantityLabel"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:text="@string/table_quantity_column"
                 android:textAlignment="center"
-                android:layout_gravity="center_vertical" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
 
         <ListView
+            android:id="@+id/view_grain_list"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/view_grain_list"
-            android:clickable="true"
-            android:headerDividersEnabled="true"
-            android:footerDividersEnabled="true"
-            android:choiceMode="singleChoice"
-            android:scrollIndicators="top|bottom"
-            android:divider="@color/colorPrimaryDark"
-            android:dividerHeight="4px"
             android:background="@color/accent_material_light"
-            android:contentDescription="@string/list_grain_contentDesc" />
-
+            android:choiceMode="singleChoice"
+            android:clickable="true"
+            android:contentDescription="@string/list_grain_contentDesc"
+            android:divider="@color/colorPrimaryDark"
+            android:dividerHeight="@dimen/separator_height"
+            android:footerDividersEnabled="true"
+            android:headerDividersEnabled="true" />
 
 
     </LinearLayout>

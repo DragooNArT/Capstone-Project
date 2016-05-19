@@ -1,28 +1,29 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".mobile.fragments.MainRecipeListFragment">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/beer_recipe_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:clickable="true"
-        android:contentDescription="@string/recipe_list_contentDesc" />
+        android:contentDescription="@string/recipe_list_contentDesc"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addRecipeFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginBottom="@dimen/fab_margin_bottom"
-        android:layout_marginEnd="@dimen/fab_margin_right"
-        android:src="@android:drawable/ic_input_add"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="@dimen/common_small_margin"
+        android:layout_marginEnd="@dimen/common_small_margin"
         android:clickable="true"
-        app:elevation="4dp"
+        android:contentDescription="@string/add_new_recipe_contentDesc"
+        android:src="@android:drawable/ic_input_add"
         android:tint="@android:color/white"
-        android:contentDescription="@string/add_new_recipe_contentDesc" />
+        app:elevation="4dp" />
 
 </FrameLayout>

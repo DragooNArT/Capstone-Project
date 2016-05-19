@@ -1,53 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/mashLayout"
-        android:columnCount="3"
-        android:rowCount="1"
-        android:clickable="true">
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/mashLayout"
+    android:clickable="true"
+    android:columnCount="3"
+    android:rowCount="1">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/grain_list_type_entry"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:inputType="textAutoComplete"
-            android:hint="@string/input_grainType_hint"
-            android:layout_gravity="center_vertical"
-            android:singleLine="true"
-            android:maxWidth="150dp"
-            android:minWidth="150dp"
-            android:contentDescription="@string/grain_type_contentDesc" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/grain_list_quantity_entry"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:hint="@string/input_quantity_hint"
-            android:layout_gravity="left|center_vertical"
-            android:numeric="integer"
-            android:singleLine="true"
-            android:inputType="number"
-            android:maxWidth="140dp"
-            android:minWidth="140dp"
-            android:contentDescription="@string/grain_quantity_contentDesc" />
-
-    <ImageButton
+    <TextView
+        android:id="@+id/grain_list_type_entry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/deleteGrainButton"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_delete_white_36dp"
-        android:padding="0dp"
+        android:layout_column="0"
         android:layout_gravity="center_vertical"
-        android:contentDescription="@string/remove_grain_contentDesc" />
+        android:layout_row="0"
+        android:contentDescription="@string/grain_type_contentDesc"
+        android:hint="@string/input_grainType_hint"
+        android:maxWidth="150dp"
+        android:minWidth="150dp"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/grain_list_quantity_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="1"
+        android:layout_gravity="start|center_vertical"
+        android:layout_row="0"
+        android:contentDescription="@string/grain_quantity_contentDesc"
+        android:hint="@string/input_quantity_hint"
+        android:maxWidth="140dp"
+        android:minWidth="140dp"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageButton
+        android:id="@+id/deleteGrainButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@string/remove_grain_contentDesc"
+        android:padding="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_delete_white_36dp" />
 
 </GridLayout>
